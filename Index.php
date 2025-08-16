@@ -21,11 +21,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
   <script src="//unpkg.com/alpinejs" defer></script>
-  <link rel="stylesheet" href="assets/css/index.css">
+
   <title>Arsodus</title>
   <link rel="icon" type="image/png" href="assets/img/LogoSinFondo.png">
+
+  <style>
+    body {
+      padding-top: 80px;
+      /* Ajusta según la altura de tu navbar */
+    }
+  </style>
 </head>
 
 <body class="bg-[#fdfaf6]">
@@ -39,7 +48,7 @@
 
       <!-- Video de fondo -->
       <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
-        <source src="Media/HeroVideo.mov" type="video/mp4">
+        <source src="Media/Serigrafia.mp4" type="video/mp4">
       </video>
 
       <!-- Sombra degradada -->
@@ -187,6 +196,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m4 4h6a2 2 0 002-2v-4a2 2 0 00-2-2h-6a2 2 0 00-2 2v4a2 2 0 002 2z" />
               </svg>
             </div>
+            
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
             <p class="font-sans text-center text-gray-600">Precisión en cada detalle</p>
           </div>
