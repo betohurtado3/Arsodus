@@ -178,7 +178,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
 
       <!-- Tarjeta Serigrafía -->
-      <div class="flip-card h-72 cursor-pointer group" data-servicio="serigrafia">
+      <div class="flip-card h-72 group" data-servicio="serigrafia">
         <div class="flip-card-inner">
           <!-- FRONT -->
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
@@ -190,6 +190,8 @@
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
             <p class="font-sans text-center text-gray-600">Precisión en cada detalle</p>
           </div>
+
+          <!-- BACK -->
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Serigrafía</h3>
             <ul class="font-sans text-sm space-y-2">
@@ -197,7 +199,10 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Colores vibrantes</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Durabilidad extrema</li>
             </ul>
-            <div class="font-sans mt-4 text-xs bg-white/10 py-1 px-3 rounded-full">Desde 100 piezas</div>
+
+            <a href="Front/servicio.php?tipo=serigrafia" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+              Conoce más →
+            </a>
           </div>
         </div>
       </div>
@@ -221,7 +226,9 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Aplicación versátil</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Ideal para logos</li>
             </ul>
-            <div class="font-sans mt-4 text-xs bg-white/10 py-1 px-3 rounded-full">Sin mínimo de piezas</div>
+            <a href="Front/servicio.php?tipo=vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+              Conoce más →
+            </a>
           </div>
         </div>
       </div>
@@ -245,7 +252,9 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Sin sensación de estampado</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Ideal para artículos claros</li>
             </ul>
-            <div class="font-sans mt-4 text-xs bg-white/10 py-1 px-3 rounded-full">Desde 25 piezas</div>
+            <a href="Front/servicio.php?tipo=sublimacion" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+              Conoce más →
+            </a>
           </div>
         </div>
       </div>
@@ -269,7 +278,9 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Hilos de alta resistencia</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Profesionalismo táctil</li>
             </ul>
-            <div class="font-sans mt-4 text-xs bg-white/10 py-1 px-3 rounded-full">Desde 50 piezas</div>
+            <a href="Front/servicio.php?tipo=Bordado" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+              Conoce más →
+            </a>
           </div>
         </div>
       </div>
@@ -293,7 +304,9 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Estampado flexible</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Excelente en colores oscuros</li>
             </ul>
-            <div class="font-sans mt-4 text-xs bg-white/10 py-1 px-3 rounded-full">Desde 20 piezas</div>
+            <a href="Front/servicio.php?tipo=dtf" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+              Conoce más →
+            </a>
           </div>
         </div>
       </div>
@@ -377,10 +390,8 @@
     </div>
   </section>
 
-
-
-<!-- Contacto Rapido: Newsletter -->
-  <section id="newsletter" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
+  <!-- Contacto Rapido: Newsletter -->
+  <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="font-heading text-3xl font-bold text-blue-900 mb-4">
         ¿Quieres promociones y descuentos exclusivos?
@@ -415,16 +426,7 @@
     </div>
   </footer>
 
-  <!-- Modal para Servicios -->
-  <div id="servicioModal" class="fixed inset-0 bg-black/50 hidden justify-center items-center z-50">
-    <div class="bg-white rounded-lg p-6 max-w-lg w-full relative">
-      <button id="modalClose" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">✕</button>
-      <h3 id="modalTitulo" class="font-heading text-2xl font-bold mb-3"></h3>
-      <img id="modalImagen" class="rounded mb-3 hidden" />
-      <p id="modalDescripcion" class="font-sans text-gray-600 mb-3"></p>
-      <ul id="modalFeatures" class="font-sans list-disc pl-5 space-y-1"></ul>
-    </div>
-  </div>
+
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -444,8 +446,7 @@
       index = (index - 1 + totalCards) % totalCards;
       carousel.style.transform = `translateX(-${index * 100}%)`;
     });
-  </script>
-  <script>
+
     AOS.init();
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -464,57 +465,6 @@
         card.classList.add("card-appear");
         observer.observe(card);
       });
-    });
-
-    //Descripcion de servicios:
-    const serviciosData = {
-      serigrafia: {
-        titulo: "Serigrafía",
-        descripcion: "Proceso artesanal ideal para grandes volúmenes...",
-        imagen: "img/serigrafia.jpg",
-        features: ["Colores vibrantes", "Durabilidad extrema", "Ideal para grandes volúmenes"]
-      },
-      vinil: {
-        titulo: "Vinil de Corte",
-        descripcion: "Detalles nítidos para logotipos o textos...",
-        imagen: "img/vinil.jpg",
-        features: ["Aplicación versátil", "Sin mínimo de piezas", "Cortes perfectos"]
-      },
-      // ... el resto de los procesos
-    };
-
-    document.querySelectorAll('.flip-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const tipo = card.getAttribute('data-servicio');
-        const data = serviciosData[tipo];
-
-        if (data) {
-          document.getElementById('modalTitulo').textContent = data.titulo;
-          document.getElementById('modalDescripcion').textContent = data.descripcion;
-
-          const imgEl = document.getElementById('modalImagen');
-          if (data.imagen) {
-            imgEl.src = data.imagen;
-            imgEl.classList.remove('hidden');
-          } else {
-            imgEl.classList.add('hidden');
-          }
-
-          const list = document.getElementById('modalFeatures');
-          list.innerHTML = "";
-          data.features.forEach(f => {
-            const li = document.createElement('li');
-            li.textContent = f;
-            list.appendChild(li);
-          });
-
-          document.getElementById('servicioModal').classList.remove('hidden');
-        }
-      });
-    });
-
-    document.getElementById('modalClose').addEventListener('click', () => {
-      document.getElementById('servicioModal').classList.add('hidden');
     });
   </script>
 </body>
