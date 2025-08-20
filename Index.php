@@ -327,7 +327,8 @@
 
   <!-- Reseñas -->
   <section class="bg-gray-100 py-20" id="testimonios">
-    <h2 class="Font-raleway text-3xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+    <h2 class="Font-raleway text-5xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+    
 
     <div class="relative max-w-4xl mx-auto">
       <!-- Carrusel contenedor -->

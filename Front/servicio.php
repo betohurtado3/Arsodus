@@ -17,6 +17,49 @@ echo "<br>";
         - Camisa en 3D
 
 */
+
+$servicios = [
+  "serigrafia" => [
+    "descripcion" => "La serigrafía es una técnica tradicional que utiliza mallas para transferir tinta directamente sobre la prenda.",
+    "caracteristicas" => [
+      "Ideal para altos volúmenes",
+      "Colores vibrantes y duraderos",
+      "Excelente relación costo-beneficio"
+    ]
+  ],
+  "vinil" => [
+    "descripcion" => "El vinil textil permite crear diseños con acabados brillantes o mate, aplicados con calor y presión.",
+    "caracteristicas" => [
+      "Perfecto para personalización rápida",
+      "Acabados especiales: glitter, holográfico, metálico",
+      "No requiere grandes tirajes"
+    ]
+  ],
+  "dtf" => [
+    "descripcion" => "La impresión DTF transfiere diseños completos a prendas mediante calor, sin perder detalle ni color.",
+    "caracteristicas" => [
+      "Alta resolución y colores intensos",
+      "Compatible con cualquier tela",
+      "Excelente resistencia al lavado"
+    ]
+  ],
+  "bordado" => [
+    "descripcion" => "Técnica de acabado premium que utiliza hilos de alta calidad para crear diseños textiles con relieve y elegancia.",
+    "caracteristicas" => [
+      "Acabado profesional y de lujo",
+      "Durabilidad extrema (resistente a lavados frecuentes)",
+      "Ideal para logos corporativos y uniformes"
+    ]
+  ],
+  "sublimacion" => [
+    "descripcion" => "Método donde los diseños se imprimen con tinta que se fusiona químicamente con las fibras del textil.",
+    "caracteristicas" => [
+      "Estampado completo sin sensación de tinta",
+      "Colores fotográficos y degradados perfectos",
+      "Recomendado para prendas blancas o claras"
+    ]
+  ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
@@ -29,10 +72,10 @@ echo "<br>";
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
   <script src="//unpkg.com/alpinejs" defer></script>
-  
+
   <title><?php echo ucfirst($Servicio); ?> - Arsodus</title>
   <link rel="icon" type="image/png" href="/Arsodus/assets/img/LogoSinFondo.png">
-  
+
 
   <style>
     body {
@@ -62,8 +105,8 @@ echo "<br>";
     </div>
   </section>
 
-  <?php 
-  $Servicio = $_GET['tipo']; 
+  <?php
+  $Servicio = $_GET['tipo'];
   $servicioLower = strtolower($Servicio);
   $imagenes = [];
   for ($i = 1; $i <= 4; $i++) {
@@ -72,71 +115,83 @@ echo "<br>";
       $imagenes[] = $imagePath;
     }
   }
-  
-?>
 
-<!-- Carrusel minimalista -->
-<section class="py-12">
-  <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-    
-    <!-- Galería -->
-    <div 
-      x-data="{ active: 0, total: <?php echo count($imagenes); ?> }" 
-      class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-gray-200">
+  ?>
 
-      <!-- Slides -->
-      <?php foreach ($imagenes as $index => $img) { ?>
-        <div 
-          x-show="active === <?php echo $index; ?>" 
-          x-transition.opacity.duration.500ms 
-          class="absolute inset-0">
-          <img src="<?php echo $img; ?>" 
-               class="w-full h-full object-cover" 
-               alt="<?php echo ucfirst($Servicio).' '.$index; ?>">
-        </div>
-      <?php } ?>
+  <!-- Carrusel minimalista -->
+  <section class="py-12">
+    <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
-      <!-- Botones navegación -->
-      <button 
-        @click="active = (active - 1 + total) % total" 
-        class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2 hover:bg-black/60 transition">
-        ‹
-      </button>
-      <button 
-        @click="active = (active + 1) % total" 
-        class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2 hover:bg-black/60 transition">
-        ›
-      </button>
+      <!-- Galería -->
+      <div
+        x-data="{ active: 0, total: <?php echo count($imagenes); ?> }"
+        class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-gray-200">
 
-      <!-- Indicadores -->
-      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-        <?php foreach ($imagenes as $index => $_) { ?>
-          <div 
-            @click="active = <?php echo $index; ?>" 
-            :class="active === <?php echo $index; ?> ? 'bg-blue-600' : 'bg-white/70'" 
-            class="w-3 h-3 rounded-full cursor-pointer transition"></div>
+        <!-- Slides -->
+        <?php foreach ($imagenes as $index => $img) { ?>
+          <div
+            x-show="active === <?php echo $index; ?>"
+            x-transition.opacity.duration.500ms
+            class="absolute inset-0">
+            <img src="<?php echo $img; ?>"
+              class="w-full h-full object-cover"
+              alt="<?php echo ucfirst($Servicio) . ' ' . $index; ?>">
+          </div>
         <?php } ?>
+
+        <!-- Botones navegación -->
+        <button
+          @click="active = (active - 1 + total) % total"
+          class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2 hover:bg-black/60 transition">
+          ‹
+        </button>
+        <button
+          @click="active = (active + 1) % total"
+          class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2 hover:bg-black/60 transition">
+          ›
+        </button>
+
+        <!-- Indicadores -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
+          <?php foreach ($imagenes as $index => $_) { ?>
+            <div
+              @click="active = <?php echo $index; ?>"
+              :class="active === <?php echo $index; ?> ? 'bg-blue-600' : 'bg-white/70'"
+              class="w-3 h-3 rounded-full cursor-pointer transition"></div>
+          <?php } ?>
+        </div>
       </div>
+
+      <!-- Texto explicativo -->
+      <?php
+      $Servicio = strtolower($_GET['tipo'] ?? 'serigrafia'); // por defecto serigrafía
+      $info = $servicios[$Servicio] ?? null;
+      ?>
+
+      <!-- Texto explicativo -->
+      <div>
+        <h2 class="text-2xl font-bold mb-4">¿Qué es la <?php echo ucfirst($Servicio); ?>?</h2>
+
+        <?php if ($info): ?>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            <?php echo $info['descripcion']; ?>
+          </p>
+          <ul class="space-y-3 text-gray-600">
+            <?php foreach ($info['caracteristicas'] as $c): ?>
+              <li class="flex items-center">
+                <span class="mr-2 text-blue-600 font-bold">✓</span>
+                <?php echo $c; ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php else: ?>
+          <p class="text-red-500">No se encontró información para este servicio.</p>
+        <?php endif; ?>
+      </div>
+
+
     </div>
-
-    <!-- Texto explicativo -->
-    <div>
-      <h2 class="text-2xl font-bold mb-4">¿Qué es la <?php echo ucfirst($Servicio); ?>?</h2>
-      <p class="text-gray-700 leading-relaxed mb-4">
-        Aquí puedes colocar una explicación clara, sin texto excesivo. Resalta 
-        para qué prendas funciona y qué ventajas tiene.
-      </p>
-      <ul class="space-y-3 text-gray-600">
-        <li class="flex items-center"><span class="mr-2 text-blue-600 font-bold">✓</span> Ideal para altos volúmenes</li>
-        <li class="flex items-center"><span class="mr-2 text-blue-600 font-bold">✓</span> Colores vibrantes y duraderos</li>
-        <li class="flex items-center"><span class="mr-2 text-blue-600 font-bold">✓</span> Excelente relación costo-beneficio</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-
+  </section>
 
   <!-- Otros servicios -->
   <section class="bg-white py-16">
@@ -147,7 +202,7 @@ echo "<br>";
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- Aquí filtras para no mostrar la misma card -->
         <?php
-        $servicios = ['serigrafia', 'bordado', 'sublimacion','dtf', 'vinil'];
+        $servicios = ['serigrafia', 'bordado', 'sublimacion', 'dtf', 'vinil'];
         foreach ($servicios as $s) {
           if ($s === $Servicio) continue; // omitir el actual
         ?>
