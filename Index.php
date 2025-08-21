@@ -66,11 +66,9 @@
         <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md">
           Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior.
         </p>
-        <button
-          @click="openModal = true"
-          class="relative bg-blue-800 hover:bg-blue-700 text-[#fdfaf6] px-8 py-3.5 rounded-full text-lg font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl active:translate-y-0 overflow-hidden group">
-          <span class="font-raleway relative z-10">Pide tu cotización</span>
-          <span class="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        <button id="abrirCotizador"
+          class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+          Iniciar Cotización
         </button>
       </div>
     </section>
@@ -166,317 +164,262 @@
   COTIZADOR (Sección + Modal)
   Ahora con Fase 2: Técnica
 ========================== -->
-
-  <section id="cotizador" class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <span class="inline-flex items-center gap-2 text-xs font-medium px-3 py-1 rounded-full bg-blue-50 text-blue-700">
-        ✨ Nuevo módulo
-      </span>
-
-      <h2 class="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
-        Arma tu cotización en minutos
-      </h2>
-      <p class="mt-3 text-gray-600 max-w-2xl mx-auto">
-        Selecciona tela, técnica y cantidad. Te mostramos el estimado al momento.
-      </p>
-
-      <!-- CTA abre modal -->
-      <button id="openCotizador"
-        class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 active:scale-[.99] transition">
-        Comenzar
-      </button>
-
-      <!-- Resumen mínimo -->
-      <div id="resumenWrapper" class="mt-6 hidden">
-        <div class="inline-flex flex-col items-center gap-2 px-4 py-3 rounded-lg bg-blue-50 text-blue-800">
-          <span class="text-sm">Tela seleccionada: <strong id="resumenTela"></strong></span>
-          <span class="text-sm">Técnica seleccionada: <strong id="resumenTecnica"></strong></span>
-        </div>
-      </div>
-    </div>
+  <!-- Botón para abrir el modal -->
+  <section class="py-20 bg-gray-100 text-center">
+    <h2 class="text-3xl font-bold mb-6">Dale vida a tu idea</h2>
+    <button id="abrirCotizador"
+      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+      Iniciar Cotización
+    </button>
   </section>
 
-  <!-- Modal -->
-  <div id="cotizadorModal" class="hidden fixed inset-0 z-50">
-    <div id="modalBackdrop" class="absolute inset-0 bg-black/50 opacity-0 transition-opacity"></div>
+  <!-- Modal Cotizador -->
+  <div id="cotizadorModal"
+    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative">
 
-    <div id="modalDialog"
-      class="relative mx-auto w-[90%] max-w-2xl px-6 pt-6 pb-5 bg-white rounded-2xl shadow-xl
-              top-[12vh] opacity-0 scale-95 transition duration-200">
+      <!-- Cerrar modal -->
+      <button id="cerrarModal"
+        class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+
       <!-- Header -->
-      <div class="flex items-start justify-between">
-        <div>
-          <p id="faseTitulo" class="text-xs uppercase tracking-wider text-blue-600 font-semibold">Fase 1</p>
-          <h3 id="faseSubtitulo" class="text-xl md:text-2xl font-bold text-gray-900">Elige la tela</h3>
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase 1</h2>
+      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
+      <p class="text-sm text-gray-500 cursor-pointer hover:underline" id="faseProgreso">
+        Paso <span id="faseActual">1</span> de 4
+      </p>
+      <p class="text-gray-500 mb-6" id="faseDescripcion">
+        Elige el material para tu prenda.
+      </p>
+
+      <!-- Contenido Fase 1 -->
+      <!-- Contenido Fase 1 -->
+      <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Algodón","precio":70}'>
+          <h3 class="font-semibold">Algodón</h3>
+          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
         </div>
-        <button id="closeCotizador" class="p-2 rounded-lg hover:bg-gray-100 text-gray-500" aria-label="Cerrar">
-          ✕
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Popelina","precio":50}'>
+          <h3 class="font-semibold">Popelina</h3>
+          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
+        </div>
+      </div>
+
+
+      <!-- Contenido Fase 2 -->
+      <!-- Contenido Fase 2 -->
+      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Serigrafía","extra":30}'>
+          <h3 class="font-semibold">Serigrafía</h3>
+          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"DTF","extra":15}'>
+          <h3 class="font-semibold">DTF</h3>
+          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Bordado","extra":40}'>
+          <h3 class="font-semibold">Bordado</h3>
+          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
+        </div>
+      </div>
+
+      <!-- Contenido Fase 3 -->
+      <div id="fase3" class="hidden">
+        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
+        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
+          class="block w-full border rounded p-2 mb-4">
+        <label class="block mb-2 font-medium">Cantidad</label>
+        <input type="number" id="inputCantidad" min="1" value="1"
+          class="block w-full border rounded p-2">
+      </div>
+
+      <!-- Contenido Fase 4 -->
+      <div id="fase4" class="hidden mt-4">
+        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Detalles -->
+          <div class="space-y-2">
+            <p><strong>Tela:</strong> <span id="resumenTela">—</span></p>
+            <p><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
+            <p><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
+            <p><strong>Total:</strong> <span id="resumenTotal" class="font-bold text-blue-700">—</span></p>
+          </div>
+          <!-- Imagen -->
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-2">Diseño subido:</p>
+            <div class="relative inline-block">
+              <img src="https://dummyimage.com/200x250/ddd/aaa.png&text=Camiseta"
+                class="max-h-64 rounded shadow">
+              <img id="resumenImg"
+                class="absolute top-1/3 left-1/2 -translate-x-1/2 max-h-20 rounded border border-gray-200 shadow">
+            </div>
+          </div>
+        </div>
+        <button id="finalizarPedido"
+          class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+          Confirmar y Enviar
         </button>
       </div>
 
-      <p id="faseDescripcion" class="mt-2 text-sm text-gray-600">
-        Escoge la base ideal. Mostramos un rango de precio por prenda según la tela.
-      </p>
-
-      <!-- Contenido Fase 1 (Tela) -->
-        <div id="fase1" class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4" role="radiogroup" aria-label="Seleccionar tela">
-          <!-- Opción: Algodón -->
-          <button type="button"
-            class="tela-card group w-full text-left rounded-xl border border-gray-200 hover:border-blue-300 
-                     hover:shadow-sm p-4 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            role="radio" aria-checked="false"
-            data-option="algodon" data-nombre="Algodón" data-precio="60 - 80 $">
-            <div class="flex items-start justify-between">
-              <div>
-                <h4 class="text-base font-semibold text-gray-900">Algodón</h4>
-                <p class="mt-1 text-sm text-gray-600">Suave, transpirable y cómodo.</p>
-              </div>
-              <span class="mt-1 inline-flex items-center text-xs px-2 py-1 rounded bg-blue-50 text-blue-700">
-                60 – 80 $
-              </span>
-            </div>
-          </button>
-
-          <!-- Opción: Popelina -->
-          <button type="button"
-            class="tela-card group w-full text-left rounded-xl border border-gray-200 hover:border-blue-300 
-                     hover:shadow-sm p-4 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            role="radio" aria-checked="false"
-            data-option="popelina" data-nombre="Popelina" data-precio="40 - 70 $">
-            <div class="flex items-start justify-between">
-              <div>
-                <h4 class="text-base font-semibold text-gray-900">Popelina</h4>
-                <p class="mt-1 text-sm text-gray-600">Tejido compacto, look formal.</p>
-              </div>
-              <span class="mt-1 inline-flex items-center text-xs px-2 py-1 rounded bg-blue-50 text-blue-700">
-                40 – 70 $
-              </span>
-            </div>
-          </button>
-        </div>
-
-        <!-- Contenido Fase 2 (Técnica) -->
-        <div id="fase2" class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 hidden" role="radiogroup" aria-label="Seleccionar técnica">
-          <button type="button"
-            class="tecnica-card group w-full text-left rounded-xl border border-gray-200 hover:border-blue-300 
-                     hover:shadow-sm p-4 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            role="radio" aria-checked="false"
-            data-option="dtf" data-nombre="DTF">
-            <h4 class="text-base font-semibold text-gray-900">DTF</h4>
-            <p class="mt-1 text-sm text-gray-600">Colores vivos, detalles finos.</p>
-          </button>
-
-          <button type="button"
-            class="tecnica-card group w-full text-left rounded-xl border border-gray-200 hover:border-blue-300 
-                     hover:shadow-sm p-4 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            role="radio" aria-checked="false"
-            data-option="serigrafia" data-nombre="Serigrafía">
-            <h4 class="text-base font-semibold text-gray-900">Serigrafía</h4>
-            <p class="mt-1 text-sm text-gray-600">Duradera y con colores sólidos.</p>
-          </button>
-
-          <button type="button"
-            class="tecnica-card group w-full text-left rounded-xl border border-gray-200 hover:border-blue-300 
-                     hover:shadow-sm p-4 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            role="radio" aria-checked="false"
-            data-option="bordado" data-nombre="Bordado">
-            <h4 class="text-base font-semibold text-gray-900">Bordado</h4>
-            <p class="mt-1 text-sm text-gray-600">Acabado premium y elegante.</p>
-          </button>
-        </div>
-
-        <!-- Footer -->
-        <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <!-- Stepper -->
-          <div id="faseStepper" class="flex items-center gap-2 text-xs">
-            <button data-step="1" class="step-btn px-2 py-1 rounded cursor-default bg-blue-600 text-white font-semibold">1</button>
-            <span>—</span>
-            <button data-step="2" class="step-btn px-2 py-1 rounded cursor-not-allowed bg-gray-200 text-gray-500">2</button>
-            <span>—</span>
-            <span class="px-2 py-1 rounded bg-gray-100 text-gray-400">3</span>
-          </div>
-
-          <!-- Botones -->
-          <div class="flex gap-3 flex-wrap justify-end">
-            <button id="atrasBtn" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 hidden">
-              Atrás
-            </button>
-            <button id="cancelarModal" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50">
-              Cancelar
-            </button>
-            <button id="continuarBtn"
-              class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
-              Continuar
-            </button>
-          </div>
-        </div>
+      <!-- Navegación -->
+      <div class="flex justify-between mt-6">
+        <button id="btnAtras"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Atrás</button>
+        <button id="btnContinuar"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
+      </div>
     </div>
   </div>
 
   <script>
-    const openBtn = document.getElementById('openCotizador');
-    const modalCotizacion = document.getElementById('cotizadorModal');
-    const backdrop = document.getElementById('modalBackdrop');
-    const dialog = document.getElementById('modalDialog');
-    const closeBtnCotizacion = document.getElementById('closeCotizador');
-    const cancelBtn = document.getElementById('cancelarModal');
-    const atrasBtn = document.getElementById('atrasBtn');
-    const continuar = document.getElementById('continuarBtn');
-    const resumenWrapper = document.getElementById('resumenWrapper');
-    const resumenTela = document.getElementById('resumenTela');
-    const resumenTecnica = document.getElementById('resumenTecnica');
+    // Referencias del modal
+    const modalCotizador = document.getElementById('cotizadorModal');
+    const abrir = document.getElementById('abrirCotizador');
+    const cerrar = document.getElementById('cerrarModal');
+    const btnContinuar = document.getElementById('btnContinuar');
+    const btnAtras = document.getElementById('btnAtras');
+    const faseProgreso = document.getElementById('faseProgreso');
+    const faseActual = document.getElementById('faseActual');
 
+    // Contenedores de fases
     const fase1 = document.getElementById('fase1');
     const fase2 = document.getElementById('fase2');
-    const faseTitulo = document.getElementById('faseTitulo');
-    const faseSubtitulo = document.getElementById('faseSubtitulo');
-    const faseDescripcion = document.getElementById('faseDescripcion');
-    const stepper = document.getElementById('faseStepper');
+    const fase3 = document.getElementById('fase3');
+    const fase4 = document.getElementById('fase4');
 
+    // Resumen fase 4
+    const resumenTela = document.getElementById('resumenTela');
+    const resumenTecnica = document.getElementById('resumenTecnica');
+    const resumenCantidad = document.getElementById('resumenCantidad');
+    const resumenTotal = document.getElementById('resumenTotal');
+    const resumenImg = document.getElementById('resumenImg');
+    // Variables globales
     let fase = 1;
     let seleccion = {
       tela: null,
-      tecnica: null
+      tecnica: null,
+      imagen: null,
+      cantidad: 1
     };
 
-    function openModal() {
-      modalCotizacion.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        backdrop.classList.remove('opacity-0');
-        dialog.classList.remove('opacity-0', 'scale-95');
+    // Abrir y cerrar modal
+    document.getElementById('abrirCotizador').addEventListener('click', () => {
+      document.getElementById('cotizadorModal').classList.remove('hidden');
+    });
+    document.getElementById('cerrarModal').addEventListener('click', () => {
+      document.getElementById('cotizadorModal').classList.add('hidden');
+    });
+
+    // Selección de telas
+    document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
+      card.addEventListener('click', () => {
+        // Limpiar selección previa
+        document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
+        // Marcar la actual
+        card.classList.add('border-blue-500');
+        // Guardar selección
+        seleccion.tela = JSON.parse(card.dataset.tela);
       });
-      document.documentElement.style.overflow = 'hidden';
-      fase = 1;
-      renderFase();
-    }
+    });
 
-    function closeModal() {
-      backdrop.classList.add('opacity-0');
-      dialog.classList.add('opacity-0', 'scale-95');
-      setTimeout(() => {
-        modalCotizacion.classList.add('hidden');
-        document.documentElement.style.overflow = '';
-      }, 200);
-    }
-
-    function enableContinue(enable) {
-      continuar.disabled = !enable;
-    }
-
-    function resetCardsVisual(selector) {
-      document.querySelectorAll(selector).forEach(btn => {
-        btn.setAttribute('aria-checked', 'false');
-        btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50/40');
+    // Selección de técnicas
+    document.querySelectorAll('#fase2 [data-tecnica]').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
+        card.classList.add('border-blue-500');
+        seleccion.tecnica = JSON.parse(card.dataset.tecnica);
       });
-    }
+    });
 
-    function renderStepper() {
-      const buttons = stepper.querySelectorAll('.step-btn');
-      buttons.forEach(btn => {
-        const step = parseInt(btn.dataset.step);
-        if (step < fase && (step === 1 && seleccion.tela || step === 2 && seleccion.tecnica)) {
-          btn.className = "step-btn px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer";
-        } else if (step === fase) {
-          btn.className = "step-btn px-2 py-1 rounded bg-blue-600 text-white font-semibold cursor-default";
+    // Input imagen
+    const inputImagen = document.getElementById('inputImagen');
+    if (inputImagen) {
+      inputImagen.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+          seleccion.imagen = file;
         } else {
-          btn.className = "step-btn px-2 py-1 rounded bg-gray-200 text-gray-400 cursor-not-allowed";
+          alert("Formato no permitido. Sube JPEG, PNG o GIF.");
+          inputImagen.value = "";
         }
       });
     }
 
-    function renderFase() {
-      atrasBtn.classList.toggle('hidden', fase === 1);
-
-      if (fase === 1) {
-        fase1.classList.remove('hidden');
-        fase2.classList.add('hidden');
-        faseTitulo.textContent = "Fase 1";
-        faseSubtitulo.textContent = "Elige la tela";
-        faseDescripcion.textContent = "Escoge la base ideal. Mostramos un rango de precio por prenda según la tela.";
-        enableContinue(!!seleccion.tela);
-      } else if (fase === 2) {
-        fase1.classList.add('hidden');
-        fase2.classList.remove('hidden');
-        faseTitulo.textContent = "Fase 2";
-        faseSubtitulo.textContent = "Elige la técnica";
-        faseDescripcion.textContent = "Selecciona el tipo de estampado o bordado que prefieras.";
-        enableContinue(!!seleccion.tecnica);
-      }
-      renderStepper();
+    // Input cantidad
+    const inputCantidad = document.getElementById('inputCantidad');
+    if (inputCantidad) {
+      inputCantidad.addEventListener('input', (e) => {
+        seleccion.cantidad = parseInt(e.target.value) || 1;
+      });
     }
 
-    // Abrir/cerrar modal
-    openBtn.addEventListener('click', openModal);
-    closeBtnCotizacion.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
-    window.addEventListener('keydown', (e) => {
-      if (!modalCotizacion.classList.contains('hidden') && e.key === 'Escape') closeModal();
+    // Botón continuar
+    document.getElementById('btnContinuar').addEventListener('click', () => {
+      if (validarFase()) {
+        if (fase < 4) {
+          fase++;
+          renderFase();
+        }
+      }
     });
 
-    // Atrás
-    atrasBtn.addEventListener('click', () => {
+    // Botón atrás
+    document.getElementById('btnAtras').addEventListener('click', () => {
       if (fase > 1) {
         fase--;
         renderFase();
       }
     });
 
-    // Click directo en stepper (solo si está habilitado)
-    stepper.addEventListener('click', (e) => {
-      if (e.target.dataset.step) {
-        const step = parseInt(e.target.dataset.step);
-        if (step < fase && (step === 1 && seleccion.tela || step === 2 && seleccion.tecnica)) {
-          fase = step;
-          renderFase();
+    // Mostrar fases
+    function renderFase() {
+      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(`fase${fase}`).classList.remove('hidden');
+
+      document.getElementById('faseActual').textContent = fase;
+
+      if (fase === 4) {
+        // Mostrar resumen
+        document.getElementById('resumenTela').textContent = seleccion.tela?.nombre || "—";
+        document.getElementById('resumenTecnica').textContent = seleccion.tecnica?.nombre || "—";
+        document.getElementById('resumenCantidad').textContent = seleccion.cantidad || "—";
+
+        const base = seleccion.tela?.precio || 0;
+        const extra = seleccion.tecnica?.extra || 0;
+        const total = (base + extra) * (seleccion.cantidad || 1);
+        document.getElementById('resumenTotal').textContent = `$${total.toFixed(2)}`;
+
+        if (seleccion.imagen) {
+          const reader = new FileReader();
+          reader.onload = ev => document.getElementById('resumenImg').src = ev.target.result;
+          reader.readAsDataURL(seleccion.imagen);
         }
       }
-    });
+    }
 
-    // Click en telas
-    document.querySelectorAll('.tela-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        resetCardsVisual('.tela-card');
-        btn.setAttribute('aria-checked', 'true');
-        btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50/40');
-        seleccion.tela = {
-          id: btn.dataset.option,
-          nombre: btn.dataset.nombre,
-          precio: btn.dataset.precio
-        };
-        enableContinue(true);
-      });
-    });
-
-    // Click en técnicas
-    document.querySelectorAll('.tecnica-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        resetCardsVisual('.tecnica-card');
-        btn.setAttribute('aria-checked', 'true');
-        btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50/40');
-        seleccion.tecnica = {
-          id: btn.dataset.option,
-          nombre: btn.dataset.nombre
-        };
-        enableContinue(true);
-      });
-    });
-
-    // Continuar: avanza o finaliza
-    continuar.addEventListener('click', () => {
-      if (fase === 1 && seleccion.tela) {
-        fase = 2;
-        renderFase();
-      } else if (fase === 2 && seleccion.tecnica) {
-        resumenTela.textContent = `${seleccion.tela.nombre} · ${seleccion.tela.precio}`;
-        resumenTecnica.textContent = seleccion.tecnica.nombre;
-        resumenWrapper.classList.remove('hidden');
-        closeModal();
-        console.log(JSON.stringify(seleccion)); // <--- aquí ves tu JSON en consola
+    // Validaciones
+    function validarFase() {
+      if (fase === 1 && !seleccion.tela) {
+        alert("Selecciona una tela.");
+        return false;
       }
-    });
-
-    enableContinue(false);
+      if (fase === 2 && !seleccion.tecnica) {
+        alert("Selecciona una técnica.");
+        return false;
+      }
+      if (fase === 3 && !seleccion.imagen) {
+        alert("Sube una imagen.");
+        return false;
+      }
+      return true;
+    }
   </script>
 
   <!-- 
@@ -754,6 +697,8 @@
     </div>
   </section>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-gray-300 py-8">
@@ -805,6 +750,7 @@
         duration: 0.3,
         ease: "power3.in"
       });
+
       gsap.to(modal, {
         opacity: 0,
         duration: 0.3,
@@ -816,8 +762,6 @@
       });
     });
   </script>
-
-
 
   <script>
     // Mostrar la fase 1
@@ -831,18 +775,13 @@
     });
   </script>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
     feather.replace();
 
     const carousel = document.getElementById('testimonial-carousel');
     const totalCards = carousel.children.length;
     let index = 0;
-
-
-
-
 
     document.getElementById('next').addEventListener('click', () => {
       index = (index + 1) % totalCards;
