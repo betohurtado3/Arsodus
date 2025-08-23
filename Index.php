@@ -41,12 +41,10 @@
 
 <body class="bg-[#fdfaf6]">
   <div id="inicio">
-    <?php include 'Front/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
   </div>
 
-  <!-- 
-  Hero Section
-   -->
+  <!-- Hero Section -->
   <div x-data="{ openModal: false }">
     <section class="relative h-screen flex items-center justify-center text-center text-white">
 
@@ -160,271 +158,7 @@
 
   </div>
 
-  <!-- =========================
-  COTIZADOR (Sección + Modal)
-  Ahora con Fase 2: Técnica
-========================== -->
-  <!-- Botón para abrir el modal -->
-  <section class="py-20 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-6">Dale vida a tu idea</h2>
-    <button id="abrirCotizador"
-      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-      Iniciar Cotización
-    </button>
-  </section>
-
-  <!-- Modal Cotizador -->
-  <div id="cotizadorModal"
-    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative">
-
-      <!-- Cerrar modal -->
-      <button id="cerrarModal"
-        class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
-
-      <!-- Header -->
-      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase 1</h2>
-      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
-      <p class="text-sm text-gray-500 cursor-pointer hover:underline" id="faseProgreso">
-        Paso <span id="faseActual">1</span> de 4
-      </p>
-      <p class="text-gray-500 mb-6" id="faseDescripcion">
-        Elige el material para tu prenda.
-      </p>
-
-      <!-- Contenido Fase 1 -->
-      <!-- Contenido Fase 1 -->
-      <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Algodón","precio":70}'>
-          <h3 class="font-semibold">Algodón</h3>
-          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Popelina","precio":50}'>
-          <h3 class="font-semibold">Popelina</h3>
-          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
-        </div>
-      </div>
-
-
-      <!-- Contenido Fase 2 -->
-      <!-- Contenido Fase 2 -->
-      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Serigrafía","extra":30}'>
-          <h3 class="font-semibold">Serigrafía</h3>
-          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"DTF","extra":15}'>
-          <h3 class="font-semibold">DTF</h3>
-          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Bordado","extra":40}'>
-          <h3 class="font-semibold">Bordado</h3>
-          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
-        </div>
-      </div>
-
-      <!-- Contenido Fase 3 -->
-      <div id="fase3" class="hidden">
-        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
-        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
-          class="block w-full border rounded p-2 mb-4">
-        <label class="block mb-2 font-medium">Cantidad</label>
-        <input type="number" id="inputCantidad" min="1" value="1"
-          class="block w-full border rounded p-2">
-      </div>
-
-      <!-- Contenido Fase 4 -->
-      <div id="fase4" class="hidden mt-4">
-        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <!-- Detalles -->
-          <div class="space-y-2">
-            <p><strong>Tela:</strong> <span id="resumenTela">—</span></p>
-            <p><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
-            <p><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
-            <p><strong>Total:</strong> <span id="resumenTotal" class="font-bold text-blue-700">—</span></p>
-          </div>
-          <!-- Imagen -->
-          <div class="text-center">
-            <p class="text-sm text-gray-500 mb-2">Diseño subido:</p>
-            <div class="relative inline-block">
-              <img src="https://dummyimage.com/200x250/ddd/aaa.png&text=Camiseta"
-                class="max-h-64 rounded shadow">
-              <img id="resumenImg"
-                class="absolute top-1/3 left-1/2 -translate-x-1/2 max-h-20 rounded border border-gray-200 shadow">
-            </div>
-          </div>
-        </div>
-        <button id="finalizarPedido"
-          class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
-          Confirmar y Enviar
-        </button>
-      </div>
-
-      <!-- Navegación -->
-      <div class="flex justify-between mt-6">
-        <button id="btnAtras"
-          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Atrás</button>
-        <button id="btnContinuar"
-          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Referencias del modal
-    const modalCotizador = document.getElementById('cotizadorModal');
-    const abrir = document.getElementById('abrirCotizador');
-    const cerrar = document.getElementById('cerrarModal');
-    const btnContinuar = document.getElementById('btnContinuar');
-    const btnAtras = document.getElementById('btnAtras');
-    const faseProgreso = document.getElementById('faseProgreso');
-    const faseActual = document.getElementById('faseActual');
-
-    // Contenedores de fases
-    const fase1 = document.getElementById('fase1');
-    const fase2 = document.getElementById('fase2');
-    const fase3 = document.getElementById('fase3');
-    const fase4 = document.getElementById('fase4');
-
-    // Resumen fase 4
-    const resumenTela = document.getElementById('resumenTela');
-    const resumenTecnica = document.getElementById('resumenTecnica');
-    const resumenCantidad = document.getElementById('resumenCantidad');
-    const resumenTotal = document.getElementById('resumenTotal');
-    const resumenImg = document.getElementById('resumenImg');
-    // Variables globales
-    let fase = 1;
-    let seleccion = {
-      tela: null,
-      tecnica: null,
-      imagen: null,
-      cantidad: 1
-    };
-
-    // Abrir y cerrar modal
-    document.getElementById('abrirCotizador').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.remove('hidden');
-    });
-    document.getElementById('cerrarModal').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.add('hidden');
-    });
-
-    // Selección de telas
-    document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
-      card.addEventListener('click', () => {
-        // Limpiar selección previa
-        document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
-        // Marcar la actual
-        card.classList.add('border-blue-500');
-        // Guardar selección
-        seleccion.tela = JSON.parse(card.dataset.tela);
-      });
-    });
-
-    // Selección de técnicas
-    document.querySelectorAll('#fase2 [data-tecnica]').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
-        card.classList.add('border-blue-500');
-        seleccion.tecnica = JSON.parse(card.dataset.tecnica);
-      });
-    });
-
-    // Input imagen
-    const inputImagen = document.getElementById('inputImagen');
-    if (inputImagen) {
-      inputImagen.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
-          seleccion.imagen = file;
-        } else {
-          alert("Formato no permitido. Sube JPEG, PNG o GIF.");
-          inputImagen.value = "";
-        }
-      });
-    }
-
-    // Input cantidad
-    const inputCantidad = document.getElementById('inputCantidad');
-    if (inputCantidad) {
-      inputCantidad.addEventListener('input', (e) => {
-        seleccion.cantidad = parseInt(e.target.value) || 1;
-      });
-    }
-
-    // Botón continuar
-    document.getElementById('btnContinuar').addEventListener('click', () => {
-      if (validarFase()) {
-        if (fase < 4) {
-          fase++;
-          renderFase();
-        }
-      }
-    });
-
-    // Botón atrás
-    document.getElementById('btnAtras').addEventListener('click', () => {
-      if (fase > 1) {
-        fase--;
-        renderFase();
-      }
-    });
-
-    // Mostrar fases
-    function renderFase() {
-      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(`fase${fase}`).classList.remove('hidden');
-
-      document.getElementById('faseActual').textContent = fase;
-
-      if (fase === 4) {
-        // Mostrar resumen
-        document.getElementById('resumenTela').textContent = seleccion.tela?.nombre || "—";
-        document.getElementById('resumenTecnica').textContent = seleccion.tecnica?.nombre || "—";
-        document.getElementById('resumenCantidad').textContent = seleccion.cantidad || "—";
-
-        const base = seleccion.tela?.precio || 0;
-        const extra = seleccion.tecnica?.extra || 0;
-        const total = (base + extra) * (seleccion.cantidad || 1);
-        document.getElementById('resumenTotal').textContent = `$${total.toFixed(2)}`;
-
-        if (seleccion.imagen) {
-          const reader = new FileReader();
-          reader.onload = ev => document.getElementById('resumenImg').src = ev.target.result;
-          reader.readAsDataURL(seleccion.imagen);
-        }
-      }
-    }
-
-    // Validaciones
-    function validarFase() {
-      if (fase === 1 && !seleccion.tela) {
-        alert("Selecciona una tela.");
-        return false;
-      }
-      if (fase === 2 && !seleccion.tecnica) {
-        alert("Selecciona una técnica.");
-        return false;
-      }
-      if (fase === 3 && !seleccion.imagen) {
-        alert("Sube una imagen.");
-        return false;
-      }
-      return true;
-    }
-  </script>
-
-  <!-- 
-  Servicios con efecto flip 3D
-  -->
+  <!-- Servicios con efecto flip 3D -->
   <section id="servicios" class="py-20 max-w-7xl mx-auto px-4">
 
     <div class="text-center mb-16 relative">
@@ -590,84 +324,52 @@
     </div>
   </section>
 
+  <section class="bg-gray-50 py-20" id="testimonios">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
+        Lo que dicen nuestros clientes
+      </h2>
 
-  <!-- 
-  Reseñas 
-  -->
-  <section class="bg-gray-100 py-20" id="testimonios">
-    <h2 class="Font-raleway text-5xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
-
-
-    <div class="relative max-w-4xl mx-auto">
-      <!-- Carrusel contenedor -->
-      <div id="testimonial-carousel" class="flex transition-transform duration-500 ease-in-out">
-
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Card 1 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-            </div>
-            <p class="text-gray-700 mb-6 italic">
-              "Excelente calidad y tiempos de entrega. Perfecto para nuestros uniformes corporativos."
-            </p>
-            <p class="font-montserrat text-gray-900">Juan Pérez</p>
+        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
+          <p class="text-gray-700 mb-4 italic">
+            "Excelente calidad y tiempos de entrega. Perfecto para nuestros uniformes corporativos."
+          </p>
+          <div class="mt-auto">
+            <p class="font-semibold text-gray-900">Juan Pérez</p>
             <p class="text-gray-500 text-sm">Gerente de Compras — Empresa XYZ</p>
           </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-            </div>
-            <p class="text-gray-700 mb-6 italic">
-              "La atención y el acabado superaron nuestras expectativas."
-            </p>
+        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
+          <p class="text-gray-700 mb-4 italic">
+            "La atención y el acabado superaron nuestras expectativas."
+          </p>
+          <div class="mt-auto">
             <p class="font-semibold text-gray-900">María López</p>
             <p class="text-gray-500 text-sm">Directora Comercial — Distribuidora ABC</p>
           </div>
         </div>
 
-        <!-- Repite para 3,4,5 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-            </div>
-            <p class="text-gray-700 mb-6 italic">
-              "Gran comunicación y excelente servicio al cliente."
-            </p>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
+          <p class="text-gray-700 mb-4 italic">
+            "Gran comunicación y excelente servicio al cliente."
+          </p>
+          <div class="mt-auto">
             <p class="font-semibold text-gray-900">Carlos Ramírez</p>
             <p class="text-gray-500 text-sm">CEO — StartUp Design</p>
           </div>
         </div>
-
-        <!-- ... Card 4 y 5 iguales ... -->
-
       </div>
-      <!-- Controles -->
-      <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-lg p-2 hover:scale-110 transition">
-        <i data-feather="chevron-left"></i>
-      </button>
-      <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-lg p-2 hover:scale-110 transition">
-        <i data-feather="chevron-right"></i>
-      </button>
     </div>
   </section>
+
+
+
+
 
   <!-- Contacto Rapido: Newsletter -->
   <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
@@ -697,121 +399,268 @@
     </div>
   </section>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <!-- Footer -->
   <footer class="bg-gray-900 text-gray-300 py-8">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p>© 2025 Arsodus. Todos los derechos reservados.</p>
     </div>
   </footer>
+  <!-- ------------------------------ Modales ------------------------------------------ -->
 
-  <!-- Modal oculto por defecto -->
-  <div id="materialModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <!-- Aquí inyectamos contenido dinámico con JS -->
-      <div id="modalBody"></div>
+  <!-- Modal Cotizador -->
+  <div id="cotizadorModal"
+    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative">
+
+      <!-- Cerrar modal -->
+      <button id="cerrarModal"
+        class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+
+      <!-- Header -->
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase 1</h2>
+      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
+      <p class="text-sm text-gray-500 cursor-pointer hover:underline" id="faseProgreso">
+        Paso <span id="faseActual">1</span> de 4
+      </p>
+      <p class="text-gray-500 mb-6" id="faseDescripcion">
+        Elige el material para tu prenda.
+      </p>
+
+      <!-- Contenido Fase 1 -->
+      <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Algodón","precio":70}'>
+          <h3 class="font-semibold">Algodón</h3>
+          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Popelina","precio":50}'>
+          <h3 class="font-semibold">Popelina</h3>
+          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
+        </div>
+      </div>
+
+      <!-- Contenido Fase 2 -->
+      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Serigrafía","extra":30}'>
+          <h3 class="font-semibold">Serigrafía</h3>
+          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"DTF","extra":15}'>
+          <h3 class="font-semibold">DTF</h3>
+          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Bordado","extra":40}'>
+          <h3 class="font-semibold">Bordado</h3>
+          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
+        </div>
+      </div>
+
+      <!-- Contenido Fase 3 -->
+      <div id="fase3" class="hidden">
+        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
+        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
+          class="block w-full border rounded p-2 mb-4">
+        <label class="block mb-2 font-medium">Cantidad</label>
+        <input type="number" id="inputCantidad" min="1" value="1"
+          class="block w-full border rounded p-2">
+      </div>
+
+      <!-- Contenido Fase 4 -->
+      <div id="fase4" class="hidden mt-4">
+        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Detalles -->
+          <div class="space-y-2">
+            <p><strong>Tela:</strong> <span id="resumenTela">—</span></p>
+            <p><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
+            <p><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
+            <p><strong>Total:</strong> <span id="resumenTotal" class="font-bold text-blue-700">—</span></p>
+          </div>
+          <!-- Imagen -->
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-2">Diseño subido:</p>
+            <div class="relative inline-block">
+              <img src="https://dummyimage.com/200x250/ddd/aaa.png&text=Camiseta"
+                class="max-h-64 rounded shadow">
+              <img id="resumenImg"
+                class="absolute top-1/3 left-1/2 -translate-x-1/2 max-h-20 rounded border border-gray-200 shadow">
+            </div>
+          </div>
+        </div>
+        <button id="finalizarPedido"
+          class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+          Confirmar y Enviar
+        </button>
+      </div>
+
+      <!-- Navegación -->
+      <div class="flex justify-between mt-6">
+        <button id="btnAtras"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Atrás</button>
+        <button id="btnContinuar"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    const modal = document.getElementById('fase-tela');
-    const startBtn = document.getElementById('startCotizadorBtn');
-    const closeBtn = document.getElementById('closeFaseTela');
+  <!-- ------------------------------ Scripts ------------------------------------------ -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    // Abrir modal con animación
-    startBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      gsap.fromTo(modal.querySelector('.bg-white'), {
-        scale: 0.8,
-        opacity: 0
-      }, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out"
-      });
-      gsap.fromTo(modal, {
-        opacity: 0
-      }, {
-        opacity: 1,
-        duration: 0.3,
-        ease: "power1.out"
+
+  <!-- Scripts para el Modal del Cotizador -->
+  <script>
+    // Referencias del modal
+    const modalCotizador = document.getElementById('cotizadorModal');
+    const abrir = document.getElementById('abrirCotizador');
+    const cerrar = document.getElementById('cerrarModal');
+    const btnContinuar = document.getElementById('btnContinuar');
+    const btnAtras = document.getElementById('btnAtras');
+    const faseProgreso = document.getElementById('faseProgreso');
+    const faseActual = document.getElementById('faseActual');
+
+    // Contenedores de fases
+    const fase1 = document.getElementById('fase1');
+    const fase2 = document.getElementById('fase2');
+    const fase3 = document.getElementById('fase3');
+    const fase4 = document.getElementById('fase4');
+
+    // Resumen fase 4
+    const resumenTela = document.getElementById('resumenTela');
+    const resumenTecnica = document.getElementById('resumenTecnica');
+    const resumenCantidad = document.getElementById('resumenCantidad');
+    const resumenTotal = document.getElementById('resumenTotal');
+    const resumenImg = document.getElementById('resumenImg');
+    // Variables globales
+    let fase = 1;
+    let seleccion = {
+      tela: null,
+      tecnica: null,
+      imagen: null,
+      cantidad: 1
+    };
+
+    // Abrir y cerrar modal
+    document.getElementById('abrirCotizador').addEventListener('click', () => {
+      document.getElementById('cotizadorModal').classList.remove('hidden');
+    });
+    document.getElementById('cerrarModal').addEventListener('click', () => {
+      document.getElementById('cotizadorModal').classList.add('hidden');
+    });
+
+    // Selección de telas
+    document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
+      card.addEventListener('click', () => {
+        // Limpiar selección previa
+        document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
+        // Marcar la actual
+        card.classList.add('border-blue-500');
+        // Guardar selección
+        seleccion.tela = JSON.parse(card.dataset.tela);
       });
     });
 
-    // Cerrar modal con animación
-    closeBtn.addEventListener('click', () => {
-      gsap.to(modal.querySelector('.bg-white'), {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power3.in"
+    // Selección de técnicas
+    document.querySelectorAll('#fase2 [data-tecnica]').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
+        card.classList.add('border-blue-500');
+        seleccion.tecnica = JSON.parse(card.dataset.tecnica);
       });
+    });
 
-      gsap.to(modal, {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power1.in",
-        onComplete: () => {
-          modal.classList.add('hidden');
-          modal.style.opacity = ""; // reset para reabrir limpio
+    // Input imagen
+    const inputImagen = document.getElementById('inputImagen');
+    if (inputImagen) {
+      inputImagen.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+          seleccion.imagen = file;
+        } else {
+          alert("Formato no permitido. Sube JPEG, PNG o GIF.");
+          inputImagen.value = "";
         }
       });
-    });
-  </script>
+    }
 
-  <script>
-    // Mostrar la fase 1
-    document.getElementById('startCotizadorBtn').addEventListener('click', function() {
-      document.getElementById('fase-tela').classList.remove('hidden');
+    // Input cantidad
+    const inputCantidad = document.getElementById('inputCantidad');
+    if (inputCantidad) {
+      inputCantidad.addEventListener('input', (e) => {
+        seleccion.cantidad = parseInt(e.target.value) || 1;
+      });
+    }
+
+    // Botón continuar
+    document.getElementById('btnContinuar').addEventListener('click', () => {
+      if (validarFase()) {
+        if (fase < 4) {
+          fase++;
+          renderFase();
+        }
+      }
     });
 
-    // Cerrar fase 1
-    document.getElementById('closeFaseTela').addEventListener('click', function() {
-      document.getElementById('fase-tela').classList.add('hidden');
+    // Botón atrás
+    document.getElementById('btnAtras').addEventListener('click', () => {
+      if (fase > 1) {
+        fase--;
+        renderFase();
+      }
     });
+
+    // Mostrar fases
+    function renderFase() {
+      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(`fase${fase}`).classList.remove('hidden');
+
+      document.getElementById('faseActual').textContent = fase;
+
+      if (fase === 4) {
+        // Mostrar resumen
+        document.getElementById('resumenTela').textContent = seleccion.tela?.nombre || "—";
+        document.getElementById('resumenTecnica').textContent = seleccion.tecnica?.nombre || "—";
+        document.getElementById('resumenCantidad').textContent = seleccion.cantidad || "—";
+
+        const base = seleccion.tela?.precio || 0;
+        const extra = seleccion.tecnica?.extra || 0;
+        const total = (base + extra) * (seleccion.cantidad || 1);
+        document.getElementById('resumenTotal').textContent = `$${total.toFixed(2)}`;
+
+        if (seleccion.imagen) {
+          const reader = new FileReader();
+          reader.onload = ev => document.getElementById('resumenImg').src = ev.target.result;
+          reader.readAsDataURL(seleccion.imagen);
+        }
+      }
+    }
+
+    // Validaciones
+    function validarFase() {
+      if (fase === 1 && !seleccion.tela) {
+        alert("Selecciona una tela.");
+        return false;
+      }
+      if (fase === 2 && !seleccion.tecnica) {
+        alert("Selecciona una técnica.");
+        return false;
+      }
+      if (fase === 3 && !seleccion.imagen) {
+        alert("Sube una imagen.");
+        return false;
+      }
+      return true;
+    }
   </script>
 
 
   <script>
     feather.replace();
-
-    const carousel = document.getElementById('testimonial-carousel');
-    const totalCards = carousel.children.length;
-    let index = 0;
-
-    document.getElementById('next').addEventListener('click', () => {
-      index = (index + 1) % totalCards;
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    document.getElementById('prev').addEventListener('click', () => {
-      index = (index - 1 + totalCards) % totalCards;
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    AOS.init();
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const cards = document.querySelectorAll(".flip-card");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, {
-        threshold: 0.5
-      });
-
-      cards.forEach(card => {
-        card.classList.add("card-appear");
-        observer.observe(card);
-      });
-    });
   </script>
 </body>
 
