@@ -1,17 +1,40 @@
 <?php
-/*      
-      1.- Mensaje Pequeño para incitar al hacer el click el las flipcards
-      2.- Modales para listado de información de las flipcards
-      3.- Logos de Marcas que se usan
-      4.- Logos de marcas con las que se han trabajado
-      5.- Reseñas - Diseño/Estructura
-      6.- Contacto Rapido, Newsleetter Llamativo 
-      7.- Footer con enlaces Rapidos
-      8.- IDEA CAMISAS INTERACTIVAS
-        - Diseños con zoom de las camisas para ver telas
-        - Modal de las camisas para tener Información
-        - Camisa en 3D
+/*    
+Actualizaciones pendientes:
+  Navbar 
+  -> Agregar Iconos de redes sociales ( En Movil )
 
+  Cotizador 
+  -> Agregar Barra de Progreso
+  -> Textura en la fase 1 (Seleccion de telas)
+  -> Iconos para la fase 2 (Seleccion de tecnica)
+  -> En la Fase 4 Agregar un Input text area para agregar Comentarios de la Idea
+  -> Agregar fase 5 en donde se muestren 3 botones Correo o Whatsapp o Instagram para enviar la cotizacion
+    -> Cuando se seleccione la opcion, voltear la card y mostrar un formulario con los datos de contacto
+    -> Terminar cotizacion y enviar los datos a un correo o base de datos
+  
+  Referencias
+  -> Agregar diseño amigable fresco con comentarios
+  
+  Servicios
+  -> Imagenes representativas 
+  -> Actualizar Cotizador (Pendiente)
+
+  Galeria:
+  -> Mejor Acomodo de Imagenes
+
+  Proyecto(Individual):
+  -> Agregar Iconos e información del proyecto
+
+  Footer:
+  -> Agregar Iconos a redes sociales y un menu de enlaces centrado
+
+  General:
+  -> Homologar Iconos de los servicios
+  -> Revisar ortografía y gramática
+  -> Acomodar el tipo de habla de Brandon con el tipo de habla de la pagina (Formal o informal)
+
+  A
 */
 ?>
 <!DOCTYPE html>
@@ -70,92 +93,6 @@
         </button>
       </div>
     </section>
-
-    <!-- Modal de contacto con efecto neon -->
-    <div
-      x-show="openModal"
-      x-transition:enter="ease-out duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="ease-in duration-200"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      x-cloak
-      class="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-sm">
-
-      <div @click.away="openModal = false"
-        x-transition:enter="ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="bg-[#fdfaf6] rounded-2xl p-6 sm:p-8 w-[90%] max-w-md mx-4 shadow-xl relative transition-all duration-300 transform hover:shadow-2xl">
-
-        <!-- Botón cerrar -->
-        <button @click="openModal = false"
-          class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors duration-200 transform hover:scale-110 active:scale-95">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <h2 class="Font-raleway text-2xl md:text-3xl font-bold text-blue-900 mb-6 leading-tight">¡Platiquemos tu idea!</h2>
-
-        <form class="space-y-5" method="POST" action="enviar.php">
-          <!-- Input Nombre con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Nombre:</label>
-            <div class="relative">
-              <input type="text" name="nombre"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative"
-                required>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Input Contacto con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Teléfono o Correo:</label>
-            <div class="relative">
-              <input type="text" name="contacto"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative"
-                required>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Textarea con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Cuéntame tu idea:</label>
-            <div class="relative">
-              <textarea name="mensaje"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative min-h-[120px]"
-                required></textarea>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Botones -->
-          <div class="flex justify-end space-x-3 pt-2">
-            <button type="button"
-              @click="openModal = false"
-              class="px-5 py-2.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md">
-              Cerrar
-            </button>
-            <button type="submit"
-              class="px-5 py-2.5 rounded-xl bg-blue-800 text-[#fdfaf6] hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md hover:shadow-blue-800/30 relative overflow-hidden group">
-              <span class="Font-raleway relative z-10">Enviar</span>
-              <span class="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
   </div>
 
   <!-- Servicios con efecto flip 3D -->
@@ -324,6 +261,7 @@
     </div>
   </section>
 
+  <!-- Seccion de testimonios -->
   <section class="bg-gray-50 py-20" id="testimonios">
     <div class="max-w-6xl mx-auto px-4">
       <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
@@ -367,34 +305,36 @@
     </div>
   </section>
 
-
-
-
-
-  <!-- Contacto Rapido: Newsletter -->
+  <!-- Contacto Rapido: Formulario de Ideas -->
   <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="font-heading text-3xl font-bold text-blue-900 mb-4">
-        ¿Quieres promociones y descuentos exclusivos?
+        ¿Tienes una idea en mente?
       </h2>
       <p class="font-sans text-gray-700 mb-6">
-        Suscríbete a nuestra lista y recibe ofertas únicas directamente en tu correo.
+        Platicame y hagámosla realidad juntos.
       </p>
 
       <form class="flex flex-col sm:flex-row gap-3 justify-center">
         <input
-          type="email"
-          placeholder="Tu correo electrónico"
+          type="text"
+          placeholder="Correo o Teléfono"
           class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+        <input
+          type="text"
+          placeholder="¿Qué necesitas?"
+          class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+
         <button
           type="submit"
           class="font-sans bg-blue-800 text-white px-6 py-3 rounded-xl hover:bg-blue-900 transition">
-          ¡Quiero unirme!
+          ¡Enviar Propuesta!
         </button>
       </form>
 
       <p class="font-sans text-xs text-gray-500 mt-3">
-        No hacemos spam. Puedes darte de baja cuando quieras.
+        En breve nos comunicaremos contigo.
       </p>
     </div>
   </section>
@@ -405,23 +345,23 @@
       <p>© 2025 Arsodus. Todos los derechos reservados.</p>
     </div>
   </footer>
+
   <!-- ------------------------------ Modales ------------------------------------------ -->
 
   <!-- Modal Cotizador -->
   <div id="cotizadorModal"
-    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative">
+    class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center z-50">
+    <div id="cotizadorContent"
+      class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative transform scale-95 opacity-0 transition-all duration-300">
+
 
       <!-- Cerrar modal -->
       <button id="cerrarModal"
         class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
 
       <!-- Header -->
-      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase 1</h2>
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase <span id="faseActual">1</span></h2>
       <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
-      <p class="text-sm text-gray-500 cursor-pointer hover:underline" id="faseProgreso">
-        Paso <span id="faseActual">1</span> de 4
-      </p>
       <p class="text-gray-500 mb-6" id="faseDescripcion">
         Elige el material para tu prenda.
       </p>
@@ -465,36 +405,44 @@
         <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
           class="block w-full border rounded p-2 mb-4">
         <label class="block mb-2 font-medium">Cantidad</label>
-        <input type="number" id="inputCantidad" min="1" value="1"
+
+        <input type="number" id="inputCantidad" min="10" value="10"
           class="block w-full border rounded p-2">
       </div>
 
       <!-- Contenido Fase 4 -->
       <div id="fase4" class="hidden mt-4">
         <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <!-- Detalles -->
-          <div class="space-y-2">
-            <p><strong>Tela:</strong> <span id="resumenTela">—</span></p>
-            <p><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
-            <p><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
-            <p><strong>Total:</strong> <span id="resumenTotal" class="font-bold text-blue-700">—</span></p>
+          <div class="border rounded-lg p-4 shadow-sm bg-gray-50 space-y-3">
+            <p class="text-gray-700"><strong>Tela:</strong> <span id="resumenTela">—</span></p>
+            <p class="text-gray-700"><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
+            <p class="text-gray-700"><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
+            <p class="text-lg font-semibold text-blue-700">
+              Total: <span id="resumenTotal">—</span>
+            </p>
           </div>
-          <!-- Imagen -->
-          <div class="text-center">
-            <p class="text-sm text-gray-500 mb-2">Diseño subido:</p>
-            <div class="relative inline-block">
-              <img src="https://dummyimage.com/200x250/ddd/aaa.png&text=Camiseta"
-                class="max-h-64 rounded shadow">
-              <img id="resumenImg"
-                class="absolute top-1/3 left-1/2 -translate-x-1/2 max-h-20 rounded border border-gray-200 shadow">
-            </div>
+
+          <!-- Imagen subida -->
+          <div class="border rounded-lg p-4 shadow-sm bg-white flex flex-col items-center justify-center">
+            <p class="text-sm text-gray-500 mb-3">Diseño subido</p>
+            <img id="resumenImg"
+              class="max-h-64 w-auto rounded-lg border border-gray-200 shadow-md object-contain"
+              src="https://dummyimage.com/300x300/ddd/aaa.png&text=Sin+imagen"
+              alt="Diseño subido">
           </div>
         </div>
-        <button id="finalizarPedido"
-          class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
-          Confirmar y Enviar
-        </button>
+
+        <!-- Botón Finalizar -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+
+          <button id="completarCotizacion"
+            class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
+            Completar Cotización
+          </button>
+        </div>
       </div>
 
       <!-- Navegación -->
@@ -515,6 +463,7 @@
   <script>
     // Referencias del modal
     const modalCotizador = document.getElementById('cotizadorModal');
+    const modalContent = document.getElementById('cotizadorContent');
     const abrir = document.getElementById('abrirCotizador');
     const cerrar = document.getElementById('cerrarModal');
     const btnContinuar = document.getElementById('btnContinuar');
@@ -534,32 +483,41 @@
     const resumenCantidad = document.getElementById('resumenCantidad');
     const resumenTotal = document.getElementById('resumenTotal');
     const resumenImg = document.getElementById('resumenImg');
+
     // Variables globales
     let fase = 1;
     let seleccion = {
       tela: null,
       tecnica: null,
       imagen: null,
-      cantidad: 1
+      cantidad: 10 // Iniciamos con 10 por defecto
     };
 
-    // Abrir y cerrar modal
-    document.getElementById('abrirCotizador').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.remove('hidden');
+    // ---- Abrir modal con animación ----
+    abrir.addEventListener('click', () => {
+      modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+      }, 20);
     });
-    document.getElementById('cerrarModal').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.add('hidden');
+
+    // ---- Cerrar modal con animación ----
+    cerrar.addEventListener('click', () => {
+      modalContent.classList.remove('scale-100', 'opacity-100');
+      modalContent.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        modalCotizador.classList.add('opacity-0', 'pointer-events-none');
+      }, 300);
     });
 
     // Selección de telas
     document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
       card.addEventListener('click', () => {
-        // Limpiar selección previa
         document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
-        // Marcar la actual
         card.classList.add('border-blue-500');
-        // Guardar selección
         seleccion.tela = JSON.parse(card.dataset.tela);
+        validarFaseActual(); // Validar después de seleccionar
       });
     });
 
@@ -569,6 +527,7 @@
         document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
         card.classList.add('border-blue-500');
         seleccion.tecnica = JSON.parse(card.dataset.tecnica);
+        validarFaseActual(); // Validar después de seleccionar
       });
     });
 
@@ -579,68 +538,151 @@
         const file = e.target.files[0];
         if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
           seleccion.imagen = file;
+          validarFaseActual(); // Validar después de subir imagen
         } else {
           alert("Formato no permitido. Sube JPEG, PNG o GIF.");
           inputImagen.value = "";
+          seleccion.imagen = null;
+          validarFaseActual();
         }
       });
     }
 
-    // Input cantidad
+    // Input cantidad - VALIDACIÓN MEJORADA
     const inputCantidad = document.getElementById('inputCantidad');
     if (inputCantidad) {
-      inputCantidad.addEventListener('input', (e) => {
-        seleccion.cantidad = parseInt(e.target.value) || 1;
+      const validarCantidad = () => {
+        const valor = parseInt(inputCantidad.value) || 0;
+        const esValido = valor >= 10;
+
+        // Aplicar estilos de validación
+        if (esValido) {
+          inputCantidad.classList.remove('border-red-500', 'bg-red-50');
+          inputCantidad.classList.add('border-green-500');
+          seleccion.cantidad = valor;
+        } else {
+          inputCantidad.classList.remove('border-green-500');
+          inputCantidad.classList.add('border-red-500', 'bg-red-50');
+          seleccion.cantidad = 0; // Marcamos como inválido
+        }
+
+        validarFaseActual(); // Validar botón continuar
+      };
+
+      inputCantidad.addEventListener('input', validarCantidad);
+      inputCantidad.addEventListener('change', validarCantidad);
+
+      // Validar inicialmente
+      setTimeout(validarCantidad, 100);
+    }
+
+    // Función para validar el estado del botón continuar
+    function validarFaseActual() {
+      let esValido = false;
+
+      switch (fase) {
+        case 1:
+          esValido = seleccion.tela !== null;
+          break;
+        case 2:
+          esValido = seleccion.tecnica !== null;
+          break;
+        case 3:
+          esValido = seleccion.imagen !== null && seleccion.cantidad >= 10;
+          break;
+        case 4:
+          esValido = true; // En la fase 4 siempre se puede continuar
+          break;
+      }
+
+      // Actualizar estado del botón
+      if (btnContinuar) {
+        if (esValido) {
+          btnContinuar.disabled = false;
+          btnContinuar.classList.remove('bg-gray-400', 'cursor-not-allowed');
+          btnContinuar.classList.add('bg-blue-600', 'hover:bg-blue-700');
+        } else {
+          btnContinuar.disabled = true;
+          btnContinuar.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+          btnContinuar.classList.add('bg-gray-400', 'cursor-not-allowed');
+        }
+      }
+
+      return esValido;
+    }
+
+    // Botón Continuar - avanza a la siguiente fase si es válida
+    if (btnContinuar) {
+      btnContinuar.addEventListener('click', () => {
+        if (validarFase()) { // Validar que los datos de la fase actual sean correctos
+          if (fase < 4) { // Solo avanza si no es la última fase
+            fase++; // Incrementar contador de fase
+            renderFase(); // Renderizar contenido correspondiente
+            validarFaseActual(); // Ejecutar validación específica de la nueva fase
+          }
+        }
       });
     }
 
-    // Botón continuar
-    document.getElementById('btnContinuar').addEventListener('click', () => {
-      if (validarFase()) {
-        if (fase < 4) {
-          fase++;
-          renderFase();
-        }
-      }
-    });
-
     // Botón atrás
-    document.getElementById('btnAtras').addEventListener('click', () => {
-      if (fase > 1) {
-        fase--;
-        renderFase();
-      }
-    });
+    if (btnAtras) {
+      btnAtras.addEventListener('click', () => {
+        if (fase > 1) {
+          fase--;
+          renderFase();
+          validarFaseActual(); // Validar nueva fase
+        }
+      });
+    }
 
     // Mostrar fases
+    // Mostrar la fase correspondiente y actualizar datos
     function renderFase() {
+      // 1. Ocultar todas las fases
       ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
+        const element = document.getElementById(id);
+        if (element) element.classList.add('hidden');
       });
-      document.getElementById(`fase${fase}`).classList.remove('hidden');
 
-      document.getElementById('faseActual').textContent = fase;
+      // 2. Mostrar solo la fase actual
+      const faseActualElement = document.getElementById(`fase${fase}`);
+      if (faseActualElement) faseActualElement.classList.remove('hidden');
 
+      // 3. Actualizar el texto que indica el número de fase (si existe)
+      if (faseActual) faseActual.textContent = fase;
+
+      // 4. Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      if (btnContinuar) {
+        if (fase === 4) {
+          btnContinuar.classList.add('hidden'); // Ocultamos en la fase 4
+        } else {
+          btnContinuar.classList.remove('hidden'); // Mostramos en las fases 1-3
+        }
+      }
+
+      // 5. Si estamos en la fase 4, renderizar resumen
       if (fase === 4) {
-        // Mostrar resumen
-        document.getElementById('resumenTela').textContent = seleccion.tela?.nombre || "—";
-        document.getElementById('resumenTecnica').textContent = seleccion.tecnica?.nombre || "—";
-        document.getElementById('resumenCantidad').textContent = seleccion.cantidad || "—";
+        if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
+        if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
+        if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
 
+        // Calcular total (precio base + extra) * cantidad
         const base = seleccion.tela?.precio || 0;
         const extra = seleccion.tecnica?.extra || 0;
         const total = (base + extra) * (seleccion.cantidad || 1);
-        document.getElementById('resumenTotal').textContent = `$${total.toFixed(2)}`;
+        if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
 
-        if (seleccion.imagen) {
+        // Mostrar la imagen subida en el resumen (si existe)
+        if (seleccion.imagen && resumenImg) {
           const reader = new FileReader();
-          reader.onload = ev => document.getElementById('resumenImg').src = ev.target.result;
+          reader.onload = ev => resumenImg.src = ev.target.result;
           reader.readAsDataURL(seleccion.imagen);
         }
       }
     }
 
-    // Validaciones
+
+    // Validaciones al hacer clic en continuar
     function validarFase() {
       if (fase === 1 && !seleccion.tela) {
         alert("Selecciona una tela.");
@@ -650,12 +692,18 @@
         alert("Selecciona una técnica.");
         return false;
       }
-      if (fase === 3 && !seleccion.imagen) {
-        alert("Sube una imagen.");
+      if (fase === 3 && (!seleccion.imagen || seleccion.cantidad < 10)) {
+        if (!seleccion.imagen) alert("Sube una imagen.");
+        if (seleccion.cantidad < 10) alert("La cantidad mínima es 10.");
         return false;
       }
       return true;
     }
+
+    // Validar inicialmente al cargar
+    setTimeout(() => {
+      validarFaseActual();
+    }, 100);
   </script>
 
 
