@@ -302,41 +302,114 @@ Actualizaciones pendientes:
     </div>
   </section>
 
-  <!-- Contacto Rapido: Formulario de Ideas -->
+  <section class="bg-gray-50 py-10">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">
+      Nuestros clientes
+    </h2>
+
+    <!-- Carrusel -->
+    <div class="relative overflow-hidden">
+      <div class="flex space-x-12 animate-marquee">
+        <!-- Logo 1 -->
+        <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 2 -->
+        <img src="logos/nazil.png" alt="Nazil" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 3 -->
+        <img src="logos/bandrex.png" alt="Bandrex" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 4 -->
+        <img src="logos/wellcompany.png" alt="Well Company" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 5 -->
+        <img src="logos/kaimex.png" alt="Kaimex" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 6 -->
+        <img src="logos/udeg.png" alt="UdeG" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 7 -->
+        <img src="logos/cucea.png" alt="CUCEA" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 8 -->
+        <img src="logos/aeej.png" alt="AEEJ" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+        <!-- Logo 9 -->
+        <img src="logos/tequilart.png" alt="TequilArt" 
+             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animación marquee */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 25s linear infinite;
+  }
+</style>
+
+
+  <!-- 
+  Sección de Contacto: Formulario de Ideas
+  Este formulario ha sido rediseñado para ser más llamativo y amigable.
+  Ahora los campos están apilados verticalmente para un flujo de usuario más claro
+  y un enfoque en el responsive design.
+-->
   <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="font-heading text-3xl font-bold text-blue-900 mb-4">
-        ¿Tienes una idea en mente?
-      </h2>
-      <p class="font-sans text-gray-700 mb-6">
-        Platicame y hagámosla realidad juntos.
-      </p>
+    <div class="max-w-xl mx-auto px-6">
+      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl transform transition-transform duration-300 hover:scale-[1.01]">
 
-      <form class="flex flex-col sm:flex-row gap-3 justify-center">
-        <input
-          type="text"
-          placeholder="Correo o Teléfono"
-          class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <!-- Título y subtítulo llamativos -->
+        <div class="text-center mb-6">
+          <h2 class="font-raleway text-3xl md:text-4xl font-extrabold text-blue-900 mb-2">
+            ¿Tienes una idea en mente?
+          </h2>
+          <p class="font-sans text-gray-700">
+            Platícame tu proyecto y hagámoslo realidad juntos.
+          </p>
+        </div>
 
-        <input
-          type="text"
-          placeholder="¿Qué necesitas?"
-          class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <!-- Formulario de contacto -->
+        <form class="flex flex-col gap-4">
+          <!-- Campo de entrada para correo o teléfono -->
+          <!-- La estructura vertical se maneja con 'flex flex-col' en el contenedor del formulario. -->
+          <input
+            type="text"
+            placeholder="Correo o Teléfono"
+            class="font-sans w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
 
-        <button
-          type="submit"
-          class="font-sans bg-blue-800 text-white px-6 py-3 rounded-xl hover:bg-blue-900 transition">
-          ¡Enviar Propuesta!
-        </button>
-      </form>
+          <!-- Área de texto para la idea -->
+          <textarea
+            placeholder="Platícame tu idea..."
+            rows="5"
+            class="font-sans w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 resize-none"></textarea>
 
-      <p class="font-sans text-xs text-gray-500 mt-3">
+          <!-- Botón de envío -->
+          <button
+            type="submit"
+            class="font-sans w-full bg-blue-800 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors duration-200 transform hover:scale-105">
+            ¡Enviar Propuesta!
+          </button>
+        </form>
+      </div>
+
+      <!-- Texto de confirmación -->
+      <p class="font-sans text-xs text-gray-500 mt-6 text-center">
         En breve nos comunicaremos contigo.
       </p>
     </div>
   </section>
 
-<?php include 'Front/footer.php'; ?>
+
+  <?php include 'Front/footer.php'; ?>
 
   <!-- ------------------------------ Modales ------------------------------------------ -->
 
