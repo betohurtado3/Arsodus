@@ -26,9 +26,6 @@ Actualizaciones pendientes:
   Proyecto(Individual):
   -> Agregar Iconos e información del proyecto
 
-  Footer:
-  -> Agregar Iconos a redes sociales y un menu de enlaces centrado
-
   General:
   -> Homologar Iconos de los servicios
   -> Revisar ortografía y gramática
@@ -339,12 +336,7 @@ Actualizaciones pendientes:
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>© 2025 Arsodus. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+<?php include 'Front/footer.php'; ?>
 
   <!-- ------------------------------ Modales ------------------------------------------ -->
 
