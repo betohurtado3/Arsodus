@@ -1,31 +1,40 @@
 <?php
 /*    
-    Index: 
-      2.- Resumen del Cotizador
-      3.- Sección de Materiales
-      4.- Reseñas
-      5.- Newsletter  | Formulario
+Actualizaciones pendientes:
+  Navbar 
+  -> Agregar Iconos de redes sociales ( En Movil )
 
-    Servicio:
-      1.- Centralizado en responsive
-      2.- Agregar Cotizador
-      3.- Proyectos que utilizan ese servicio
-      4.- Iconos de los servicios
+  Cotizador 
+  -> Agregar Barra de Progreso
+  -> Textura en la fase 1 (Seleccion de telas)
+  -> Iconos para la fase 2 (Seleccion de tecnica)
+  -> En la Fase 4 Agregar un Input text area para agregar Comentarios de la Idea
+  -> Agregar fase 5 en donde se muestren 3 botones Correo o Whatsapp o Instagram para enviar la cotizacion
+    -> Cuando se seleccione la opcion, voltear la card y mostrar un formulario con los datos de contacto
+    -> Terminar cotizacion y enviar los datos a un correo o base de datos
+  
+  Referencias
+  -> Agregar diseño amigable fresco con comentarios
+  
+  Servicios
+  -> Imagenes representativas 
+  -> Actualizar Cotizador (Pendiente)
 
-    Galeria:
-      1.- Versión Responsive
-      2.- Página del Proyecto
-      3.- Imagenes del proyecto
+  Galeria:
+  -> Mejor Acomodo de Imagenes
 
+  Proyecto(Individual):
+  -> Agregar Iconos e información del proyecto
 
-    Contacto
-      1.- Imagin de pefil
-      2.- Descripción
-      3.- Datos de contacto
+  Footer:
+  -> Agregar Iconos a redes sociales y un menu de enlaces centrado
 
-      REvisón de textos *******************************
-      
+  General:
+  -> Homologar Iconos de los servicios
+  -> Revisar ortografía y gramática
+  -> Acomodar el tipo de habla de Brandon con el tipo de habla de la pagina (Formal o informal)
 
+  A
 */
 ?>
 <!DOCTYPE html>
@@ -295,6 +304,7 @@
       </div>
     </div>
   </section>
+
   <!-- Contacto Rapido: Formulario de Ideas -->
   <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="max-w-3xl mx-auto px-6 text-center">
@@ -315,7 +325,7 @@
           type="text"
           placeholder="¿Qué necesitas?"
           class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
-          
+
         <button
           type="submit"
           class="font-sans bg-blue-800 text-white px-6 py-3 rounded-xl hover:bg-blue-900 transition">
@@ -601,18 +611,18 @@
       return esValido;
     }
 
-// Botón Continuar - avanza a la siguiente fase si es válida
-if (btnContinuar) {
-  btnContinuar.addEventListener('click', () => {
-    if (validarFase()) {             // Validar que los datos de la fase actual sean correctos
-      if (fase < 4) {                // Solo avanza si no es la última fase
-        fase++;                      // Incrementar contador de fase
-        renderFase();                // Renderizar contenido correspondiente
-        validarFaseActual();         // Ejecutar validación específica de la nueva fase
-      }
+    // Botón Continuar - avanza a la siguiente fase si es válida
+    if (btnContinuar) {
+      btnContinuar.addEventListener('click', () => {
+        if (validarFase()) { // Validar que los datos de la fase actual sean correctos
+          if (fase < 4) { // Solo avanza si no es la última fase
+            fase++; // Incrementar contador de fase
+            renderFase(); // Renderizar contenido correspondiente
+            validarFaseActual(); // Ejecutar validación específica de la nueva fase
+          }
+        }
+      });
     }
-  });
-}
 
     // Botón atrás
     if (btnAtras) {
@@ -626,50 +636,50 @@ if (btnContinuar) {
     }
 
     // Mostrar fases
-// Mostrar la fase correspondiente y actualizar datos
-function renderFase() {
-  // 1. Ocultar todas las fases
-  ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
-    const element = document.getElementById(id);
-    if (element) element.classList.add('hidden');
-  });
+    // Mostrar la fase correspondiente y actualizar datos
+    function renderFase() {
+      // 1. Ocultar todas las fases
+      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.classList.add('hidden');
+      });
 
-  // 2. Mostrar solo la fase actual
-  const faseActualElement = document.getElementById(`fase${fase}`);
-  if (faseActualElement) faseActualElement.classList.remove('hidden');
+      // 2. Mostrar solo la fase actual
+      const faseActualElement = document.getElementById(`fase${fase}`);
+      if (faseActualElement) faseActualElement.classList.remove('hidden');
 
-  // 3. Actualizar el texto que indica el número de fase (si existe)
-  if (faseActual) faseActual.textContent = fase;
+      // 3. Actualizar el texto que indica el número de fase (si existe)
+      if (faseActual) faseActual.textContent = fase;
 
-  // 4. Mostrar u ocultar botón "Continuar" dependiendo de la fase
-  if (btnContinuar) {
-    if (fase === 4) {
-      btnContinuar.classList.add('hidden');    // Ocultamos en la fase 4
-    } else {
-      btnContinuar.classList.remove('hidden'); // Mostramos en las fases 1-3
+      // 4. Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      if (btnContinuar) {
+        if (fase === 4) {
+          btnContinuar.classList.add('hidden'); // Ocultamos en la fase 4
+        } else {
+          btnContinuar.classList.remove('hidden'); // Mostramos en las fases 1-3
+        }
+      }
+
+      // 5. Si estamos en la fase 4, renderizar resumen
+      if (fase === 4) {
+        if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
+        if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
+        if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
+
+        // Calcular total (precio base + extra) * cantidad
+        const base = seleccion.tela?.precio || 0;
+        const extra = seleccion.tecnica?.extra || 0;
+        const total = (base + extra) * (seleccion.cantidad || 1);
+        if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
+
+        // Mostrar la imagen subida en el resumen (si existe)
+        if (seleccion.imagen && resumenImg) {
+          const reader = new FileReader();
+          reader.onload = ev => resumenImg.src = ev.target.result;
+          reader.readAsDataURL(seleccion.imagen);
+        }
+      }
     }
-  }
-
-  // 5. Si estamos en la fase 4, renderizar resumen
-  if (fase === 4) {
-    if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
-    if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
-    if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
-
-    // Calcular total (precio base + extra) * cantidad
-    const base = seleccion.tela?.precio || 0;
-    const extra = seleccion.tecnica?.extra || 0;
-    const total = (base + extra) * (seleccion.cantidad || 1);
-    if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
-
-    // Mostrar la imagen subida en el resumen (si existe)
-    if (seleccion.imagen && resumenImg) {
-      const reader = new FileReader();
-      reader.onload = ev => resumenImg.src = ev.target.result;
-      reader.readAsDataURL(seleccion.imagen);
-    }
-  }
-}
 
 
     // Validaciones al hacer clic en continuar
