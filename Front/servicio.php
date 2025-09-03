@@ -245,11 +245,7 @@ $servicios = [
 
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>© 2025 Arsodus. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <?php include 'footer.php'; ?>
 
   <!-- ------------------------------ Modales ------------------------------------------ -->
 

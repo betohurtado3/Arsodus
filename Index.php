@@ -81,6 +81,7 @@ Actualizaciones pendientes:
         <h1 class="font-raleway text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
           Dale vida a tu marca con <span class="text-[#fdfaf6]">Arsodus</span>
         </h1>
+
         <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md">
           Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior.
         </p>
@@ -132,16 +133,18 @@ Actualizaciones pendientes:
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
-            <p class="font-sans text-center text-gray-600">Precisión en cada detalle</p>
+            <p class="font-sans text-center text-gray-600">Ideal para uniformes de uso diario.</p>
+
+
           </div>
 
           <!-- BACK -->
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Serigrafía</h3>
             <ul class="font-sans text-sm space-y-2">
-              <li class="flex items-center"><span class="mr-2">✓</span> Ideal para grandes volúmenes</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Colores vibrantes</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Durabilidad extrema</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Base agua o Ahulada</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Una Tinta</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Mínimo 15 piezas</li>
             </ul>
 
             <a href="Front/servicio.php?tipo=serigrafia" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
@@ -165,10 +168,10 @@ Actualizaciones pendientes:
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Vinil de Corte</h3>
-            <ul class="font-sans text-sm space-y-2 text-center">
-              <li class="flex items-center"><span class="mr-2">✓</span> Detalles nítidos</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Aplicación versátil</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Ideal para logos</li>
+            <ul class="font-sans text-sm space-y-2">
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Detalles nítidos</li>
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Aplicación versátil</li>
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Personalización de uniformes deportivos</li>
             </ul>
             <a href="Front/servicio.php?tipo=vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
@@ -187,7 +190,7 @@ Actualizaciones pendientes:
               </svg>
             </div>
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Sublimación</h3>
-            <p class="font-sans text-center text-gray-600">Colores que permanecen</p>
+            <p class="font-sans text-center text-gray-600"> Ideal para impresión en alta calidad</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Sublimación</h3>
@@ -213,12 +216,12 @@ Actualizaciones pendientes:
               </svg>
             </div>
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Bordado</h3>
-            <p class="font-sans text-center text-gray-600">Elegancia textil</p>
+            <p class="font-sans text-center text-gray-600"> Ideal para logos pequeños</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Bordado</h3>
             <ul class="font-sans text-sm space-y-2 text-center">
-              <li class="flex items-center"><span class="mr-2">✓</span> Acabado premium</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Hasta tamaño carta.</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Hilos de alta resistencia</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Profesionalismo táctil</li>
             </ul>
@@ -239,12 +242,12 @@ Actualizaciones pendientes:
               </svg>
             </div>
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">DTF</h3>
-            <p class="font-sans text-center text-gray-600">Transferencia digital</p>
+            <p class="font-sans text-center text-gray-600">Impresiones de diseños en alta definición </p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">DTF</h3>
             <ul class="font-sans text-sm space-y-2">
-              <li class="flex items-center"><span class="mr-2">✓</span> Máxima durabilidad</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Se recomiendan imagenes sin fondo</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Estampado flexible</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Excelente en colores oscuros</li>
             </ul>
@@ -255,16 +258,19 @@ Actualizaciones pendientes:
         </div>
       </div>
 
+
+
     </div>
   </section>
 
   <!-- Seccion de testimonios -->
   <section class="bg-gray-50 py-20" id="testimonios">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900">
-        Lo que dicen nuestros clientes
-      </h2>
-
+      <div class="text-center mb-12">
+        <h2 class="impact-heading">
+          Lo que dicen nuestros clientes
+        </h2>
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Card 1 -->
         <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
@@ -302,68 +308,84 @@ Actualizaciones pendientes:
     </div>
   </section>
 
+  <!-- Seccion de Clientes -->
   <section class="bg-gray-50 py-10">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">
-      Nuestros clientes
-    </h2>
+    <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Carrusel -->
-    <div class="relative overflow-hidden">
-      <div class="flex space-x-12 animate-marquee">
-        <!-- Logo 1 -->
-        <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 2 -->
-        <img src="logos/nazil.png" alt="Nazil" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 3 -->
-        <img src="logos/bandrex.png" alt="Bandrex" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 4 -->
-        <img src="logos/wellcompany.png" alt="Well Company" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 5 -->
-        <img src="logos/kaimex.png" alt="Kaimex" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 6 -->
-        <img src="logos/udeg.png" alt="UdeG" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 7 -->
-        <img src="logos/cucea.png" alt="CUCEA" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 8 -->
-        <img src="logos/aeej.png" alt="AEEJ" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-        <!-- Logo 9 -->
-        <img src="logos/tequilart.png" alt="TequilArt" 
-             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+      <div class="text-center mb-12">
+        <h2 class="impact-heading">
+          Nuestros Clientes
+        </h2>
       </div>
+
+      <!-- Carrusel -->
+      <div class="relative overflow-hidden">
+        <div class="flex space-x-12 animate-marquee">
+
+          <!-- Bloque 1 -->
+          <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Well.png" alt="Well Company"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Universidad.png" alt="UdeG"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Cucea.png" alt="CUCEA"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Tequilart.png" alt="TequilArt"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <!-- Bloque 2 (duplicado para el loop) -->
+          <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Well.png" alt="Well Company"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Universidad.png" alt="UdeG"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Cucea.png" alt="CUCEA"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Tequilart.png" alt="TequilArt"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+        </div>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<style>
-  /* Animación marquee */
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .animate-marquee {
-    display: flex;
-    width: max-content;
-    animation: marquee 25s linear infinite;
-  }
-</style>
+  <style>
+    /* Animación marquee */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+  </style>
 
 
-  <!-- 
-  Sección de Contacto: Formulario de Ideas
-  Este formulario ha sido rediseñado para ser más llamativo y amigable.
-  Ahora los campos están apilados verticalmente para un flujo de usuario más claro
-  y un enfoque en el responsive design.
--->
-  <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
+  <!--  Sección de Contacto: Formulario de Ideas -->
+  <section id="contacto" class="py-20 bg-[#fdfaf6]">
     <div class="max-w-xl mx-auto px-6">
       <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl transform transition-transform duration-300 hover:scale-[1.01]">
 
@@ -425,11 +447,34 @@ Actualizaciones pendientes:
         class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
 
       <!-- Header -->
-      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase <span id="faseActual">1</span></h2>
-      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
-      <p class="text-gray-500 mb-6" id="faseDescripcion">
-        Elige el material para tu prenda.
-      </p>
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo"></h2>
+      <p class="text-gray-500 mb-6" id="faseDescripcion"></p>
+
+
+      <div class="mb-6 flex items-center justify-between">
+        <div class="flex flex-col items-center">
+          <div id="paso1" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-blue-500 bg-blue-500 text-white">1</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Tela</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso2" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">2</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Técnica</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+
+        <div class="flex flex-col items-center">
+          <div id="paso3" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">3</div>
+          <span class="mt-2 text-xs font-medium text-gray-500 hidden sm:block">Diseño & Cantidad</span>
+          <span class="mt-2 text-xs font-medium text-gray-500 sm:hidden">Diseño</span>
+        </div>
+
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso4" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Resumen</span>
+        </div>
+      </div>
 
       <!-- Contenido Fase 1 -->
       <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -526,6 +571,26 @@ Actualizaciones pendientes:
 
   <!-- Scripts para el Modal del Cotizador -->
   <script>
+    // Agrega esta nueva variable global
+    const fasesInfo = {
+      1: {
+        titulo: "Selección de Material",
+        descripcion: "Elige la tela ideal para tu prenda."
+      },
+      2: {
+        titulo: "Selección de Servicio",
+        descripcion: "Elige la técnica de personalización para tu diseño."
+      },
+      3: {
+        titulo: "Diseño y Cant.",
+        descripcion: "Sube tu diseño y especifica la cantidad de prendas."
+      },
+      4: {
+        titulo: "Resumen de tu Cotización",
+        descripcion: "Revisa los detalles de tu pedido antes de finalizar."
+      }
+    };
+
     // Referencias del modal
     const modalCotizador = document.getElementById('cotizadorModal');
     const modalContent = document.getElementById('cotizadorContent');
@@ -548,6 +613,13 @@ Actualizaciones pendientes:
     const resumenCantidad = document.getElementById('resumenCantidad');
     const resumenTotal = document.getElementById('resumenTotal');
     const resumenImg = document.getElementById('resumenImg');
+
+    const progressBar = document.getElementById('progressBar');
+
+    const faseTitulo = document.getElementById('faseTitulo');
+    const faseDescripcion = document.getElementById('faseDescripcion');
+
+
 
     // Variables globales
     let fase = 1;
@@ -702,42 +774,58 @@ Actualizaciones pendientes:
 
     // Mostrar fases
     // Mostrar la fase correspondiente y actualizar datos
+    // Función para renderizar el contenido de cada fase
     function renderFase() {
-      // 1. Ocultar todas las fases
+      // Ocultar todas las fases
       ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.classList.add('hidden');
       });
 
-      // 2. Mostrar solo la fase actual
+      // Mostrar solo la fase actual
       const faseActualElement = document.getElementById(`fase${fase}`);
       if (faseActualElement) faseActualElement.classList.remove('hidden');
 
-      // 3. Actualizar el texto que indica el número de fase (si existe)
-      if (faseActual) faseActual.textContent = fase;
+      // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
+      const info = fasesInfo[fase];
+      if (faseTitulo) faseTitulo.textContent = info.titulo;
+      if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
 
-      // 4. Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      // Lógica de la barra de progreso
+      const pasos = ['paso1', 'paso2', 'paso3', 'paso4'];
+      pasos.forEach((pasoId, index) => {
+        const pasoElement = document.getElementById(pasoId);
+        if (pasoElement) {
+          if (index < fase) {
+            pasoElement.classList.remove('border-gray-400', 'text-gray-400');
+            pasoElement.classList.add('border-blue-500', 'bg-blue-500', 'text-white');
+          } else {
+            pasoElement.classList.remove('border-blue-500', 'bg-blue-500', 'text-white');
+            pasoElement.classList.add('border-gray-400', 'text-gray-400');
+          }
+        }
+      });
+
+      // Mostrar u ocultar botón "Continuar" dependiendo de la fase
       if (btnContinuar) {
         if (fase === 4) {
-          btnContinuar.classList.add('hidden'); // Ocultamos en la fase 4
+          btnContinuar.classList.add('hidden');
         } else {
-          btnContinuar.classList.remove('hidden'); // Mostramos en las fases 1-3
+          btnContinuar.classList.remove('hidden');
         }
       }
 
-      // 5. Si estamos en la fase 4, renderizar resumen
+      // Si estamos en la fase 4, renderizar resumen
       if (fase === 4) {
         if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
         if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
         if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
 
-        // Calcular total (precio base + extra) * cantidad
         const base = seleccion.tela?.precio || 0;
         const extra = seleccion.tecnica?.extra || 0;
         const total = (base + extra) * (seleccion.cantidad || 1);
         if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
 
-        // Mostrar la imagen subida en el resumen (si existe)
         if (seleccion.imagen && resumenImg) {
           const reader = new FileReader();
           reader.onload = ev => resumenImg.src = ev.target.result;
@@ -774,6 +862,7 @@ Actualizaciones pendientes:
 
   <script>
     feather.replace();
+    renderFase();
   </script>
 </body>
 

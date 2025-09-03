@@ -17,10 +17,10 @@
         <div class="flex-1 text-center">
             <ul class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-lg font-raleway font-semibold">
                 <!-- Adds a subtle hover animation to the menu items for a more dynamic feel. -->
-                <li class="transform transition-transform duration-200 hover:scale-105"><a href="#" class="hover:text-blue-500 transition-colors duration-200">Inicio</a></li>
-                <li class="transform transition-transform duration-200 hover:scale-105"><a href="#" class="hover:text-blue-500 transition-colors duration-200">Servicios</a></li>
-                <li class="transform transition-transform duration-200 hover:scale-105"><a href="#" class="hover:text-blue-500 transition-colors duration-200">Galeria</a></li>
-                <li class="transform transition-transform duration-200 hover:scale-105"><a href="#" class="hover:text-blue-500 transition-colors duration-200">Contacto</a></li>
+                <li class="transform transition-transform duration-200 hover:scale-105"><a href="/Arsodus/Index.php"class="hover:text-blue-500 transition-colors duration-200">Inicio</a></li>
+                <li class="transform transition-transform duration-200 hover:scale-105"><a href="/Arsodus/Front/servicio.php?tipo=serigrafia" class="hover:text-blue-500 transition-colors duration-200">Servicios</a></li>
+                <li class="transform transition-transform duration-200 hover:scale-105"><a href="/Arsodus/Front/galeria.php" class="hover:text-blue-500 transition-colors duration-200">Galeria</a></li>
+                <li class="transform transition-transform duration-200 hover:scale-105"><a href="/Arsodus/Front/contacto.php" class="hover:text-blue-500 transition-colors duration-200">Contacto</a></li>
             </ul>
         </div>
 
