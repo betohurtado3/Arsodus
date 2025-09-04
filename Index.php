@@ -1,10 +1,7 @@
 <?php
 /*    
 Actualizaciones pendientes:
-  Navbar 
-  -> Agregar Iconos de redes sociales ( En Movil )
-  - Agregar efecto Hover al icono de la navbar
-  .
+  Navbar ojo, hay dos navbar xd
 
   Cotizador 
   -> Textura en la fase 1 (Seleccion de telas)
@@ -21,7 +18,6 @@ Actualizaciones pendientes:
   Servicios
   -> Imagenes representativas /// Pendiente del cliente
   -> Carrusel de logos de marcas con las que trabajan
-
 
   Galeria:
   -> Mejor Acomodo de Imagenes
@@ -365,7 +361,7 @@ Actualizaciones pendientes:
 
     </div>
   </section>
-
+ <!-- Animacion del carrusel  -->
   <style>
     /* Animación marquee */
     @keyframes marquee {

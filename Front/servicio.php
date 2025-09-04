@@ -53,7 +53,7 @@ $servicios = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/Arsodus/assets/css/index.css">
+  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" type="image/png" href="../assets/img/LogoSinFondo.png">
   <script src="//unpkg.com/alpinejs" defer></script>
@@ -92,8 +92,6 @@ $servicios = [
   </section>
 
   <?php
-
-
   $imagenes = [];
   for ($i = 1; $i <= 4; $i++) {
     $imagePath = "/Arsodus/assets/img/{$Servicio}{$i}.png";
@@ -101,10 +99,8 @@ $servicios = [
       $imagenes[] = $imagePath;
     }
   }
-
   ?>
 
-  <!-- Carrusel minimalista -->
   <!-- Carrusel + Card -->
   <section class="py-12">
     <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
@@ -215,15 +211,15 @@ $servicios = [
     </div>
   </section>
 
-
-
   <!-- Otros servicios -->
   <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
     <div class="max-w-6xl mx-auto px-6">
 
-      <h2 class="font-heading font-bold text-3xl text-blue-900 text-center mb-12">
-        Conoce más sobre nuestros servicios
-      </h2>
+      <div class="text-center mb-12">
+        <h2 class="impact-heading">
+          Otros Servicios
+        </h2>
+      </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         <!-- Aquí filtras para no mostrar la misma card -->
@@ -275,9 +271,13 @@ $servicios = [
     <div class="max-w-6xl mx-auto px-6 text-center">
 
       <!-- Título -->
-      <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-12">
-        ¿Listo para darle vida a tu idea?
-      </h2>
+      <div class="text-center mb-12">
+        <h2 class="impact-heading">
+          ¿Listo para darle vida a tu idea?
+        </h2>
+      </div>
+
+
 
       <!-- Contenedor de cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -321,6 +321,73 @@ $servicios = [
       </p>
     </div>
   </section>
+
+  <!-- Seccion de Clientes -->
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-12">
+        <h2 class="impact-heading">
+          Marcas que usamos en nuestros productos
+        </h2>
+      </div>
+
+      <!-- Carrusel -->
+      <div class="relative overflow-hidden">
+        <div class="flex space-x-12 animate-marquee">
+
+          <!-- Bloque 1 -->
+          <img src="/Arsodus/assets/img/Marcas/Yazbek.png" alt="Yazbek"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Euro.png" alt="Euro"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Optima.png" alt="Optima"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Playertytees.png" alt="Playereetys"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <!-- Bloque 2 (duplicado para el loop) -->
+
+          <img src="/Arsodus/assets/img/Marcas/Yazbek.png" alt="Yazbek"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Euro.png" alt="Euro"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Optima.png" alt="Optima"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <img src="/Arsodus/assets/img/Marcas/Playereetys.png" alt="Playereetys"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- Animacion del carrusel  -->
+  <style>
+    /* Animación marquee */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+  </style>
 
 
   <!-- Footer -->
@@ -478,7 +545,6 @@ $servicios = [
 
   <!-- ------------------------------ Scripts ------------------------------------------ -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 
   <!-- Scripts para el Modal del Cotizador -->
   <script>
