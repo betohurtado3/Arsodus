@@ -477,7 +477,7 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Durabilidad extrema</li>
             </ul>
 
-            <a href="Front/servicio.php?tipo=serigrafia" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Serigrafía" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -529,7 +529,7 @@
               <li class="flex items-center"><span class="mr-2">✓</span> Sin sensación de estampado</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Ideal para artículos claros</li>
             </ul>
-            <a href="Front/servicio.php?tipo=sublimacion" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Sublimación" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>

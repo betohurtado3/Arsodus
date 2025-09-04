@@ -3,9 +3,10 @@
 Actualizaciones pendientes:
   Navbar 
   -> Agregar Iconos de redes sociales ( En Movil )
+  - Agregar efecto Hover al icono de la navbar
+  .
 
   Cotizador 
-  -> Agregar Barra de Progreso
   -> Textura en la fase 1 (Seleccion de telas)
   -> Iconos para la fase 2 (Seleccion de tecnica)
   -> En la Fase 4 Agregar un Input text area para agregar Comentarios de la Idea
@@ -13,24 +14,25 @@ Actualizaciones pendientes:
     -> Cuando se seleccione la opcion, voltear la card y mostrar un formulario con los datos de contacto
     -> Terminar cotizacion y enviar los datos a un correo o base de datos
   
+  
   Referencias
   -> Agregar diseño amigable fresco con comentarios
-  
+
   Servicios
-  -> Imagenes representativas 
-  -> Actualizar Cotizador (Pendiente)
+  -> Imagenes representativas /// Pendiente del cliente
+  -> Carrusel de logos de marcas con las que trabajan
+
 
   Galeria:
   -> Mejor Acomodo de Imagenes
 
+  ////////////////////////////////// Pendiente del cliente
   Proyecto(Individual):
   -> Agregar Iconos e información del proyecto
 
   General:
   -> Homologar Iconos de los servicios
   -> Revisar ortografía y gramática
-  -> Acomodar el tipo de habla de Brandon con el tipo de habla de la pagina (Formal o informal)
-
   A
 */
 ?>
@@ -147,7 +149,7 @@ Actualizaciones pendientes:
               <li class="flex items-center"><span class="mr-2">✓</span> Mínimo 15 piezas</li>
             </ul>
 
-            <a href="Front/servicio.php?tipo=serigrafia" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Serigrafía" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -173,7 +175,7 @@ Actualizaciones pendientes:
               <li class="flex items-center text-left"><span class="mr-2">✓</span> Aplicación versátil</li>
               <li class="flex items-center text-left"><span class="mr-2">✓</span> Personalización de uniformes deportivos</li>
             </ul>
-            <a href="Front/servicio.php?tipo=vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -199,7 +201,7 @@ Actualizaciones pendientes:
               <li class="flex items-center"><span class="mr-2">✓</span> Sin sensación de estampado</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Ideal para artículos claros</li>
             </ul>
-            <a href="Front/servicio.php?tipo=sublimacion" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Sublimación" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -251,7 +253,7 @@ Actualizaciones pendientes:
               <li class="flex items-center"><span class="mr-2">✓</span> Estampado flexible</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Excelente en colores oscuros</li>
             </ul>
-            <a href="Front/servicio.php?tipo=dtf" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=DTF" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -264,11 +266,11 @@ Actualizaciones pendientes:
   </section>
 
   <!-- Seccion de testimonios -->
-  <section class="bg-gray-50 py-20" id="testimonios">
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16" id="testimonios">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12">
         <h2 class="impact-heading">
-          Lo que dicen nuestros clientes
+          Lo que dicen de nosotros
         </h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -309,7 +311,7 @@ Actualizaciones pendientes:
   </section>
 
   <!-- Seccion de Clientes -->
-  <section class="bg-gray-50 py-10">
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
     <div class="max-w-7xl mx-auto px-6">
 
       <div class="text-center mb-12">
@@ -491,22 +493,40 @@ Actualizaciones pendientes:
       </div>
 
       <!-- Contenido Fase 2 -->
-      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
+      <!-- Contenido Fase 2 -->
+      <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
+
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"Serigrafía","extra":30}'>
           <h3 class="font-semibold">Serigrafía</h3>
           <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
         </div>
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"DTF","extra":15}'>
           <h3 class="font-semibold">DTF</h3>
           <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
         </div>
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"Bordado","extra":40}'>
           <h3 class="font-semibold">Bordado</h3>
           <p class="text-sm text-gray-500">Durabilidad, +$40</p>
         </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Sublimación","extra":40}'>
+          <h3 class="font-semibold">Sublimación</h3>
+          <p class="text-sm text-gray-500">Alta Calidad, +$45</p>
+        </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Vinil","extra":40}'>
+          <h3 class="font-semibold">Vinil</h3>
+          <p class="text-sm text-gray-500">Permanencia, +$30</p>
+        </div>
+
       </div>
 
       <!-- Contenido Fase 3 -->

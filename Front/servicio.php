@@ -1,25 +1,9 @@
 <?php
 $Servicio = $_GET['tipo'];
-echo "<br>";
-?>
-<?php
-/*      
-      1.- Mensaje Pequeño para incitar al hacer el click el las flipcards
-      2.- Modales para listado de información de las flipcards
-      3.- Logos de Marcas que se usan
-      4.- Logos de marcas con las que se han trabajado
-      5.- Reseñas - Diseño/Estructura
-      6.- Contacto Rapido, Newsleetter Llamativo 
-      7.- Footer con enlaces Rapidos
-      8.- IDEA CAMISAS INTERACTIVAS
-        - Diseños con zoom de las camisas para ver telas
-        - Modal de las camisas para tener Información
-        - Camisa en 3D
-
-*/
+$ServicioSeleccionado = $_GET['tipo'];
 
 $servicios = [
-  "serigrafia" => [
+  "Serigrafía" => [
     "descripcion" => "La serigrafía es una técnica tradicional que utiliza mallas para transferir tinta directamente sobre la prenda.",
     "caracteristicas" => [
       "Ideal para altos volúmenes",
@@ -27,7 +11,7 @@ $servicios = [
       "Excelente relación costo-beneficio"
     ]
   ],
-  "vinil" => [
+  "Vinil" => [
     "descripcion" => "El vinil textil permite crear diseños con acabados brillantes o mate, aplicados con calor y presión.",
     "caracteristicas" => [
       "Perfecto para personalización rápida",
@@ -35,7 +19,7 @@ $servicios = [
       "No requiere grandes tirajes"
     ]
   ],
-  "dtf" => [
+  "DTF" => [
     "descripcion" => "La impresión DTF transfiere diseños completos a prendas mediante calor, sin perder detalle ni color.",
     "caracteristicas" => [
       "Alta resolución y colores intensos",
@@ -43,7 +27,7 @@ $servicios = [
       "Excelente resistencia al lavado"
     ]
   ],
-  "bordado" => [
+  "Bordado" => [
     "descripcion" => "Técnica de acabado premium que utiliza hilos de alta calidad para crear diseños textiles con relieve y elegancia.",
     "caracteristicas" => [
       "Acabado profesional y de lujo",
@@ -51,7 +35,7 @@ $servicios = [
       "Ideal para logos corporativos y uniformes"
     ]
   ],
-  "sublimacion" => [
+  "Sublimación" => [
     "descripcion" => "Método donde los diseños se imprimen con tinta que se fusiona químicamente con las fibras del textil.",
     "caracteristicas" => [
       "Estampado completo sin sensación de tinta",
@@ -61,6 +45,7 @@ $servicios = [
   ]
 ];
 ?>
+
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
 <!-- Header-->
@@ -68,13 +53,12 @@ $servicios = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="/Arsodus/assets/css/index.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
+  <link rel="icon" type="image/png" href="../assets/img/LogoSinFondo.png">
   <script src="//unpkg.com/alpinejs" defer></script>
 
   <title><?php echo ucfirst($Servicio); ?> - Arsodus</title>
-  <link rel="icon" type="image/png" href="/Arsodus/assets/img/LogoSinFondo.png">
 
 
   <style>
@@ -93,11 +77,13 @@ $servicios = [
   <br>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-white to-gray-50 py-16">
+  <section class="py-20 bg-[#fdfaf6]">
     <div class="max-w-6xl mx-auto px-6 text-center">
-      <h1 class="font-heading text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+
+      <h2 class="impact-heading">
         <?php echo ucfirst($Servicio); ?>
-      </h1>
+      </h2>
+
       <p class="max-w-2xl mx-auto text-gray-600 text-lg">
         Conoce todo sobre la técnica de <span class="font-semibold"><?php echo ucfirst($Servicio); ?></span>,
         sus beneficios, aplicaciones y cómo puede elevar la calidad de tus prendas.
@@ -106,8 +92,8 @@ $servicios = [
   </section>
 
   <?php
-  $Servicio = $_GET['tipo'];
-  $servicioLower = strtolower($Servicio);
+
+
   $imagenes = [];
   for ($i = 1; $i <= 4; $i++) {
     $imagePath = "/Arsodus/assets/img/{$Servicio}{$i}.png";
@@ -119,13 +105,30 @@ $servicios = [
   ?>
 
   <!-- Carrusel minimalista -->
+  <!-- Carrusel + Card -->
   <section class="py-12">
-    <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
 
-      <!-- Galería -->
+      <!-- CarroGalería -->
       <div
-        x-data="{ active: 0, total: <?php echo count($imagenes); ?> }"
-        class="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-gray-200">
+        x-data="{
+    active: 0,
+    total: <?php echo count($imagenes); ?>,
+    interval: null,
+    start() {
+      this.interval = setInterval(() => {
+        this.active = (this.active + 1) % this.total;
+      }, 5000);
+    },
+    stop() {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+  }"
+        x-init="start()"
+        class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-200 flex"
+        @mouseenter="stop()"
+        @mouseleave="start()">
 
         <!-- Slides -->
         <?php foreach ($imagenes as $index => $img) { ?>
@@ -162,21 +165,32 @@ $servicios = [
         </div>
       </div>
 
-      <!-- Texto explicativo -->
+
+      <!-- Texto explicativo con estilo card -->
       <?php
-      $Servicio = strtolower($_GET['tipo'] ?? 'serigrafia'); // por defecto serigrafía
+      //$Servicio = strtolower($_GET['tipo'] ?? 'Serigrafía'); // por defecto serigrafía
+
       $info = $servicios[$Servicio] ?? null;
       ?>
 
-      <!-- Texto explicativo -->
-      <div>
-        <h2 class="text-2xl font-bold mb-4">¿Qué es la <?php echo ucfirst($Servicio); ?>?</h2>
+      <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 flex flex-col justify-center items-center shadow-lg border border-gray-100 text-center">
+
+        <!-- Icono -->
+        <div class="bg-blue-100/30 p-4 rounded-full mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m4 4h6a2 2 0 002-2v-4a2 2 0 00-2-2h-6a2 2 0 00-2 2v4a2 2 0 002 2z" />
+          </svg>
+        </div>
+
+        <h2 class="font-heading font-bold text-2xl text-blue-900 mb-4">
+          <?php echo ucfirst($Servicio); ?>
+        </h2>
 
         <?php if ($info): ?>
-          <p class="text-gray-700 leading-relaxed mb-4">
+          <p class="text-gray-700 leading-relaxed mb-6">
             <?php echo $info['descripcion']; ?>
           </p>
-          <ul class="space-y-3 text-gray-600">
+          <ul class="space-y-3 text-gray-600 text-left w-full max-w-md">
             <?php foreach ($info['caracteristicas'] as $c): ?>
               <li class="flex items-center">
                 <span class="mr-2 text-blue-600 font-bold">✓</span>
@@ -184,62 +198,127 @@ $servicios = [
               </li>
             <?php endforeach; ?>
           </ul>
+          <br>
+
+
+          <button class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrir-cotizador">
+            🚀 Iniciar Cotización
+          </button>
+
+
+
+
         <?php else: ?>
           <p class="text-red-500">No se encontró información para este servicio.</p>
         <?php endif; ?>
       </div>
-
-
     </div>
   </section>
 
+
+
   <!-- Otros servicios -->
-  <section class="bg-white py-16">
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
     <div class="max-w-6xl mx-auto px-6">
-      <h3 class="text-2xl font-heading font-bold text-gray-900 text-center mb-10">
+
+      <h2 class="font-heading font-bold text-3xl text-blue-900 text-center mb-12">
         Conoce más sobre nuestros servicios
-      </h3>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         <!-- Aquí filtras para no mostrar la misma card -->
         <?php
-        $servicios = ['serigrafia', 'bordado', 'sublimacion', 'dtf', 'vinil'];
+        $servicios = ['Serigrafía', 'Bordado', 'Sublimación', 'DTF', 'Vinil'];
+        $descripciones = [
+          'Serigrafía'  => 'Impresión de alta calidad en distintos materiales con gran durabilidad.',
+          'Bordado'     => 'Acabado elegante y resistente, ideal para prendas personalizadas.',
+          'Sublimación' => 'Colores vivos en telas y objetos con excelente definición.',
+          'DTF'         => 'Tecnología moderna de impresión con gran detalle y versatilidad.',
+          'Vinil'       => 'Corte y aplicación de vinil para diseños creativos y resistentes.',
+        ];
         foreach ($servicios as $s) {
           if ($s === $Servicio) continue; // omitir el actual
+
         ?>
-          <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
-            <img src="/Arsodus/assets/icon/<?php echo $s; ?>.png" class="w-24 h-24 object-cover mb-4">
-            <h4 class="font-bold text-lg mb-2"><?php echo ucfirst($s); ?></h4>
-            <p class="text-gray-600 mb-4 text-sm">Breve descripción del servicio.</p>
+          <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
+
+            <!-- Icono -->
+            <div class="bg-blue-100/30 p-4 rounded-full mb-4">
+              <img src="/Arsodus/assets/icon/<?php echo $s; ?>.png" alt="<?php echo ucfirst($s); ?>" class="w-12 h-12 object-contain">
+            </div>
+
+            <!-- Título -->
+            <h4 class="font-heading font-bold text-xl text-blue-900 mb-3">
+              <?php echo ucfirst($s); ?>
+            </h4>
+
+            <!-- Descripción breve -->
+            <p class="text-gray-700 leading-relaxed text-sm mb-6">
+              <?php echo $descripciones[$s] ?? 'Descripción no disponible.'; ?>
+            </p>
+
+            <!-- Botón -->
             <a href="/Arsodus/Front/servicio.php?tipo=<?php echo $s; ?>"
-              class="text-white bg-blue-800 hover:bg-blue-900 px-4 py-2 rounded-full text-sm transition">
-              Ver más
+              class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-semibold shadow hover:scale-105 hover:bg-blue-700 transition">
+              Ver más →
             </a>
           </div>
         <?php } ?>
       </div>
+
     </div>
   </section>
 
+
   <!-- Sección Cotizador -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-24" id="Cotizador">
-    <div class="max-w-4xl mx-auto px-6 text-center">
+  <section class="py-20 bg-[#fdfaf6] py-24" id="Cotizador">
+    <div class="max-w-6xl mx-auto px-6 text-center">
 
       <!-- Título -->
-      <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-12">
         ¿Listo para darle vida a tu idea?
       </h2>
 
-      <!-- Texto secundario -->
-      <p class="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-        Cotiza tu proyecto con nosotros y descubre cómo transformar tus ideas en productos de alta calidad.
-        ¡Haz clic y comencemos juntos!
-      </p>
+      <!-- Contenedor de cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 
-      <!-- Botón -->
-      <button id="abrirCotizador"
-        class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out">
+        <!-- Card Colores -->
+        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+          <span class="text-blue-600 text-4xl mb-4">🎨</span>
+          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Colores</h3>
+          <p class="text-gray-600 text-center">
+            Pueden ser igualados con pantones si se especifica; de lo contrario, se usará el tono más similar.
+          </p>
+        </div>
+
+        <!-- Card Tamaños -->
+        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+          <span class="text-blue-600 text-4xl mb-4">📐</span>
+          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Tamaños</h3>
+          <p class="text-gray-600 text-center">
+            Van desde <strong>4 cm</strong> (igual o menor a media carta) hasta <strong>27 cm</strong> (igual o menor a tabloide).
+          </p>
+        </div>
+
+        <!-- Card Calidades -->
+        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+          <span class="text-blue-600 text-4xl mb-4">🧵</span>
+          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Calidades</h3>
+          <ul class="list-disc list-inside text-gray-600 space-y-2 text-left">
+            <li><strong>Premium:</strong> algodón peinado o combinaciones con poliéster, nylon, elastano, etc.</li>
+            <li><strong>Estándar:</strong> 100% algodón.</li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrir-cotizador">
         🚀 Iniciar Cotización
       </button>
+
+      <!-- Nota -->
+      <p class="mt-4 text-sm text-gray-500">
+        Estos factores influirán directamente en el costo del trabajo.
+      </p>
     </div>
   </section>
 
@@ -261,11 +340,34 @@ $servicios = [
         class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
 
       <!-- Header -->
-      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase <span id="faseActual">1</span></h2>
-      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
-      <p class="text-gray-500 mb-6" id="faseDescripcion">
-        Elige el material para tu prenda.
-      </p>
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo"></h2>
+      <p class="text-gray-500 mb-6" id="faseDescripcion"></p>
+
+
+      <div class="mb-6 flex items-center justify-between">
+        <div class="flex flex-col items-center">
+          <div id="paso1" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-blue-500 bg-blue-500 text-white">1</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Tela</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso2" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">2</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Técnica</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+
+        <div class="flex flex-col items-center">
+          <div id="paso3" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">3</div>
+          <span class="mt-2 text-xs font-medium text-gray-500 hidden sm:block">Diseño & Cantidad</span>
+          <span class="mt-2 text-xs font-medium text-gray-500 sm:hidden">Diseño</span>
+        </div>
+
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso4" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Resumen</span>
+        </div>
+      </div>
 
       <!-- Contenido Fase 1 -->
       <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -282,22 +384,39 @@ $servicios = [
       </div>
 
       <!-- Contenido Fase 2 -->
-      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
+      <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
+
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"Serigrafía","extra":30}'>
           <h3 class="font-semibold">Serigrafía</h3>
           <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
         </div>
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"DTF","extra":15}'>
           <h3 class="font-semibold">DTF</h3>
           <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
         </div>
+
         <div class="p-4 border rounded cursor-pointer hover:shadow"
           data-tecnica='{"nombre":"Bordado","extra":40}'>
           <h3 class="font-semibold">Bordado</h3>
           <p class="text-sm text-gray-500">Durabilidad, +$40</p>
         </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Sublimación","extra":40}'>
+          <h3 class="font-semibold">Sublimación</h3>
+          <p class="text-sm text-gray-500">Alta Calidad, +$45</p>
+        </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Vinil","extra":40}'>
+          <h3 class="font-semibold">Vinil</h3>
+          <p class="text-sm text-gray-500">Permanencia, +$30</p>
+        </div>
+
       </div>
 
       <!-- Contenido Fase 3 -->
@@ -338,6 +457,7 @@ $servicios = [
 
         <!-- Botón Finalizar -->
         <div class="flex flex-col sm:flex-row gap-4 mt-6">
+
           <button id="completarCotizacion"
             class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
             Completar Cotización
@@ -355,16 +475,39 @@ $servicios = [
     </div>
   </div>
 
+
   <!-- ------------------------------ Scripts ------------------------------------------ -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
   <!-- Scripts para el Modal del Cotizador -->
   <script>
+    // Se crea una variable JS con el valor de PHP
+    const servicioPreseleccionado = "<?php echo $ServicioSeleccionado; ?>";
+    // Se Agrega esta nueva variable global
+    const fasesInfo = {
+      1: {
+        titulo: "Selección de Material",
+        descripcion: "Elige la tela ideal para tu prenda."
+      },
+      2: {
+        titulo: "Selección de Servicio",
+        descripcion: "Elige la técnica de personalización para tu diseño."
+      },
+      3: {
+        titulo: "Diseño y Cant.",
+        descripcion: "Sube tu diseño y especifica la cantidad de prendas."
+      },
+      4: {
+        titulo: "Resumen de tu Cotización",
+        descripcion: "Revisa los detalles de tu pedido antes de finalizar."
+      }
+    };
+
     // Referencias del modal
     const modalCotizador = document.getElementById('cotizadorModal');
     const modalContent = document.getElementById('cotizadorContent');
-    const abrir = document.getElementById('abrirCotizador');
+    const botonesAbrir = document.querySelectorAll('.abrir-cotizador');
     const cerrar = document.getElementById('cerrarModal');
     const btnContinuar = document.getElementById('btnContinuar');
     const btnAtras = document.getElementById('btnAtras');
@@ -384,6 +527,13 @@ $servicios = [
     const resumenTotal = document.getElementById('resumenTotal');
     const resumenImg = document.getElementById('resumenImg');
 
+    const progressBar = document.getElementById('progressBar');
+
+    const faseTitulo = document.getElementById('faseTitulo');
+    const faseDescripcion = document.getElementById('faseDescripcion');
+
+
+
     // Variables globales
     let fase = 1;
     let seleccion = {
@@ -392,14 +542,49 @@ $servicios = [
       imagen: null,
       cantidad: 10 // Iniciamos con 10 por defecto
     };
+    console.log("Seleccionado:", servicioPreseleccionado);
+
+    function preseleccionarServicio() {
+      if (servicioPreseleccionado) {
+        const cards = document.querySelectorAll('#fase2 [data-tecnica]');
+        let tecnicaEncontrada = null;
+
+        cards.forEach(card => {
+          // Leer el objeto de datos de la técnica
+          const tecnica = JSON.parse(card.dataset.tecnica);
+
+          console.log("tecnica:", tecnica);
+          // Comprobar si el nombre de la técnica coincide con el valor del GET
+          if (tecnica.nombre === servicioPreseleccionado) {
+            tecnicaEncontrada = card;
+          }
+        });
+
+        if (tecnicaEncontrada) {
+          // Simular el clic en la tarjeta encontrada
+          tecnicaEncontrada.click();
+
+          // Pasar a la fase 2 si no se abre directamente en ella
+          if (fase === 1) {
+            fase = 2;
+            renderFase();
+          }
+        }
+      }
+    }
+
 
     // ---- Abrir modal con animación ----
-    abrir.addEventListener('click', () => {
-      modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        modalContent.classList.remove('scale-95', 'opacity-0');
-        modalContent.classList.add('scale-100', 'opacity-100');
-      }, 20);
+    // Selecciona todos los elementos con la clase 'abrir-cotizador'
+    botonesAbrir.forEach(boton => {
+      boton.addEventListener('click', () => {
+        // ---- Abrir modal con animación ----
+        modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          modalContent.classList.remove('scale-95', 'opacity-0');
+          modalContent.classList.add('scale-100', 'opacity-100');
+        }, 20);
+      });
     });
 
     // ---- Cerrar modal con animación ----
@@ -537,42 +722,58 @@ $servicios = [
 
     // Mostrar fases
     // Mostrar la fase correspondiente y actualizar datos
+    // Función para renderizar el contenido de cada fase
     function renderFase() {
-      // 1. Ocultar todas las fases
+      // Ocultar todas las fases
       ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.classList.add('hidden');
       });
 
-      // 2. Mostrar solo la fase actual
+      // Mostrar solo la fase actual
       const faseActualElement = document.getElementById(`fase${fase}`);
       if (faseActualElement) faseActualElement.classList.remove('hidden');
 
-      // 3. Actualizar el texto que indica el número de fase (si existe)
-      if (faseActual) faseActual.textContent = fase;
+      // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
+      const info = fasesInfo[fase];
+      if (faseTitulo) faseTitulo.textContent = info.titulo;
+      if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
 
-      // 4. Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      // Lógica de la barra de progreso
+      const pasos = ['paso1', 'paso2', 'paso3', 'paso4'];
+      pasos.forEach((pasoId, index) => {
+        const pasoElement = document.getElementById(pasoId);
+        if (pasoElement) {
+          if (index < fase) {
+            pasoElement.classList.remove('border-gray-400', 'text-gray-400');
+            pasoElement.classList.add('border-blue-500', 'bg-blue-500', 'text-white');
+          } else {
+            pasoElement.classList.remove('border-blue-500', 'bg-blue-500', 'text-white');
+            pasoElement.classList.add('border-gray-400', 'text-gray-400');
+          }
+        }
+      });
+
+      // Mostrar u ocultar botón "Continuar" dependiendo de la fase
       if (btnContinuar) {
         if (fase === 4) {
-          btnContinuar.classList.add('hidden'); // Ocultamos en la fase 4
+          btnContinuar.classList.add('hidden');
         } else {
-          btnContinuar.classList.remove('hidden'); // Mostramos en las fases 1-3
+          btnContinuar.classList.remove('hidden');
         }
       }
 
-      // 5. Si estamos en la fase 4, renderizar resumen
+      // Si estamos en la fase 4, renderizar resumen
       if (fase === 4) {
         if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
         if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
         if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
 
-        // Calcular total (precio base + extra) * cantidad
         const base = seleccion.tela?.precio || 0;
         const extra = seleccion.tecnica?.extra || 0;
         const total = (base + extra) * (seleccion.cantidad || 1);
         if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
 
-        // Mostrar la imagen subida en el resumen (si existe)
         if (seleccion.imagen && resumenImg) {
           const reader = new FileReader();
           reader.onload = ev => resumenImg.src = ev.target.result;
@@ -603,12 +804,14 @@ $servicios = [
     // Validar inicialmente al cargar
     setTimeout(() => {
       validarFaseActual();
+      preseleccionarServicio();
     }, 100);
   </script>
 
 
   <script>
     feather.replace();
+    renderFase();
   </script>
 
 </body>

@@ -163,7 +163,7 @@ $servicios = [
 
       <!-- Texto explicativo -->
       <?php
-      $Servicio = strtolower($_GET['tipo'] ?? 'serigrafia'); // por defecto serigrafía
+      $Servicio = strtolower($_GET['tipo'] ?? 'Serigrafía'); // por defecto serigrafía
       $info = $servicios[$Servicio] ?? null;
       ?>
 
@@ -201,7 +201,7 @@ $servicios = [
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <!-- Aquí filtras para no mostrar la misma card -->
         <?php
-        $servicios = ['serigrafia', 'bordado', 'sublimacion', 'dtf', 'vinil'];
+        $servicios = ['Serigrafía', 'Bordado', 'Sublimación', 'DTF', 'Vinil'];
         foreach ($servicios as $s) {
           if ($s === $Servicio) continue; // omitir el actual
         ?>
