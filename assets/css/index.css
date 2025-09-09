@@ -50,15 +50,16 @@ CLOSE  -- Animaciòn Para las Flip Cards:
 */
 
 .impact-heading {
-  font-size: 2.5rem; /* 40px */
-  font-weight: 800;
-  color: #1a1a1a;
+  font-size: 2.2rem; /* ~35px */
+  font-weight: 650; /* más ligero que 800 */
+  letter-spacing: 0.5px; /* da aire entre letras */
+  color: #111827; /* gris oscuro, no negro plano */
   text-align: center;
   position: relative;
   display: inline-block;
   margin: 0 auto;
   padding: 0 20px;
-  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s ease;
 }
 
 .impact-heading:hover {
@@ -67,26 +68,13 @@ CLOSE  -- Animaciòn Para las Flip Cards:
   transform: translateY(-2px);
 }
 
-.impact-heading::before {
-  content: "";
-  position: absolute;
-  width: calc(100% + 20px);
-  height: 100%;
-  top: 0;
-  left: -10px;
-  background: radial-gradient(rgba(59, 130, 246, 0.1) 2%, transparent 10%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: -1;
-  border-radius: 50%;
-}
-
-.impact-heading:hover::before {
-  opacity: 1;
+.impact-heading:hover {
+  color: #1d4ed8; /* azul fuerte al hover */
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
   .impact-heading {
-    font-size: 3.5rem; /* 56px */
+    font-size: 3rem; /* ~48px en desktop */
   }
 }

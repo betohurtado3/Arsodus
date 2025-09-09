@@ -132,10 +132,12 @@ $servicios = [
             x-show="active === <?php echo $index; ?>"
             x-transition.opacity.duration.500ms
             class="absolute inset-0">
+
             <img src="<?php echo $img; ?>"
               class="w-full h-full object-cover"
               alt="<?php echo ucfirst($Servicio) . ' ' . $index; ?>">
           </div>
+
         <?php } ?>
 
         <!-- Botones navegación -->
@@ -171,12 +173,13 @@ $servicios = [
 
       <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 flex flex-col justify-center items-center shadow-lg border border-gray-100 text-center">
 
-        <!-- Icono -->
+        <!-- Icono dinámico -->
         <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m4 4h6a2 2 0 002-2v-4a2 2 0 00-2-2h-6a2 2 0 00-2 2v4a2 2 0 002 2z" />
-          </svg>
+          <img src="../assets/icon/<?php echo $Servicio; ?>.png?v=<?php echo time(); ?>"
+            alt="<?php echo ucfirst($Servicio); ?>"
+            class="w-12 h-12 object-contain">
         </div>
+
 
         <h2 class="font-heading font-bold text-2xl text-blue-900 mb-4">
           <?php echo ucfirst($Servicio); ?>
@@ -200,10 +203,6 @@ $servicios = [
           <button class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrir-cotizador">
             🚀 Iniciar Cotización
           </button>
-
-
-
-
         <?php else: ?>
           <p class="text-red-500">No se encontró información para este servicio.</p>
         <?php endif; ?>
@@ -234,13 +233,14 @@ $servicios = [
         ];
         foreach ($servicios as $s) {
           if ($s === $Servicio) continue; // omitir el actual
-
         ?>
           <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
 
             <!-- Icono -->
             <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-              <img src="/Arsodus/assets/icon/<?php echo $s; ?>.png" alt="<?php echo ucfirst($s); ?>" class="w-12 h-12 object-contain">
+              <img src="../assets/icon/<?php echo $s; ?>.png?v=<?php echo time(); ?>"
+                alt="<?php echo ucfirst($s); ?>"
+                class="w-12 h-12 object-contain">
             </div>
 
             <!-- Título -->
@@ -360,7 +360,7 @@ $servicios = [
           <img src="/Arsodus/assets/img/Marcas/Optima.png" alt="Optima"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Playereetys.png" alt="Playereetys"
+          <img src="/Arsodus/assets/img/Marcas/Playertytees.png" alt="Playereetys"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
 
@@ -630,11 +630,12 @@ $servicios = [
           // Simular el clic en la tarjeta encontrada
           tecnicaEncontrada.click();
 
-          // Pasar a la fase 2 si no se abre directamente en ella
-          if (fase === 1) {
+          /* Pasar a la fase 2 si no se abre directamente en ella
+          /if (fase === 1) {
             fase = 2;
             renderFase();
-          }
+          }*/
+
         }
       }
     }

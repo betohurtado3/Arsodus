@@ -35,15 +35,25 @@
     <div class="max-w-7xl mx-auto flex items-center px-6">
 
       <!-- Menú izquierdo (solo desktop) -->
+      <!-- Menú izquierdo (solo desktop) -->
       <div class="flex-1 justify-center hidden md:flex">
-        <div class="flex space-x-8 font-raleway  text-gray-900">
-          <a href="/Arsodus/Index.php" class="font-raleway hover:text-indigo-600 transition">Inicio</a>
-
-          <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía" class="font-raleway  hover:text-indigo-600 transition">Servicios</a>
-
-
-          <a href="/Arsodus/Front/galeria.php" class="font-raleway  hover:text-indigo-600 transition">Galeria</a>
-          <a href="/Arsodus/Front/contacto.php" class="font-raleway  hover:text-indigo-600 transition">Contacto</a>
+        <div class="flex space-x-8 font-raleway text-gray-900">
+          <a href="/Arsodus/Index.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Inicio
+          </a>
+          <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Servicios
+          </a>
+          <a href="/Arsodus/Front/galeria.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Galería
+          </a>
+          <a href="/Arsodus/Front/contacto.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Contacto
+          </a>
         </div>
       </div>
 

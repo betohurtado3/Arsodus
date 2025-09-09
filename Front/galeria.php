@@ -26,36 +26,60 @@
   </div>
   <br>
 
-  <section class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-heading font-bold text-center mb-12">Proyectos</h2>
+  <section class="max-w-7xl mx-auto px-6 py-20">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Ejemplo de proyecto -->
-      <div class="group relative border rounded-lg overflow-hidden shadow-lg">
-        <img src="/Arsodus/assets/img/Proyectos/MartinsBach/bach2.png" alt="Martin’s Bach" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+    <!-- Título -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-heading font-extrabold text-gray-900 mb-4">
+        Proyectos Destacados
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Conoce algunos de los proyectos en los que hemos colaborado, aplicando distintas técnicas y estilos para dar vida a cada idea.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Proyecto -->
+      <div class="group relative overflow-hidden rounded-2xl shadow-lg">
+        <img src="/Arsodus/assets/img/Proyectos/MartinsBach/bach2.png"
+          alt="Martin’s Bach"
+          class="w-full h-72 object-cover transform transition-transform duration-500 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
           <h3 class="text-white text-2xl font-semibold">Martin’s Bach</h3>
-          <p class="text-white mt-2">Descripción breve del proyecto o técnica aplicada.</p>
-          <a href="/Arsodus/Front/proyecto.php?nombre=banch" class="mt-4 inline-block bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition">Conocer más</a>
+          <p class="text-gray-200 mt-2 text-sm">Serigrafía en textiles premium con detalles dorados.</p>
+          <a href="/Arsodus/Front/proyecto.php?nombre=bach"
+            class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
+            Conocer más →
+          </a>
         </div>
       </div>
 
       <!-- Otro proyecto -->
-      <div class="group relative border rounded-lg overflow-hidden shadow-lg">
-        <img src="/Arsodus/assets/img/Proyectos/Mindset/Mindset1.png" alt="Abundance is a mindset" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+      <div class="group relative overflow-hidden rounded-2xl shadow-lg">
+        <img src="/Arsodus/assets/img/Proyectos/Mindset/Mindset1.png"
+          alt="Abundance is a mindset"
+          class="w-full h-72 object-cover transform transition-transform duration-500 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
           <h3 class="text-white text-2xl font-semibold">Abundance is a mindset</h3>
-          <p class="text-white mt-2">Descripción breve del concepto o colores usados.</p>
-          <a href="/Arsodus//Front/proyecto.php?nombre=mindset" class="mt-4 inline-block bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-900 transition">Conocer más</a>
+          <p class="text-gray-200 mt-2 text-sm">Diseño minimalista con enfoque en tonos neutros.</p>
+          <a href="/Arsodus/Front/proyecto.php?nombre=mindset"
+            class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
+            Conocer más →
+          </a>
         </div>
       </div>
+
+      <!-- Puedes seguir agregando proyectos -->
     </div>
   </section>
 
 
 
-<br><br>
-<br><br>
+
+  <br><br>
+  <br><br>
 
   <!-- Footer -->
   <?php include 'footer.php'; ?>

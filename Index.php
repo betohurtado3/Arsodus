@@ -17,7 +17,6 @@ Actualizaciones pendientes:
 
   Servicios
   -> Imagenes representativas /// Pendiente del cliente
-  -> Carrusel de logos de marcas con las que trabajan
 
   Galeria:
   -> Mejor Acomodo de Imagenes
@@ -27,9 +26,7 @@ Actualizaciones pendientes:
   -> Agregar Iconos e información del proyecto
 
   General:
-  -> Homologar Iconos de los servicios
   -> Revisar ortografía y gramática
-  A
 */
 ?>
 <!DOCTYPE html>
@@ -62,29 +59,34 @@ Actualizaciones pendientes:
     <?php include 'navbar.php'; ?>
   </div>
 
-  <!-- Hero Section -->
   <div x-data="{ openModal: false }">
-    <section class="relative h-screen flex items-center justify-center text-center text-white">
+    <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
 
-      <!-- Video de fondo -->
-      <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+      <video autoplay loop muted playsinline
+        class="absolute inset-0 w-full h-full object-cover 
+                  filter blur-sm brightness-75 
+                  transition-all duration-700 ease-in-out 
+                  hover:filter-none hover:brightness-100">
         <source src="Media/Serigrafia.mp4" type="video/mp4">
       </video>
 
-      <!-- Sombra degradada -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
+      <div class="absolute inset-0 bg-black/30 transition-all duration-700 ease-in-out hover:bg-black/60"></div>
 
-      <!-- Contenido -->
-      <div class="relative z-10 max-w-2xl px-6">
-        <h1 class="font-raleway text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-          Dale vida a tu marca con <span class="text-[#fdfaf6]">Arsodus</span>
+      <div class="relative z-10 max-w-3xl px-6">
+
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-wide text-center">
+          Dale vida a tu marca con
+          <span class="ml-2 text-[#fdfaf6] animate-pulse">Arsodus</span>
         </h1>
-
-        <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md">
-          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior.
+  <br>
+        <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md opacity-90">
+          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior en <span class="font-semibold"> México</span>.
         </p>
         <button id="abrirCotizador"
-          class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-full 
+               shadow-lg hover:from-blue-700 hover:to-blue-900 
+               transform hover:scale-105 transition-all duration-300 ease-out 
+               focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75">
           Iniciar Cotización
         </button>
       </div>
@@ -122,12 +124,14 @@ Actualizaciones pendientes:
       <!-- Tarjeta Serigrafía -->
       <div class="flip-card h-72 group" data-servicio="serigrafia">
         <div class="flip-card-inner">
+
           <!-- FRONT -->
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m4 4h6a2 2 0 002-2v-4a2 2 0 00-2-2h-6a2 2 0 00-2 2v4a2 2 0 002 2z" />
-              </svg>
+              <img src="assets/icon/Serigrafía.png?v=<?php echo time(); ?>"
+                alt="Serigrafía"
+                class="w-10 h-10 object-contain">
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
@@ -156,11 +160,13 @@ Actualizaciones pendientes:
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
-              </svg>
+              <img src="assets/icon/Vinil.png?v=<?php echo time(); ?>"
+                alt="Vinil"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Vinil</h3>
             <p class="font-sans text-center text-gray-600">Cortes perfectos</p>
           </div>
@@ -182,11 +188,13 @@ Actualizaciones pendientes:
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-              </svg>
+              <img src="assets/icon/Sublimación.png?v=<?php echo time(); ?>"
+                alt="Sublimación"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Sublimación</h3>
             <p class="font-sans text-center text-gray-600"> Ideal para impresión en alta calidad</p>
           </div>
@@ -208,11 +216,13 @@ Actualizaciones pendientes:
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
+              <img src="assets/icon/Bordado.png?v=<?php echo time(); ?>"
+                alt="Bordado"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Bordado</h3>
             <p class="font-sans text-center text-gray-600"> Ideal para logos pequeños</p>
           </div>
@@ -234,11 +244,13 @@ Actualizaciones pendientes:
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-              </svg>
+              <img src="assets/icon/DTF.png?v=<?php echo time(); ?>"
+                alt="DTF"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">DTF</h3>
             <p class="font-sans text-center text-gray-600">Impresiones de diseños en alta definición </p>
           </div>
@@ -255,8 +267,6 @@ Actualizaciones pendientes:
           </div>
         </div>
       </div>
-
-
 
     </div>
   </section>
@@ -361,7 +371,8 @@ Actualizaciones pendientes:
 
     </div>
   </section>
- <!-- Animacion del carrusel  -->
+
+  <!-- Animacion del carrusel  -->
   <style>
     /* Animación marquee */
     @keyframes marquee {
@@ -383,50 +394,109 @@ Actualizaciones pendientes:
 
 
   <!--  Sección de Contacto: Formulario de Ideas -->
-  <section id="contacto" class="py-20 bg-[#fdfaf6]">
-    <div class="max-w-xl mx-auto px-6">
-      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl transform transition-transform duration-300 hover:scale-[1.01]">
+<section id="contacto" class="py-20 bg-gradient-to-br from-[#fdfaf6] to-gray-100 relative overflow-hidden">
+  
+  <div class="absolute inset-0 z-0 opacity-10">
+    <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="10" fill="#93C5FD"/>
+      <rect x="70" y="30" width="15" height="15" fill="#BFDBFE"/>
+      <path d="M40 80 L50 90 L60 80 Z" fill="#60A5FA"/>
+      <circle cx="85" cy="70" r="8" fill="#93C5FD"/>
+    </svg>
+  </div>
 
-        <!-- Título y subtítulo llamativos -->
-        <div class="text-center mb-6">
-          <h2 class="font-raleway text-3xl md:text-4xl font-extrabold text-blue-900 mb-2">
-            ¿Tienes una idea en mente?
-          </h2>
-          <p class="font-sans text-gray-700">
-            Platícame tu proyecto y hagámoslo realidad juntos.
-          </p>
-        </div>
+  <div class="max-w-3xl mx-auto px-6 relative z-10">
+    <div class="bg-white p-8 md:p-16 rounded-3xl shadow-2xl transform transition-transform duration-500 hover:scale-[1.01] hover:shadow-3xl border-t-4 border-blue-600">
 
-        <!-- Formulario de contacto -->
-        <form class="flex flex-col gap-4">
-          <!-- Campo de entrada para correo o teléfono -->
-          <!-- La estructura vertical se maneja con 'flex flex-col' en el contenedor del formulario. -->
-          <input
-            type="text"
-            placeholder="Correo o Teléfono"
-            class="font-sans w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
-
-          <!-- Área de texto para la idea -->
-          <textarea
-            placeholder="Platícame tu idea..."
-            rows="5"
-            class="font-sans w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 resize-none"></textarea>
-
-          <!-- Botón de envío -->
-          <button
-            type="submit"
-            class="font-sans w-full bg-blue-800 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors duration-200 transform hover:scale-105">
-            ¡Enviar Propuesta!
-          </button>
-        </form>
+      <div class="text-center mb-10">
+        <h2 class="font-raleway text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">
+          ¿Listo para transformar <span class="text-blue-600">tu idea</span> en realidad?
+        </h2>
+        <p class="font-montserrat text-lg text-gray-700 max-w-lg mx-auto animate-fade-in delay-200">
+          Tu visión es nuestro lienzo, Cuéntanos qué tienes en mente:
+        </p>
       </div>
 
-      <!-- Texto de confirmación -->
-      <p class="font-sans text-xs text-gray-500 mt-6 text-center">
-        En breve nos comunicaremos contigo.
-      </p>
+      <form class="flex flex-col gap-6">
+        <input
+          type="text"
+          placeholder="Cual es tu nombre?"
+          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400">
+
+        <input
+          type="text"
+          placeholder="Tu Correo o Teléfono"
+          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400">
+
+        <textarea
+          placeholder="Platícanos tu increíble idea o proyecto aquí..."
+          rows="7"
+          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out resize-y placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400"></textarea>
+
+        <button
+          type="submit"
+          class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
+                 px-8 py-4 rounded-xl shadow-xl hover:from-blue-800 hover:to-blue-950 
+                 transform hover:scale-105 transition-all duration-300 ease-out 
+                 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
+                 tracking-wide text-lg">
+          ¡Enviar Mi Propuesta Ahora!
+        </button>
+      </form>
     </div>
-  </section>
+
+    <p class="font-montserrat text-sm text-gray-600 mt-8 text-center animate-fade-in delay-500">
+      Tu mensaje es importante para nosotros. En breve, el equipo de Arsodus se comunicará contigo para discutir los detalles. ¡Gracias por confiar en nosotros!
+    </p>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+</style>
 
 
   <?php include 'Front/footer.php'; ?>

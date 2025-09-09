@@ -36,24 +36,34 @@
 
       <!-- Menú izquierdo (solo desktop) -->
       <div class="flex-1 justify-center hidden md:flex">
-        <div class="flex space-x-8 font-raleway  text-gray-900">
-          <a href="/Arsodus/Index.php" class="font-raleway hover:text-indigo-600 transition">Inicio</a>
-
-          <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía" class="font-raleway  hover:text-indigo-600 transition">Servicios</a>
-
-
-          <a href="/Arsodus/Front/galeria.php" class="font-raleway  hover:text-indigo-600 transition">Galeria</a>
-          <a href="/Arsodus/Front/contacto.php" class="font-raleway  hover:text-indigo-600 transition">Contacto</a>
+        <div class="flex space-x-8 font-raleway text-gray-900">
+          <a href="/Arsodus/Index.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Inicio
+          </a>
+          <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Servicios
+          </a>
+          <a href="/Arsodus/Front/galeria.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Galería
+          </a>
+          <a href="/Arsodus/Front/contacto.php"
+            class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
+            Contacto
+          </a>
         </div>
       </div>
 
+
       <!-- Logo centrado (siempre visible) -->
       <div class="flex-shrink-0 flex justify-center w-1/3">
-        <img 
-    src="<?php echo '/Arsodus/assets/img/LogoSinFondo.png'; ?>" 
-    alt="Arsodus" 
-    class="h-20 md:h-28 object-contain transition-all duration-300 hover:rotate-6 hover:scale-105">
-  </div>
+        <img
+          src="<?php echo '/Arsodus/assets/img/LogoSinFondo.png'; ?>"
+          alt="Arsodus"
+          class="h-20 md:h-28 object-contain transition-all duration-300 hover:rotate-6 hover:scale-105">
+      </div>
 
       <!-- Redes sociales (solo desktop) -->
       <div class="flex-1 justify-center hidden md:flex">
