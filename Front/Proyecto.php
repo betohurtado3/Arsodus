@@ -66,6 +66,49 @@ foreach ($imagenes as $img) {
       padding-top: 80px;
       /* Ajusta según la altura de tu navbar */
     }
+        /* Nuevo estilo para los títulos de sección */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      /* Usamos una fuente más moderna y amigable */
+      font-size: 2.5rem;
+      /* ~40px */
+      font-weight: 600;
+      /* Un peso medio, menos formal */
+      color: #154584;
+      /* Un gris más claro para un toque suave */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+      /* Espacio para la barra */
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      /* Transición para el color y el transform */
+    }
+
+    /* Efecto de barra inferior con seudoelemento ::after */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      /* Ancho de la barra */
+      height: 4px;
+      /* Grosor de la barra */
+      background-color: #1e3a8a;
+      /* Un color azul vibrante para destacar */
+      border-radius: 2px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    /* Efecto al pasar el cursor (hover) */
+    .section-title:hover {
+      color: #0f52bd;
+      /* Cambia a un azul un poco más oscuro y vibrante al hacer hover */
+      transform: translateY(-3px);
+      /* Se eleva ligeramente el texto */
+    }
   </style>
 </head>
 
@@ -80,9 +123,11 @@ foreach ($imagenes as $img) {
 
   <section class="max-w-5xl mx-auto px-6 py-16">
     <!-- Título principal -->
-    <h1 class="text-4xl font-extrabold text-center mb-8 tracking-tight">
-      <?php echo $proyecto['titulo']; ?>
-    </h1>
+    <div class="text-center mb-6">
+      <h2 class="section-title">
+        <?php echo $proyecto['titulo']; ?>
+      </h2>
+    </div>
 
     <!-- Breve descripción -->
     <p class="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-12 leading-relaxed">
@@ -154,10 +199,12 @@ foreach ($imagenes as $img) {
   <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-24" id="Cotizador">
     <div class="max-w-4xl mx-auto px-6 text-center">
 
-      <!-- Título -->
-      <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-        ¿Listo para darle vida a tu idea?
-      </h2>
+      <!-- Título principal -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          ¿Listo para darle vida a tu idea?
+        </h2>
+      </div>
 
       <!-- Texto secundario -->
       <p class="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
@@ -174,12 +221,8 @@ foreach ($imagenes as $img) {
   </section>
 
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>© 2025 Arsodus. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+ <!-- Footer -->
+  <?php include 'footer.php'; ?>
 
   <!-- Modal Cotizador -->
   <div id="cotizadorModal"

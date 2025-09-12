@@ -4,16 +4,8 @@ Actualizaciones pendientes:
   Navbar ojo, hay dos navbar xd
 
   Cotizador 
-  -> Textura en la fase 1 (Seleccion de telas)
-  -> Iconos para la fase 2 (Seleccion de tecnica)
-  -> En la Fase 4 Agregar un Input text area para agregar Comentarios de la Idea
-  -> Agregar fase 5 en donde se muestren 3 botones Correo o Whatsapp o Instagram para enviar la cotizacion
-    -> Cuando se seleccione la opcion, voltear la card y mostrar un formulario con los datos de contacto
-    -> Terminar cotizacion y enviar los datos a un correo o base de datos
+  - Agregar Opciones de Colores en la fase 1
   
-  
-  Referencias
-  -> Agregar diseño amigable fresco con comentarios
 
   Servicios
   -> Imagenes representativas /// Pendiente del cliente
@@ -24,6 +16,7 @@ Actualizaciones pendientes:
   ////////////////////////////////// Pendiente del cliente
   Proyecto(Individual):
   -> Agregar Iconos e información del proyecto
+  - Homologar diseño de titulos
 
   General:
   -> Revisar ortografía y gramática
@@ -47,9 +40,201 @@ Actualizaciones pendientes:
 
 
   <style>
-    body {
-      padding-top: 80px;
-      /* Ajusta según la altura de tu navbar */
+    /* Contenedor principal */
+    .testimonios-swiper {
+      overflow: hidden;
+      /* evita cortes en hover/sombra */
+      padding-bottom: 3rem;
+      /* espacio extra para sombras */
+    }
+
+    /* Cards */
+    .card-testimonio {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* centra verticalmente */
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-testimonio:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      z-index: 5;
+      /* para que sobresalga */
+    }
+
+    /* Flechas */
+    .custom-prev,
+    .custom-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    .custom-prev,
+    .custom-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      z-index: 20;
+      cursor: pointer;
+
+      /* Agregamos una transición para que el hover se vea más suave */
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .custom-prev {
+      left: -2.5rem;
+      /* flecha afuera */
+    }
+
+    .custom-next {
+      right: -2.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .custom-prev {
+        left: -1rem;
+      }
+
+      .custom-next {
+        right: -1rem;
+      }
+    }
+
+    /* Ajuste de opacidad lateral */
+    .swiper-slide {
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0.2;
+    }
+
+    .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .swiper-slide-next,
+    .swiper-slide-prev {
+      opacity: 0.5;
+    }
+
+    /* Flechas personalizadas */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #1e3a8a;
+      /* azul */
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      text-shadow: 0 0 10px rgba(30, 58, 138, 0.8);
+    }
+
+    /* Bullets */
+    .swiper-pagination-bullet {
+      background: #1e3a8a;
+      opacity: 0.4;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      transform: scale(1.3);
+    }
+
+
+    /* Nuevo estilo para los títulos de sección */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      /* Usamos una fuente más moderna y amigable */
+      font-size: 2.5rem;
+      /* ~40px */
+      font-weight: 600;
+      /* Un peso medio, menos formal */
+      color: #154584;
+      /* Un gris más claro para un toque suave */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+      /* Espacio para la barra */
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      /* Transición para el color y el transform */
+    }
+
+    /* Efecto de barra inferior con seudoelemento ::after */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      /* Ancho de la barra */
+      height: 4px;
+      /* Grosor de la barra */
+      background-color: #1e3a8a;
+      /* Un color azul vibrante para destacar */
+      border-radius: 2px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    /* Efecto al pasar el cursor (hover) */
+    .section-title:hover {
+      color: #0f52bd;
+      /* Cambia a un azul un poco más oscuro y vibrante al hacer hover */
+      transform: translateY(-3px);
+      /* Se eleva ligeramente el texto */
+    }
+
+    .section-title:hover::after {
+      width: 100px;
+      /* La barra se expande al pasar el cursor */
+    }
+
+    /* Media Query para tamaños de pantalla más grandes */
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 3.5rem;
+        /* ~56px en escritorio */
+      }
+
+      .section-title::after {
+        height: 5px;
+        /* Barra un poco más gruesa en desktop */
+      }
+    }
+
+    /* Animación Del Carrusel de iconos de clientes */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
     }
   </style>
 </head>
@@ -59,6 +244,7 @@ Actualizaciones pendientes:
     <?php include 'navbar.php'; ?>
   </div>
 
+  <!-- Hero Section -->
   <div x-data="{ openModal: false }">
     <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
 
@@ -78,7 +264,7 @@ Actualizaciones pendientes:
           Dale vida a tu marca con
           <span class="ml-2 text-[#fdfaf6] animate-pulse">Arsodus</span>
         </h1>
-  <br>
+        <br>
         <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md opacity-90">
           Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior en <span class="font-semibold"> México</span>.
         </p>
@@ -94,14 +280,14 @@ Actualizaciones pendientes:
   </div>
 
   <!-- Servicios con efecto flip 3D -->
-  <section id="servicios" class="py-20 max-w-7xl mx-auto px-4">
-
+  <section id="servicios" class="py-12 max-w-7xl mx-auto px-4">
     <div class="text-center mb-16 relative">
-      <!-- Título con efecto sombra dinámica -->
-      <h2 class="impact-heading">
-        Impulsa tu empresa con calidad
-      </h2>
-      <br><br>
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          Impulsa tu empresa con calidad
+        </h2>
+      </div>
+
       <!-- Descripción con expansión vertical -->
       <div class="overflow-hidden max-h-20 transition-all duration-500 hover:max-h-40 mx-auto max-w-2xl">
         <p
@@ -269,59 +455,15 @@ Actualizaciones pendientes:
       </div>
 
     </div>
-  </section>
-
-  <!-- Seccion de testimonios -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16" id="testimonios">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="impact-heading">
-          Lo que dicen de nosotros
-        </h2>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Card 1 -->
-        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
-          <p class="text-gray-700 mb-4 italic">
-            "Excelente calidad y tiempos de entrega. Perfecto para nuestros uniformes corporativos."
-          </p>
-          <div class="mt-auto">
-            <p class="font-semibold text-gray-900">Juan Pérez</p>
-            <p class="text-gray-500 text-sm">Gerente de Compras — Empresa XYZ</p>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
-          <p class="text-gray-700 mb-4 italic">
-            "La atención y el acabado superaron nuestras expectativas."
-          </p>
-          <div class="mt-auto">
-            <p class="font-semibold text-gray-900">María López</p>
-            <p class="text-gray-500 text-sm">Directora Comercial — Distribuidora ABC</p>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col">
-          <p class="text-gray-700 mb-4 italic">
-            "Gran comunicación y excelente servicio al cliente."
-          </p>
-          <div class="mt-auto">
-            <p class="font-semibold text-gray-900">Carlos Ramírez</p>
-            <p class="text-gray-500 text-sm">CEO — StartUp Design</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br>
   </section>
 
   <!-- Seccion de Clientes -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-10">
     <div class="max-w-7xl mx-auto px-6">
-
-      <div class="text-center mb-12">
-        <h2 class="impact-heading">
+      <!-- Titulo -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
           Nuestros Clientes
         </h2>
       </div>
@@ -372,131 +514,247 @@ Actualizaciones pendientes:
     </div>
   </section>
 
-  <!-- Animacion del carrusel  -->
-  <style>
-    /* Animación marquee */
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
+  <!-- Sección Testimonios -->
+  <section class="testimonios py-10 relative bg-gradient-to-r from-blue-50 to-indigo-100">
+    <div class="max-w-7xl mx-auto px-6 relative">
 
-      100% {
-        transform: translateX(-50%);
-      }
-    }
+      <!-- Título -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          Sus Comentarios
+        </h2>
+      </div>
 
-    .animate-marquee {
-      display: flex;
-      width: max-content;
-      animation: marquee 25s linear infinite;
-    }
-  </style>
+      <!-- Swiper -->
+      <div class="swiper-container testimonios-swiper">
+        <br>
+        <div class="swiper-wrapper">
+
+          <!-- Card 1 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "La mejor calidad, tiempo de entrega ideal
+                Muy buena atención"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Isabel T.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Excelente calidad y diseños increíbles"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★
+              </div>
+              <p class="font-bold text-center">Alejandra B.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Nos tienes increíblemente contentos con tu trabajo, que buena calidad, mil gracias ✨"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Aura J.</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "10 de 10, excelente calidad en los diseños y las telas, quedan increíbles a la hora de usarlas, muy satisfecho con el producto."
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Uriel H.</p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Excelentes trabajos y diseños, manejan calidad de
+                10/10 🥵🤩
+                para qué comprar en tiendas de diseñadores caros, si ARSODUS te da mejor calidad
+                en telas."
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Gian C.</p>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">"Manejan telas de muy buena calidad y ni se diga del gran trabajo en la serigrafia, muy de mega maaaas, excelente servicio y atención siempre 🤌🏽👍🏽"</p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Pilar L.</p>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Me encanto la calidad, tamaño y diseño de las prendas, recomiendo demasiado, super cómodas. "
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Heriberto H.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Flechas -->
+      <!-- Botones de navegación -->
+      <div class="swiper-button-next custom-next"></div>
+      <div class="swiper-button-prev custom-prev"></div>
+
+      <!-- Bullets -->
+      <div class="swiper-pagination mt-8"></div>
+    </div>
+    </div>
+  </section>
+
+
 
 
   <!--  Sección de Contacto: Formulario de Ideas -->
-<section id="contacto" class="py-20 bg-gradient-to-br from-[#fdfaf6] to-gray-100 relative overflow-hidden">
-  
-  <div class="absolute inset-0 z-0 opacity-10">
-    <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="10" fill="#93C5FD"/>
-      <rect x="70" y="30" width="15" height="15" fill="#BFDBFE"/>
-      <path d="M40 80 L50 90 L60 80 Z" fill="#60A5FA"/>
-      <circle cx="85" cy="70" r="8" fill="#93C5FD"/>
-    </svg>
-  </div>
+  <section id="contacto" class="py-20 bg-gradient-to-br from-[#fdfaf6] to-gray-100 relative overflow-hidden">
 
-  <div class="max-w-3xl mx-auto px-6 relative z-10">
-    <div class="bg-white p-8 md:p-16 rounded-3xl shadow-2xl transform transition-transform duration-500 hover:scale-[1.01] hover:shadow-3xl border-t-4 border-blue-600">
+    <div class="absolute inset-0 z-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="10" fill="#93C5FD" />
+        <rect x="70" y="30" width="15" height="15" fill="#BFDBFE" />
+        <path d="M40 80 L50 90 L60 80 Z" fill="#60A5FA" />
+        <circle cx="85" cy="70" r="8" fill="#93C5FD" />
+      </svg>
+    </div>
 
-      <div class="text-center mb-10">
-        <h2 class="font-raleway text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">
-          ¿Listo para transformar <span class="text-blue-600">tu idea</span> en realidad?
-        </h2>
-        <p class="font-montserrat text-lg text-gray-700 max-w-lg mx-auto animate-fade-in delay-200">
-          Tu visión es nuestro lienzo, Cuéntanos qué tienes en mente:
-        </p>
+    <div class="max-w-3xl mx-auto px-6 relative z-10">
+      <div class="bg-white p-8 md:p-16 rounded-3xl shadow-2xl transform transition-transform duration-500 hover:scale-[1.01] hover:shadow-3xl border-t-4 border-blue-600">
+
+        <div class="text-center mb-10">
+
+          <h2 class="font-Poppins text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">
+            ¿Listo para transformar <span class="text-blue-600">tu idea</span> en realidad?
+            
+          </h2>
+
+
+                <div class="text-center mb-6">
+        
       </div>
 
-      <form class="flex flex-col gap-6">
-        <input
-          type="text"
-          placeholder="Cual es tu nombre?"
-          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+          <p class="font-montserrat text-lg text-gray-700 max-w-lg mx-auto animate-fade-in delay-200">
+            Tu visión es nuestro lienzo, Cuéntanos qué tienes en mente:
+          </p>
+        </div>
+
+        <form class="flex flex-col gap-6">
+          <input
+            type="text"
+            placeholder="Cual es tu nombre?"
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
                  focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
                  transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
                  shadow-sm hover:shadow-md hover:border-blue-400">
 
-        <input
-          type="text"
-          placeholder="Tu Correo o Teléfono"
-          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+          <input
+            type="text"
+            placeholder="Tu Correo o Teléfono"
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
                  focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
                  transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
                  shadow-sm hover:shadow-md hover:border-blue-400">
 
-        <textarea
-          placeholder="Platícanos tu increíble idea o proyecto aquí..."
-          rows="7"
-          class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+          <textarea
+            placeholder="Platícanos tu increíble idea o proyecto aquí..."
+            rows=""
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
                  focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
                  transition-all duration-300 ease-in-out resize-y placeholder-gray-500 text-gray-800
                  shadow-sm hover:shadow-md hover:border-blue-400"></textarea>
 
-        <button
-          type="submit"
-          class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
+          <button
+            type="submit"
+            class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
                  px-8 py-4 rounded-xl shadow-xl hover:from-blue-800 hover:to-blue-950 
                  transform hover:scale-105 transition-all duration-300 ease-out 
                  focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                  tracking-wide text-lg">
-          ¡Enviar Mi Propuesta Ahora!
-        </button>
-      </form>
+            ¡Enviar Mi Propuesta Ahora!
+          </button>
+        </form>
+      </div>
+
+      <p class="font-montserrat text-sm text-gray-600 mt-8 text-center animate-fade-in delay-500">
+        Tu mensaje es importante para nosotros. En breve, el equipo de Arsodus se comunicará contigo para discutir los detalles. ¡Gracias por confiar en nosotros!
+      </p>
     </div>
+  </section>
 
-    <p class="font-montserrat text-sm text-gray-600 mt-8 text-center animate-fade-in delay-500">
-      Tu mensaje es importante para nosotros. En breve, el equipo de Arsodus se comunicará contigo para discutir los detalles. ¡Gracias por confiar en nosotros!
-    </p>
-  </div>
-</section>
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
 
-<style>
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
+    .animate-fade-in-down {
+      animation: fadeInDown 0.8s ease-out forwards;
     }
-    to {
-      opacity: 1;
+
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
     }
-  }
 
-  .animate-fade-in-down {
-    animation: fadeInDown 0.8s ease-out forwards;
-  }
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
 
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-
-  .delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .delay-500 {
-    animation-delay: 0.5s;
-  }
-</style>
+    .delay-500 {
+      animation-delay: 0.5s;
+    }
+  </style>
 
 
   <?php include 'Front/footer.php'; ?>
@@ -520,10 +778,12 @@ Actualizaciones pendientes:
 
 
       <div class="mb-6 flex items-center justify-between">
+
         <div class="flex flex-col items-center">
           <div id="paso1" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-blue-500 bg-blue-500 text-white">1</div>
           <span class="mt-2 text-xs font-medium text-gray-500">Tela</span>
         </div>
+
         <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
         <div class="flex flex-col items-center">
           <div id="paso2" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">2</div>
@@ -542,58 +802,104 @@ Actualizaciones pendientes:
           <div id="paso4" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
           <span class="mt-2 text-xs font-medium text-gray-500">Resumen</span>
         </div>
+
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso5" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Finalizar</span>
+        </div>
+
+
       </div>
 
       <!-- Contenido Fase 1 -->
       <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+
+        <!-- Algodón -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Algodón","precio":70}'>
-          <h3 class="font-semibold">Algodón</h3>
-          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Algodon.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón</h3>
+          <p class="text-sm text-gray-500 relative z-10">Suavidad y comodidad. $60 - $80</p>
         </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Popelina","precio":50}'>
-          <h3 class="font-semibold">Popelina</h3>
-          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
+
+        <!-- Algodón Poliéster -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Algodón poliéster","precio":65}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('assets/img/textures/AlgoPol.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón Poliéster</h3>
+          <p class="text-sm text-gray-500 relative z-10">Durabilidad y confort. $55 - $75</p>
         </div>
+
+        <!-- Poliéster -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Poliéster","precio":50}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Poliester.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Poliéster</h3>
+          <p class="text-sm text-gray-500 relative z-10">Resistencia y ligereza. $40 - $60</p>
+        </div>
+
+        <!-- Algodón Poliéster Nylon -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Algodón poliéster nylon","precio":80}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Nylon.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón Poliéster Nylon</h3>
+          <p class="text-sm text-gray-500 relative z-10">Máxima resistencia y estilo. $70 - $90</p>
+        </div>
+
       </div>
 
-      <!-- Contenido Fase 2 -->
+
       <!-- Contenido Fase 2 -->
       <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
 
-
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- Serigrafía -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Serigrafía","extra":30}'>
-          <h3 class="font-semibold">Serigrafía</h3>
-          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Serigrafia.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Serigrafía</h3>
+          <p class="text-sm text-gray-500 relative z-10">Colores sólidos, +$30</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- DTF -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"DTF","extra":15}'>
-          <h3 class="font-semibold">DTF</h3>
-          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/DTF.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">DTF</h3>
+          <p class="text-sm text-gray-500 relative z-10">Calidad de impresión, +$15</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- Bordado -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Bordado","extra":40}'>
-          <h3 class="font-semibold">Bordado</h3>
-          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Bordado.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Bordado</h3>
+          <p class="text-sm text-gray-500 relative z-10">Durabilidad, +$40</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Sublimación","extra":40}'>
-          <h3 class="font-semibold">Sublimación</h3>
-          <p class="text-sm text-gray-500">Alta Calidad, +$45</p>
+        <!-- Sublimación -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tecnica='{"nombre":"Sublimación","extra":45}'>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/sublimacion.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Sublimación</h3>
+          <p class="text-sm text-gray-500 relative z-10">Alta Calidad, +$45</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Vinil","extra":40}'>
-          <h3 class="font-semibold">Vinil</h3>
-          <p class="text-sm text-gray-500">Permanencia, +$30</p>
+        <!-- Vinil -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tecnica='{"nombre":"Vinil","extra":30}'>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/vinil.avif')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Vinil</h3>
+          <p class="text-sm text-gray-500 relative z-10">Permanencia, +$30</p>
         </div>
 
       </div>
+
 
       <!-- Contenido Fase 3 -->
       <div id="fase3" class="hidden">
@@ -630,15 +936,58 @@ Actualizaciones pendientes:
               alt="Diseño subido">
           </div>
         </div>
+      </div>
+      <!-- Contenido Fase 5 -->
+      <div id="fase5" class="hidden mt-4">
+        <h3 class="text-lg font-bold mb-4 text-center">Finaliza tu Cotización</h3>
 
-        <!-- Botón Finalizar -->
-        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+        <form id="formCotizacion" action="Back/Cotizacion.php" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-lg mx-auto">
+          <!-- Nombre -->
+          <input type="text" id="nombre" name="nombre" required
+            placeholder="Tu nombre"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-          <button id="completarCotizacion"
-            class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
-            Completar Cotización
+          <!-- Selector contacto -->
+          <div class="flex items-center justify-center gap-6 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="contactoTipo" value="correo" checked />
+              <span>Correo</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="contactoTipo" value="whatsapp" />
+              <span>WhatsApp</span>
+            </label>
+          </div>
+
+          <!-- Correo -->
+          <input type="email" id="correo" name="correo" placeholder="Correo electrónico"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+
+          <!-- WhatsApp -->
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+52 55 1234 5678"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none hidden" />
+
+          <!-- Mensaje -->
+          <textarea id="mensaje" name="mensaje" rows="2"
+            placeholder="Cuéntanos tu idea..."
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+
+          <!-- 🔥 Inputs ocultos para pasar datos del cotizador -->
+          <input type="hidden" name="tela" id="inputTela" />
+          <input type="hidden" name="tecnica" id="inputTecnica" />
+          <input type="hidden" name="cantidad" id="inputCantidadHidden" />
+          <input type="hidden" name="total" id="inputTotal" />
+
+          <!-- Para la imagen -->
+          <input type="hidden" name="imagenBase64" id="inputImagenHidden" />
+
+          <!-- Botón enviar -->
+          <button type="submit"
+            class="btnContinuar w-full py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition text-sm">
+            Enviar Cotización
           </button>
-        </div>
+        </form>
+
       </div>
 
       <!-- Navegación -->
@@ -648,12 +997,48 @@ Actualizaciones pendientes:
         <button id="btnContinuar"
           class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
       </div>
+
     </div>
   </div>
 
   <!-- ------------------------------ Scripts ------------------------------------------ -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+  <!-- SwiperJS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".testimonios-swiper", {
+      slidesPerView: 3, // siempre mostrar 3
+      spaceBetween: 30,
+      grabCursor: true,
+      loop: true, // 🔥 permite ir hacia la izquierda y derecha sin fin
+      centeredSlides: true, // 🔥 centra siempre el slide activo
+      navigation: {
+        nextEl: ".custom-next",
+        prevEl: ".custom-prev",
+      },
+      effect: "coverflow", // 🔥 da profundidad tipo carrusel
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 120,
+        modifier: 1,
+        slideShadows: false,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  </script>
 
   <!-- Scripts para el Modal del Cotizador -->
   <script>
@@ -692,6 +1077,7 @@ Actualizaciones pendientes:
     const fase2 = document.getElementById('fase2');
     const fase3 = document.getElementById('fase3');
     const fase4 = document.getElementById('fase4');
+    const fase5 = document.getElementById('fase5');
 
     // Resumen fase 4
     const resumenTela = document.getElementById('resumenTela');
@@ -705,7 +1091,10 @@ Actualizaciones pendientes:
     const faseTitulo = document.getElementById('faseTitulo');
     const faseDescripcion = document.getElementById('faseDescripcion');
 
-
+    const radios = document.querySelectorAll('input[name="contactoTipo"]');
+    const correoInput = document.getElementById('correo');
+    const whatsappInput = document.getElementById('whatsapp');
+    const formCotizacion = document.getElementById("formCotizacion");
 
     // Variables globales
     let fase = 1;
@@ -799,6 +1188,45 @@ Actualizaciones pendientes:
       setTimeout(validarCantidad, 100);
     }
 
+    // Cambiar entre correo y whats
+    radios.forEach(r => {
+      r.addEventListener('change', () => {
+        if (r.value === "correo") {
+          correoInput.classList.remove("hidden");
+          whatsappInput.classList.add("hidden");
+        } else {
+          correoInput.classList.add("hidden");
+          whatsappInput.classList.remove("hidden");
+        }
+      });
+    });
+
+
+
+    formCotizacion.addEventListener("submit", (e) => {
+      // Pasar tela, técnica y cantidad
+      document.getElementById("inputTela").value = seleccion.tela?.nombre || "";
+      document.getElementById("inputTecnica").value = seleccion.tecnica?.nombre || "";
+      document.getElementById("inputCantidadHidden").value = seleccion.cantidad || "";
+
+      const base = seleccion.tela?.precio || 0;
+      const extra = seleccion.tecnica?.extra || 0;
+      const total = (base + extra) * (seleccion.cantidad || 1);
+      document.getElementById("inputTotal").value = total;
+
+      // Pasar imagen como base64
+      if (seleccion.imagen) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          document.getElementById("inputImagenHidden").value = ev.target.result;
+          formCotizacion.submit(); // 🔥 reenvía el form cuando ya está la imagen lista
+        };
+        reader.readAsDataURL(seleccion.imagen);
+
+        e.preventDefault(); // Evita enviar antes de convertir la imagen
+      }
+    });
+
     // Función para validar el estado del botón continuar
     function validarFaseActual() {
       let esValido = false;
@@ -815,6 +1243,9 @@ Actualizaciones pendientes:
           break;
         case 4:
           esValido = true; // En la fase 4 siempre se puede continuar
+          break;
+        case 5:
+          esValido = true;
           break;
       }
 
@@ -838,7 +1269,7 @@ Actualizaciones pendientes:
     if (btnContinuar) {
       btnContinuar.addEventListener('click', () => {
         if (validarFase()) { // Validar que los datos de la fase actual sean correctos
-          if (fase < 4) { // Solo avanza si no es la última fase
+          if (fase < 5) { // Solo avanza si no es la última fase
             fase++; // Incrementar contador de fase
             renderFase(); // Renderizar contenido correspondiente
             validarFaseActual(); // Ejecutar validación específica de la nueva fase
@@ -863,7 +1294,7 @@ Actualizaciones pendientes:
     // Función para renderizar el contenido de cada fase
     function renderFase() {
       // Ocultar todas las fases
-      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+      ['fase1', 'fase2', 'fase3', 'fase4', 'fase5'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.classList.add('hidden');
       });
@@ -874,11 +1305,12 @@ Actualizaciones pendientes:
 
       // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
       const info = fasesInfo[fase];
+      console.log(info)
       if (faseTitulo) faseTitulo.textContent = info.titulo;
       if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
 
       // Lógica de la barra de progreso
-      const pasos = ['paso1', 'paso2', 'paso3', 'paso4'];
+      const pasos = ['paso1', 'paso2', 'paso3', 'paso4', 'paso5'];
       pasos.forEach((pasoId, index) => {
         const pasoElement = document.getElementById(pasoId);
         if (pasoElement) {
@@ -894,7 +1326,7 @@ Actualizaciones pendientes:
 
       // Mostrar u ocultar botón "Continuar" dependiendo de la fase
       if (btnContinuar) {
-        if (fase === 4) {
+        if (fase === 5) {
           btnContinuar.classList.add('hidden');
         } else {
           btnContinuar.classList.remove('hidden');
@@ -917,6 +1349,8 @@ Actualizaciones pendientes:
           reader.onload = ev => resumenImg.src = ev.target.result;
           reader.readAsDataURL(seleccion.imagen);
         }
+
+        console.log("Resumen actualizado", resumenTotal);
       }
     }
 
@@ -943,13 +1377,12 @@ Actualizaciones pendientes:
     setTimeout(() => {
       validarFaseActual();
     }, 100);
-  </script>
 
 
-  <script>
     feather.replace();
     renderFase();
   </script>
+  
 </body>
 
 </html>

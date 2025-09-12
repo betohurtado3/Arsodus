@@ -1,3 +1,15 @@
+/*
+General:
+*/
+body {
+  padding-top: 80px;
+  /* Ajusta según la altura de tu navbar */
+}
+
+/*
+Animaciòn Para las Flip Cards:
+*/
+
 [x-cloak] {
   display: none !important;
 }
@@ -35,25 +47,29 @@
 Animaciòn Para las Flip Cards:
 */
 .card-appear {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: all 0.6s ease-out;
-  }
-  
-  .card-appear.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.6s ease-out;
+}
+
+.card-appear.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 /*
 CLOSE  -- Animaciòn Para las Flip Cards:
 */
 
 .impact-heading {
-  font-size: 2.2rem; /* ~35px */
-  font-weight: 650; /* más ligero que 800 */
-  letter-spacing: 0.5px; /* da aire entre letras */
-  color: #111827; /* gris oscuro, no negro plano */
+  font-size: 2.2rem;
+  /* ~35px */
+  font-weight: 650;
+  /* más ligero que 800 */
+  letter-spacing: 0.5px;
+  /* da aire entre letras */
+  color: #111827;
+  /* gris oscuro, no negro plano */
   text-align: center;
   position: relative;
   display: inline-block;
@@ -69,12 +85,84 @@ CLOSE  -- Animaciòn Para las Flip Cards:
 }
 
 .impact-heading:hover {
-  color: #1d4ed8; /* azul fuerte al hover */
+  color: #1d4ed8;
+  /* azul fuerte al hover */
   transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
   .impact-heading {
-    font-size: 3rem; /* ~48px en desktop */
+    font-size: 3rem;
+    /* ~48px en desktop */
   }
 }
+
+
+
+
+/*
+Open  -- Titulos
+*/
+    /* Nuevo estilo para los títulos de sección */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      /* Usamos una fuente más moderna y amigable */
+      font-size: 2.5rem;
+      /* ~40px */
+      font-weight: 600;
+      /* Un peso medio, menos formal */
+      color: #154584;
+      /* Un gris más claro para un toque suave */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+      /* Espacio para la barra */
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      /* Transición para el color y el transform */
+    }
+
+    /* Efecto de barra inferior con seudoelemento ::after */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      /* Ancho de la barra */
+      height: 4px;
+      /* Grosor de la barra */
+      background-color: #1e3a8a;
+      /* Un color azul vibrante para destacar */
+      border-radius: 2px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    /* Efecto al pasar el cursor (hover) */
+    .section-title:hover {
+      color: #0f52bd;
+      /* Cambia a un azul un poco más oscuro y vibrante al hacer hover */
+      transform: translateY(-3px);
+      /* Se eleva ligeramente el texto */
+    }
+
+    .section-title:hover::after {
+      width: 100px;
+      /* La barra se expande al pasar el cursor */
+    }
+
+    /* Media Query para tamaños de pantalla más grandes */
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 3.5rem;
+        /* ~56px en escritorio */
+      }
+
+      .section-title::after {
+        height: 5px;
+        /* Barra un poco más gruesa en desktop */
+      }
+    }
+
+

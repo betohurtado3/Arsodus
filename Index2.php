@@ -1,21 +1,36 @@
 <?php
-/*      
-      1.- Mensaje Pequeño para incitar al hacer el click el las flipcards
-      2.- Modales para listado de información de las flipcards
-      3.- Logos de Marcas que se usan
-      4.- Logos de marcas con las que se han trabajado
-      5.- Reseñas - Diseño/Estructura
-      6.- Contacto Rapido, Newsleetter Llamativo 
-      7.- Footer con enlaces Rapidos
-      8.- IDEA CAMISAS INTERACTIVAS
-        - Diseños con zoom de las camisas para ver telas
-        - Modal de las camisas para tener Información
-        - Camisa en 3D
+/*    
+Actualizaciones pendientes:
+  Navbar ojo, hay dos navbar xd
 
+  Cotizador 
+  -> Textura en la fase 1 (Seleccion de telas)
+  -> Iconos para la fase 2 (Seleccion de tecnica)
+  -> En la Fase 4 Agregar un Input text area para agregar Comentarios de la Idea
+  -> Agregar fase 5 en donde se muestren 3 botones Correo o Whatsapp o Instagram para enviar la cotizacion
+    -> Cuando se seleccione la opcion, voltear la card y mostrar un formulario con los datos de contacto
+    -> Terminar cotizacion y enviar los datos a un correo o base de datos
+  
+  
+  Referencias
+  -> Agregar diseño amigable fresco con comentarios
+
+  Servicios
+  -> Imagenes representativas /// Pendiente del cliente
+
+  Galeria:
+  -> Mejor Acomodo de Imagenes
+
+  ////////////////////////////////// Pendiente del cliente
+  Proyecto(Individual):
+  -> Agregar Iconos e información del proyecto
+
+  General:
+  -> Revisar ortografía y gramática
 */
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
 <!-- Header-->
 
 <head>
@@ -24,416 +39,258 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
-  
+  <script src="//unpkg.com/alpinejs" defer></script>
 
   <title>Arsodus</title>
   <link rel="icon" type="image/png" href="assets/img/LogoSinFondo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="//unpkg.com/alpinejs" defer></script>
+
 
   <style>
-    body {
-      padding-top: 80px;
-      /* Ajusta según la altura de tu navbar */
+    /* Contenedor principal */
+    .testimonios-swiper {
+      overflow: visible !important;
+      /* evita cortes en hover/sombra */
+      padding-bottom: 3rem;
+      /* espacio extra para sombras */
+    }
+
+    /* Cards */
+    .card-testimonio {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* centra verticalmente */
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-testimonio:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      z-index: 5;
+      /* para que sobresalga */
+    }
+
+    /* Flechas */
+    .custom-prev,
+    .custom-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    .custom-prev::after,
+    .custom-next::after {
+      font-size: 18px;
+      color: #1e3a8a;
+      /* azul */
+      font-weight: bold;
+    }
+
+    .custom-prev {
+      left: -2.5rem;
+      /* flecha afuera */
+    }
+
+    .custom-next {
+      right: -2.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .custom-prev {
+        left: -1rem;
+      }
+
+      .custom-next {
+        right: -1rem;
+      }
+    }
+
+    /* Ajuste de opacidad lateral */
+    .swiper-slide {
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0.2;
+    }
+
+    .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .swiper-slide-next,
+    .swiper-slide-prev {
+      opacity: 0.5;
+    }
+
+    /* Flechas personalizadas */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #1e3a8a;
+      /* azul */
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 10px rgba(30, 58, 138, 0.7);
+    }
+
+    /* Bullets */
+    .swiper-pagination-bullet {
+      background: #1e3a8a;
+      opacity: 0.4;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      transform: scale(1.3);
+    }
+
+
+    /* Nuevo estilo para los títulos de sección */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      /* Usamos una fuente más moderna y amigable */
+      font-size: 2.5rem;
+      /* ~40px */
+      font-weight: 500;
+      /* Un peso medio, menos formal */
+      color: #374151;
+      /* Un gris más claro para un toque suave */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+      /* Espacio para la barra */
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      /* Transición para el color y el transform */
+    }
+
+    /* Efecto de barra inferior con seudoelemento ::after */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      /* Ancho de la barra */
+      height: 4px;
+      /* Grosor de la barra */
+      background-color: #1e3a8a;
+      /* Un color azul vibrante para destacar */
+      border-radius: 2px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    /* Efecto al pasar el cursor (hover) */
+    .section-title:hover {
+      color: #1e3a8a;
+      /* Cambia a un azul un poco más oscuro y vibrante al hacer hover */
+      transform: translateY(-3px);
+      /* Se eleva ligeramente el texto */
+    }
+
+    .section-title:hover::after {
+      width: 100px;
+      /* La barra se expande al pasar el cursor */
+    }
+
+    /* Media Query para tamaños de pantalla más grandes */
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 3.5rem;
+        /* ~56px en escritorio */
+      }
+
+      .section-title::after {
+        height: 5px;
+        /* Barra un poco más gruesa en desktop */
+      }
+    }
+
+        /* Animación Del Carrusel de iconos */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-[#fdfaf6]">
   <div id="inicio">
-    <?php include 'navbar.php'; 
-    ?>
+    <?php include 'navbar.php'; ?>
   </div>
 
-  <!-- 
-  Hero Section
-   -->
+  <!-- Hero Section -->
   <div x-data="{ openModal: false }">
-    <section class="relative h-screen flex items-center justify-center text-center text-white">
+    <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
 
-      <!-- Video de fondo -->
-      <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+      <video autoplay loop muted playsinline
+        class="absolute inset-0 w-full h-full object-cover 
+                  filter blur-sm brightness-75 
+                  transition-all duration-700 ease-in-out 
+                  hover:filter-none hover:brightness-100">
         <source src="Media/Serigrafia.mp4" type="video/mp4">
       </video>
 
-      <!-- Sombra degradada -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
+      <div class="absolute inset-0 bg-black/30 transition-all duration-700 ease-in-out hover:bg-black/60"></div>
 
-      <!-- Contenido -->
-      <div class="relative z-10 max-w-2xl px-6">
-        <h1 class="font-raleway text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-          Dale vida a tu marca con <span class="text-[#fdfaf6]">Arsodus</span>
+      <div class="relative z-10 max-w-3xl px-6">
+
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-wide text-center">
+          Dale vida a tu marca con
+          <span class="ml-2 text-[#fdfaf6] animate-pulse">Arsodus</span>
         </h1>
-        <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md">
-          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior.
+        <br>
+        <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md opacity-90">
+          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior en <span class="font-semibold"> México</span>.
         </p>
         <button id="abrirCotizador"
-          class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-full 
+               shadow-lg hover:from-blue-700 hover:to-blue-900 
+               transform hover:scale-105 transition-all duration-300 ease-out 
+               focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75">
           Iniciar Cotización
         </button>
       </div>
     </section>
-
-    <!-- Modal de contacto con efecto neon -->
-    <div
-      x-show="openModal"
-      x-transition:enter="ease-out duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="ease-in duration-200"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      x-cloak
-      class="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-sm">
-
-      <div @click.away="openModal = false"
-        x-transition:enter="ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        class="bg-[#fdfaf6] rounded-2xl p-6 sm:p-8 w-[90%] max-w-md mx-4 shadow-xl relative transition-all duration-300 transform hover:shadow-2xl">
-
-        <!-- Botón cerrar -->
-        <button @click="openModal = false"
-          class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors duration-200 transform hover:scale-110 active:scale-95">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <h2 class="Font-raleway text-2xl md:text-3xl font-bold text-blue-900 mb-6 leading-tight">¡Platiquemos tu idea!</h2>
-
-        <form class="space-y-5" method="POST" action="enviar.php">
-          <!-- Input Nombre con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Nombre:</label>
-            <div class="relative">
-              <input type="text" name="nombre"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative"
-                required>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Input Contacto con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Teléfono o Correo:</label>
-            <div class="relative">
-              <input type="text" name="contacto"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative"
-                required>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Textarea con efecto neon -->
-          <div class="relative group">
-            <label class="font-montserrat block text-blue-900 font-medium mb-1 transition-all duration-300 group-focus-within:text-blue-700">Cuéntame tu idea:</label>
-            <div class="relative">
-              <textarea name="mensaje"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-800/30 transition-all duration-300 bg-white/90 z-10 relative min-h-[120px]"
-                required></textarea>
-              <div class="absolute inset-0 rounded-xl bg-blue-800/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 blur-[2px]"></div>
-              <div class="absolute inset-0 rounded-xl shadow-[0_0_8px_-2px_rgba(30,64,175,0.3)] group-hover:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] group-focus-within:shadow-[0_0_12px_-2px_rgba(30,64,175,0.5)] transition-all duration-500"></div>
-            </div>
-          </div>
-
-          <!-- Botones -->
-          <div class="flex justify-end space-x-3 pt-2">
-            <button type="button"
-              @click="openModal = false"
-              class="px-5 py-2.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-700 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md">
-              Cerrar
-            </button>
-            <button type="submit"
-              class="px-5 py-2.5 rounded-xl bg-blue-800 text-[#fdfaf6] hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md hover:shadow-blue-800/30 relative overflow-hidden group">
-              <span class="Font-raleway relative z-10">Enviar</span>
-              <span class="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
   </div>
 
-  <!-- =========================
-  COTIZADOR (Sección + Modal)
-  Ahora con Fase 2: Técnica
-========================== -->
-  <!-- Botón para abrir el modal -->
-  <section class="py-20 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-6">Dale vida a tu idea</h2>
-    <button id="abrirCotizador"
-      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-      Iniciar Cotización
-    </button>
-  </section>
-
-  <!-- Modal Cotizador -->
-  <div id="cotizadorModal"
-    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative">
-
-      <!-- Cerrar modal -->
-      <button id="cerrarModal"
-        class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
-
-      <!-- Header -->
-      <h2 class="text-2xl font-bold mb-2" id="faseTitulo">Fase 1</h2>
-      <p class="text-gray-600 mb-1" id="faseSubtitulo">Selecciona la tela</p>
-      <p class="text-sm text-gray-500 cursor-pointer hover:underline" id="faseProgreso">
-        Paso <span id="faseActual">1</span> de 4
-      </p>
-      <p class="text-gray-500 mb-6" id="faseDescripcion">
-        Elige el material para tu prenda.
-      </p>
-
-      <!-- Contenido Fase 1 -->
-      <!-- Contenido Fase 1 -->
-      <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Algodón","precio":70}'>
-          <h3 class="font-semibold">Algodón</h3>
-          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Popelina","precio":50}'>
-          <h3 class="font-semibold">Popelina</h3>
-          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
-        </div>
-      </div>
-
-
-      <!-- Contenido Fase 2 -->
-      <!-- Contenido Fase 2 -->
-      <div id="fase2" class="grid grid-cols-1 sm:grid-cols-3 gap-4 hidden">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Serigrafía","extra":30}'>
-          <h3 class="font-semibold">Serigrafía</h3>
-          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"DTF","extra":15}'>
-          <h3 class="font-semibold">DTF</h3>
-          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
-        </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Bordado","extra":40}'>
-          <h3 class="font-semibold">Bordado</h3>
-          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
-        </div>
-      </div>
-
-      <!-- Contenido Fase 3 -->
-      <div id="fase3" class="hidden">
-        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
-        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
-          class="block w-full border rounded p-2 mb-4">
-        <label class="block mb-2 font-medium">Cantidad</label>
-        <input type="number" id="inputCantidad" min="1" value="1"
-          class="block w-full border rounded p-2">
-      </div>
-
-      <!-- Contenido Fase 4 -->
-      <div id="fase4" class="hidden mt-4">
-        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <!-- Detalles -->
-          <div class="space-y-2">
-            <p><strong>Tela:</strong> <span id="resumenTela">—</span></p>
-            <p><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
-            <p><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
-            <p><strong>Total:</strong> <span id="resumenTotal" class="font-bold text-blue-700">—</span></p>
-          </div>
-          <!-- Imagen -->
-          <div class="text-center">
-            <p class="text-sm text-gray-500 mb-2">Diseño subido:</p>
-            <div class="relative inline-block">
-              <img src="https://dummyimage.com/200x250/ddd/aaa.png&text=Camiseta"
-                class="max-h-64 rounded shadow">
-              <img id="resumenImg"
-                class="absolute top-1/3 left-1/2 -translate-x-1/2 max-h-20 rounded border border-gray-200 shadow">
-            </div>
-          </div>
-        </div>
-        <button id="finalizarPedido"
-          class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
-          Confirmar y Enviar
-        </button>
-      </div>
-
-      <!-- Navegación -->
-      <div class="flex justify-between mt-6">
-        <button id="btnAtras"
-          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Atrás</button>
-        <button id="btnContinuar"
-          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Referencias del modal
-    const modalCotizador = document.getElementById('cotizadorModal');
-    const abrir = document.getElementById('abrirCotizador');
-    const cerrar = document.getElementById('cerrarModal');
-    const btnContinuar = document.getElementById('btnContinuar');
-    const btnAtras = document.getElementById('btnAtras');
-    const faseProgreso = document.getElementById('faseProgreso');
-    const faseActual = document.getElementById('faseActual');
-
-    // Contenedores de fases
-    const fase1 = document.getElementById('fase1');
-    const fase2 = document.getElementById('fase2');
-    const fase3 = document.getElementById('fase3');
-    const fase4 = document.getElementById('fase4');
-
-    // Resumen fase 4
-    const resumenTela = document.getElementById('resumenTela');
-    const resumenTecnica = document.getElementById('resumenTecnica');
-    const resumenCantidad = document.getElementById('resumenCantidad');
-    const resumenTotal = document.getElementById('resumenTotal');
-    const resumenImg = document.getElementById('resumenImg');
-    // Variables globales
-    let fase = 1;
-    let seleccion = {
-      tela: null,
-      tecnica: null,
-      imagen: null,
-      cantidad: 1
-    };
-
-    // Abrir y cerrar modal
-    document.getElementById('abrirCotizador').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.remove('hidden');
-    });
-    document.getElementById('cerrarModal').addEventListener('click', () => {
-      document.getElementById('cotizadorModal').classList.add('hidden');
-    });
-
-    // Selección de telas
-    document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
-      card.addEventListener('click', () => {
-        // Limpiar selección previa
-        document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
-        // Marcar la actual
-        card.classList.add('border-blue-500');
-        // Guardar selección
-        seleccion.tela = JSON.parse(card.dataset.tela);
-      });
-    });
-
-    // Selección de técnicas
-    document.querySelectorAll('#fase2 [data-tecnica]').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
-        card.classList.add('border-blue-500');
-        seleccion.tecnica = JSON.parse(card.dataset.tecnica);
-      });
-    });
-
-    // Input imagen
-    const inputImagen = document.getElementById('inputImagen');
-    if (inputImagen) {
-      inputImagen.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
-          seleccion.imagen = file;
-        } else {
-          alert("Formato no permitido. Sube JPEG, PNG o GIF.");
-          inputImagen.value = "";
-        }
-      });
-    }
-
-    // Input cantidad
-    const inputCantidad = document.getElementById('inputCantidad');
-    if (inputCantidad) {
-      inputCantidad.addEventListener('input', (e) => {
-        seleccion.cantidad = parseInt(e.target.value) || 1;
-      });
-    }
-
-    // Botón continuar
-    document.getElementById('btnContinuar').addEventListener('click', () => {
-      if (validarFase()) {
-        if (fase < 4) {
-          fase++;
-          renderFase();
-        }
-      }
-    });
-
-    // Botón atrás
-    document.getElementById('btnAtras').addEventListener('click', () => {
-      if (fase > 1) {
-        fase--;
-        renderFase();
-      }
-    });
-
-    // Mostrar fases
-    function renderFase() {
-      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(`fase${fase}`).classList.remove('hidden');
-
-      document.getElementById('faseActual').textContent = fase;
-
-      if (fase === 4) {
-        // Mostrar resumen
-        document.getElementById('resumenTela').textContent = seleccion.tela?.nombre || "—";
-        document.getElementById('resumenTecnica').textContent = seleccion.tecnica?.nombre || "—";
-        document.getElementById('resumenCantidad').textContent = seleccion.cantidad || "—";
-
-        const base = seleccion.tela?.precio || 0;
-        const extra = seleccion.tecnica?.extra || 0;
-        const total = (base + extra) * (seleccion.cantidad || 1);
-        document.getElementById('resumenTotal').textContent = `$${total.toFixed(2)}`;
-
-        if (seleccion.imagen) {
-          const reader = new FileReader();
-          reader.onload = ev => document.getElementById('resumenImg').src = ev.target.result;
-          reader.readAsDataURL(seleccion.imagen);
-        }
-      }
-    }
-
-    // Validaciones
-    function validarFase() {
-      if (fase === 1 && !seleccion.tela) {
-        alert("Selecciona una tela.");
-        return false;
-      }
-      if (fase === 2 && !seleccion.tecnica) {
-        alert("Selecciona una técnica.");
-        return false;
-      }
-      if (fase === 3 && !seleccion.imagen) {
-        alert("Sube una imagen.");
-        return false;
-      }
-      return true;
-    }
-  </script>
-
-  <!-- 
-  Servicios con efecto flip 3D
-  -->
+  <!-- Servicios con efecto flip 3D -->
   <section id="servicios" class="py-20 max-w-7xl mx-auto px-4">
 
-    <div class="text-center mb-16 relative">
-      <!-- Título con efecto sombra dinámica -->
-      <h2 class="impact-heading">
-        Impulsa tu empresa con calidad
-      </h2>
-      <br><br>
+    <div class="text-center mb-16 relative">      
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          Impulsa tu empresa con calidad
+        </h2>
+      </div>
+    
       <!-- Descripción con expansión vertical -->
       <div class="overflow-hidden max-h-20 transition-all duration-500 hover:max-h-40 mx-auto max-w-2xl">
         <p
@@ -456,25 +313,29 @@
       <!-- Tarjeta Serigrafía -->
       <div class="flip-card h-72 group" data-servicio="serigrafia">
         <div class="flip-card-inner">
+
           <!-- FRONT -->
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m4 4h6a2 2 0 002-2v-4a2 2 0 00-2-2h-6a2 2 0 00-2 2v4a2 2 0 002 2z" />
-              </svg>
+              <img src="assets/icon/Serigrafía.png?v=<?php echo time(); ?>"
+                alt="Serigrafía"
+                class="w-10 h-10 object-contain">
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
-            <p class="font-sans text-center text-gray-600">Precisión en cada detalle</p>
+            <p class="font-sans text-center text-gray-600">Ideal para uniformes de uso diario.</p>
+
+
           </div>
 
           <!-- BACK -->
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Serigrafía</h3>
             <ul class="font-sans text-sm space-y-2">
-              <li class="flex items-center"><span class="mr-2">✓</span> Ideal para grandes volúmenes</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Colores vibrantes</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Durabilidad extrema</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Base agua o Ahulada</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Una Tinta</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Mínimo 15 piezas</li>
             </ul>
 
             <a href="Front/servicio.php?tipo=Serigrafía" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
@@ -488,22 +349,24 @@
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
-              </svg>
+              <img src="assets/icon/Vinil.png?v=<?php echo time(); ?>"
+                alt="Vinil"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Vinil</h3>
             <p class="font-sans text-center text-gray-600">Cortes perfectos</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Vinil de Corte</h3>
-            <ul class="font-sans text-sm space-y-2 text-center">
-              <li class="flex items-center"><span class="mr-2">✓</span> Detalles nítidos</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Aplicación versátil</li>
-              <li class="flex items-center"><span class="mr-2">✓</span> Ideal para logos</li>
+            <ul class="font-sans text-sm space-y-2">
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Detalles nítidos</li>
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Aplicación versátil</li>
+              <li class="flex items-center text-left"><span class="mr-2">✓</span> Personalización de uniformes deportivos</li>
             </ul>
-            <a href="Front/servicio.php?tipo=vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=Vinil" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -514,13 +377,15 @@
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-              </svg>
+              <img src="assets/icon/Sublimación.png?v=<?php echo time(); ?>"
+                alt="Sublimación"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Sublimación</h3>
-            <p class="font-sans text-center text-gray-600">Colores que permanecen</p>
+            <p class="font-sans text-center text-gray-600"> Ideal para impresión en alta calidad</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Sublimación</h3>
@@ -540,18 +405,20 @@
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
+              <img src="assets/icon/Bordado.png?v=<?php echo time(); ?>"
+                alt="Bordado"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Bordado</h3>
-            <p class="font-sans text-center text-gray-600">Elegancia textil</p>
+            <p class="font-sans text-center text-gray-600"> Ideal para logos pequeños</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Bordado</h3>
             <ul class="font-sans text-sm space-y-2 text-center">
-              <li class="flex items-center"><span class="mr-2">✓</span> Acabado premium</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Hasta tamaño carta.</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Hilos de alta resistencia</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Profesionalismo táctil</li>
             </ul>
@@ -566,22 +433,24 @@
       <div class="flip-card h-72">
         <div class="flip-card-inner">
           <div class="flip-card-front bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 flex flex-col justify-center items-center shadow-lg border border-gray-100">
+
             <div class="bg-blue-100/20 p-4 rounded-full mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-              </svg>
+              <img src="assets/icon/DTF.png?v=<?php echo time(); ?>"
+                alt="DTF"
+                class="w-10 h-10 object-contain">
             </div>
+
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">DTF</h3>
-            <p class="font-sans text-center text-gray-600">Transferencia digital</p>
+            <p class="font-sans text-center text-gray-600">Impresiones de diseños en alta definición </p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">DTF</h3>
             <ul class="font-sans text-sm space-y-2">
-              <li class="flex items-center"><span class="mr-2">✓</span> Máxima durabilidad</li>
+              <li class="flex items-center"><span class="mr-2">✓</span> Se recomiendan imagenes sin fondo</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Estampado flexible</li>
               <li class="flex items-center"><span class="mr-2">✓</span> Excelente en colores oscuros</li>
             </ul>
-            <a href="Front/servicio.php?tipo=dtf" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
+            <a href="Front/servicio.php?tipo=DTF" class="font-sans mt-4 text-sm bg-white text-blue-900 py-2 px-4 rounded-full shadow hover:bg-gray-100 transition">
               Conoce más →
             </a>
           </div>
@@ -591,203 +460,780 @@
     </div>
   </section>
 
+  <!-- Sección Testimonios -->
+  <section class="testimonios py-4 relative bg-gradient-to-r from-blue-50 to-indigo-100 ">
+    <div class="max-w-7xl mx-auto px-6 relative">
 
-  <!-- 
-  Reseñas 
-  -->
-  <section class="bg-gray-100 py-20" id="testimonios">
-    <h2 class="Font-raleway text-5xl font-bold text-center mb-12">Lo que dicen nuestros clientes</h2>
+      <!-- Título -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          Nuestras Referencias
+        </h2>
+      </div>
 
+      <!-- Swiper -->
+      <div class="swiper-container testimonios-swiper">
+        <div class="swiper-wrapper">
 
-    <div class="relative max-w-4xl mx-auto">
-      <!-- Carrusel contenedor -->
-      <div id="testimonial-carousel" class="flex transition-transform duration-500 ease-in-out">
-
-        <!-- Card 1 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
+          <!-- Card 1 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "La mejor calidad, tiempo de entrega ideal
+                Muy buena atención"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Isabel T.</p>
             </div>
-            <p class="text-gray-700 mb-6 italic">
-              "Excelente calidad y tiempos de entrega. Perfecto para nuestros uniformes corporativos."
-            </p>
-            <p class="font-montserrat text-gray-900">Juan Pérez</p>
-            <p class="text-gray-500 text-sm">Gerente de Compras — Empresa XYZ</p>
           </div>
+
+          <!-- Card 2 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Excelente calidad y diseños increíbles"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★
+              </div>
+              <p class="font-bold text-center">Alejandra B.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Nos tienes increíblemente contentos con tu trabajo, que buena calidad, mil gracias ✨"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Aura J.</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "10 de 10, excelente calidad en los diseños y las telas, quedan increíbles a la hora de usarlas, muy satisfecho con el producto."
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Uriel H.</p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Excelentes trabajos y diseños, manejan calidad de
+                10/10 🥵🤩
+                para qué comprar en tiendas de diseñadores caros, si ARSODUS te da mejor calidad
+                en telas."
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Gian C.</p>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Manejan telas de muy buena calidad y ni se diga del gran trabajo en la serigrafia, muy de mega maaaas, excelente servicio y atención siempre 🤌🏽👍🏽"
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Pilar L.</p>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="swiper-slide">
+            <div class="card-testimonio">
+              <p class="text-gray-700 italic mb-4">
+                "Me encanto la calidad, tamaño y diseño de las prendas, recomiendo demasiado, super cómodas. "
+              </p>
+              <div class="flex justify-center mb-3 text-yellow-400">
+                ★★★★★
+              </div>
+              <p class="font-bold text-center">Heriberto H.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Flechas -->
+      <!-- Botones de navegación -->
+      <div class="swiper-button-next custom-next"></div>
+      <div class="swiper-button-prev custom-prev"></div>
+
+      <!-- Bullets -->
+      <div class="swiper-pagination mt-8"></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Seccion de Clientes -->
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Titulo -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          Nuestros Clientes
+        </h2>
+      </div>
+
+      <!-- Carrusel -->
+      <div class="relative overflow-hidden">
+        <div class="flex space-x-12 animate-marquee">
+
+          <!-- Bloque 1 -->
+          <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Well.png" alt="Well Company"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Universidad.png" alt="UdeG"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Cucea.png" alt="CUCEA"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Tequilart.png" alt="TequilArt"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+          <!-- Bloque 2 (duplicado para el loop) -->
+          <img src="assets/img/Clientes/Charros.png" alt="Charros de Jalisco"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Well.png" alt="Well Company"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Universidad.png" alt="UdeG"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Cucea.png" alt="CUCEA"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+          <img src="assets/img/Clientes/Tequilart.png" alt="TequilArt"
+            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!--  Sección de Contacto: Formulario de Ideas -->
+  <section id="contacto" class="py-20 bg-gradient-to-br from-[#fdfaf6] to-gray-100 relative overflow-hidden">
+
+    <div class="absolute inset-0 z-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="10" fill="#93C5FD" />
+        <rect x="70" y="30" width="15" height="15" fill="#BFDBFE" />
+        <path d="M40 80 L50 90 L60 80 Z" fill="#60A5FA" />
+        <circle cx="85" cy="70" r="8" fill="#93C5FD" />
+      </svg>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-6 relative z-10">
+      <div class="bg-white p-8 md:p-16 rounded-3xl shadow-2xl transform transition-transform duration-500 hover:scale-[1.01] hover:shadow-3xl border-t-4 border-blue-600">
+
+        <div class="text-center mb-10">
+          <h2 class="font-raleway text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">
+            ¿Listo para transformar <span class="text-blue-600">tu idea</span> en realidad?
+          </h2>
+          <p class="font-montserrat text-lg text-gray-700 max-w-lg mx-auto animate-fade-in delay-200">
+            Tu visión es nuestro lienzo, Cuéntanos qué tienes en mente:
+          </p>
         </div>
 
-        <!-- Card 2 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-            </div>
-            <p class="text-gray-700 mb-6 italic">
-              "La atención y el acabado superaron nuestras expectativas."
-            </p>
-            <p class="font-semibold text-gray-900">María López</p>
-            <p class="text-gray-500 text-sm">Directora Comercial — Distribuidora ABC</p>
-          </div>
+        <form class="flex flex-col gap-6">
+          <input
+            type="text"
+            placeholder="Cual es tu nombre?"
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400">
+
+          <input
+            type="text"
+            placeholder="Tu Correo o Teléfono"
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400">
+
+          <textarea
+            placeholder="Platícanos tu increíble idea o proyecto aquí..."
+            rows="7"
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+                 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+                 transition-all duration-300 ease-in-out resize-y placeholder-gray-500 text-gray-800
+                 shadow-sm hover:shadow-md hover:border-blue-400"></textarea>
+
+          <button
+            type="submit"
+            class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
+                 px-8 py-4 rounded-xl shadow-xl hover:from-blue-800 hover:to-blue-950 
+                 transform hover:scale-105 transition-all duration-300 ease-out 
+                 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
+                 tracking-wide text-lg">
+            ¡Enviar Mi Propuesta Ahora!
+          </button>
+        </form>
+      </div>
+
+      <p class="font-montserrat text-sm text-gray-600 mt-8 text-center animate-fade-in delay-500">
+        Tu mensaje es importante para nosotros. En breve, el equipo de Arsodus se comunicará contigo para discutir los detalles. ¡Gracias por confiar en nosotros!
+      </p>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .animate-fade-in-down {
+      animation: fadeInDown 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-500 {
+      animation-delay: 0.5s;
+    }
+  </style>
+
+
+  <?php include 'Front/footer.php'; ?>
+
+  <!-- ------------------------------ Modales ------------------------------------------ -->
+
+  <!-- Modal Cotizador -->
+  <div id="cotizadorModal"
+    class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center z-50">
+    <div id="cotizadorContent"
+      class="bg-white w-full max-w-3xl mx-4 rounded-lg shadow-lg p-6 relative transform scale-95 opacity-0 transition-all duration-300">
+
+
+      <!-- Cerrar modal -->
+      <button id="cerrarModal"
+        class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+
+      <!-- Header -->
+      <h2 class="text-2xl font-bold mb-2" id="faseTitulo"></h2>
+      <p class="text-gray-500 mb-6" id="faseDescripcion"></p>
+
+
+      <div class="mb-6 flex items-center justify-between">
+        <div class="flex flex-col items-center">
+          <div id="paso1" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-blue-500 bg-blue-500 text-white">1</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Tela</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso2" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">2</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Técnica</span>
+        </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+
+        <div class="flex flex-col items-center">
+          <div id="paso3" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">3</div>
+          <span class="mt-2 text-xs font-medium text-gray-500 hidden sm:block">Diseño & Cantidad</span>
+          <span class="mt-2 text-xs font-medium text-gray-500 sm:hidden">Diseño</span>
         </div>
 
-        <!-- Repite para 3,4,5 -->
-        <div class="min-w-full px-6">
-          <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-            <div class="flex justify-center text-yellow-400 mb-4">
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-              <i data-feather="star" class="w-5 h-5 fill-current"></i>
-            </div>
-            <p class="text-gray-700 mb-6 italic">
-              "Gran comunicación y excelente servicio al cliente."
-            </p>
-            <p class="font-semibold text-gray-900">Carlos Ramírez</p>
-            <p class="text-gray-500 text-sm">CEO — StartUp Design</p>
-          </div>
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso4" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Resumen</span>
+        </div>
+      </div>
+
+      <!-- Contenido Fase 1 -->
+      <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Algodón","precio":70}'>
+          <h3 class="font-semibold">Algodón</h3>
+          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
+        </div>
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tela='{"nombre":"Popelina","precio":50}'>
+          <h3 class="font-semibold">Popelina</h3>
+          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
+        </div>
+      </div>
+
+      <!-- Contenido Fase 2 -->
+      <!-- Contenido Fase 2 -->
+      <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
+
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Serigrafía","extra":30}'>
+          <h3 class="font-semibold">Serigrafía</h3>
+          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
         </div>
 
-        <!-- ... Card 4 y 5 iguales ... -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"DTF","extra":15}'>
+          <h3 class="font-semibold">DTF</h3>
+          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
+        </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Bordado","extra":40}'>
+          <h3 class="font-semibold">Bordado</h3>
+          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
+        </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Sublimación","extra":40}'>
+          <h3 class="font-semibold">Sublimación</h3>
+          <p class="text-sm text-gray-500">Alta Calidad, +$45</p>
+        </div>
+
+        <div class="p-4 border rounded cursor-pointer hover:shadow"
+          data-tecnica='{"nombre":"Vinil","extra":40}'>
+          <h3 class="font-semibold">Vinil</h3>
+          <p class="text-sm text-gray-500">Permanencia, +$30</p>
+        </div>
 
       </div>
-      <!-- Controles -->
-      <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-lg p-2 hover:scale-110 transition">
-        <i data-feather="chevron-left"></i>
-      </button>
-      <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow-lg p-2 hover:scale-110 transition">
-        <i data-feather="chevron-right"></i>
-      </button>
-    </div>
-  </section>
 
-  <!-- Contacto Rapido: Newsletter -->
-  <section id="contacto" class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="font-heading text-3xl font-bold text-blue-900 mb-4">
-        ¿Quieres promociones y descuentos exclusivos?
-      </h2>
-      <p class="font-sans text-gray-700 mb-6">
-        Suscríbete a nuestra lista y recibe ofertas únicas directamente en tu correo.
-      </p>
+      <!-- Contenido Fase 3 -->
+      <div id="fase3" class="hidden">
+        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
+        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
+          class="block w-full border rounded p-2 mb-4">
+        <label class="block mb-2 font-medium">Cantidad</label>
 
-      <form class="flex flex-col sm:flex-row gap-3 justify-center">
-        <input
-          type="email"
-          placeholder="Tu correo electrónico"
-          class="font-sans flex-1 px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <button
-          type="submit"
-          class="font-sans bg-blue-800 text-white px-6 py-3 rounded-xl hover:bg-blue-900 transition">
-          ¡Quiero unirme!
-        </button>
-      </form>
+        <input type="number" id="inputCantidad" min="10" value="10"
+          class="block w-full border rounded p-2">
+      </div>
 
-      <p class="font-sans text-xs text-gray-500 mt-3">
-        No hacemos spam. Puedes darte de baja cuando quieras.
-      </p>
-    </div>
-  </section>
+      <!-- Contenido Fase 4 -->
+      <div id="fase4" class="hidden mt-4">
+        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Detalles -->
+          <div class="border rounded-lg p-4 shadow-sm bg-gray-50 space-y-3">
+            <p class="text-gray-700"><strong>Tela:</strong> <span id="resumenTela">—</span></p>
+            <p class="text-gray-700"><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
+            <p class="text-gray-700"><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
+            <p class="text-lg font-semibold text-blue-700">
+              Total: <span id="resumenTotal">—</span>
+            </p>
+          </div>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>© 2025 Arsodus. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+          <!-- Imagen subida -->
+          <div class="border rounded-lg p-4 shadow-sm bg-white flex flex-col items-center justify-center">
+            <p class="text-sm text-gray-500 mb-3">Diseño subido</p>
+            <img id="resumenImg"
+              class="max-h-64 w-auto rounded-lg border border-gray-200 shadow-md object-contain"
+              src="https://dummyimage.com/300x300/ddd/aaa.png&text=Sin+imagen"
+              alt="Diseño subido">
+          </div>
+        </div>
 
-  <!-- Modal oculto por defecto -->
-  <div id="materialModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <!-- Aquí inyectamos contenido dinámico con JS -->
-      <div id="modalBody"></div>
+        <!-- Botón Finalizar -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+
+          <button id="completarCotizacion"
+            class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
+            Completar Cotización
+          </button>
+        </div>
+      </div>
+
+      <!-- Navegación -->
+      <div class="flex justify-between mt-6">
+        <button id="btnAtras"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Atrás</button>
+        <button id="btnContinuar"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
+      </div>
     </div>
   </div>
 
+  <!-- ------------------------------ Scripts ------------------------------------------ -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- SwiperJS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
   <script>
-    const modal = document.getElementById('fase-tela');
-    const startBtn = document.getElementById('abrirCotizador');
-
-    // Abrir modal con animación
-    startBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      gsap.fromTo(modal.querySelector('.bg-white'), {
-        scale: 0.8,
-        opacity: 0
-      }, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out"
-      });
-      gsap.fromTo(modal, {
-        opacity: 0
-      }, {
-        opacity: 1,
-        duration: 0.3,
-        ease: "power1.out"
-      });
+    var swiper = new Swiper(".testimonios-swiper", {
+      slidesPerView: 3, // siempre mostrar 3
+      spaceBetween: 30,
+      grabCursor: true,
+      loop: true, // 🔥 permite ir hacia la izquierda y derecha sin fin
+      centeredSlides: true, // 🔥 centra siempre el slide activo
+      navigation: {
+        nextEl: ".custom-next",
+        prevEl: ".custom-prev",
+      },
+      effect: "coverflow", // 🔥 da profundidad tipo carrusel
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 120,
+        modifier: 1,
+        slideShadows: false,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
     });
-
   </script>
-
+  <!-- Scripts para el Modal del Cotizador -->
   <script>
-    // Mostrar la fase 1
-    document.getElementById('abrirCotizador').addEventListener('click', function() {
-      document.getElementById('fase-tela').classList.remove('hidden');
+    // Agrega esta nueva variable global
+    const fasesInfo = {
+      1: {
+        titulo: "Selección de Material",
+        descripcion: "Elige la tela ideal para tu prenda."
+      },
+      2: {
+        titulo: "Selección de Servicio",
+        descripcion: "Elige la técnica de personalización para tu diseño."
+      },
+      3: {
+        titulo: "Diseño y Cant.",
+        descripcion: "Sube tu diseño y especifica la cantidad de prendas."
+      },
+      4: {
+        titulo: "Resumen de tu Cotización",
+        descripcion: "Revisa los detalles de tu pedido antes de finalizar."
+      }
+    };
+
+    // Referencias del modal
+    const modalCotizador = document.getElementById('cotizadorModal');
+    const modalContent = document.getElementById('cotizadorContent');
+    const abrir = document.getElementById('abrirCotizador');
+    const cerrar = document.getElementById('cerrarModal');
+    const btnContinuar = document.getElementById('btnContinuar');
+    const btnAtras = document.getElementById('btnAtras');
+    const faseProgreso = document.getElementById('faseProgreso');
+    const faseActual = document.getElementById('faseActual');
+
+    // Contenedores de fases
+    const fase1 = document.getElementById('fase1');
+    const fase2 = document.getElementById('fase2');
+    const fase3 = document.getElementById('fase3');
+    const fase4 = document.getElementById('fase4');
+
+    // Resumen fase 4
+    const resumenTela = document.getElementById('resumenTela');
+    const resumenTecnica = document.getElementById('resumenTecnica');
+    const resumenCantidad = document.getElementById('resumenCantidad');
+    const resumenTotal = document.getElementById('resumenTotal');
+    const resumenImg = document.getElementById('resumenImg');
+
+    const progressBar = document.getElementById('progressBar');
+
+    const faseTitulo = document.getElementById('faseTitulo');
+    const faseDescripcion = document.getElementById('faseDescripcion');
+
+
+
+    // Variables globales
+    let fase = 1;
+    let seleccion = {
+      tela: null,
+      tecnica: null,
+      imagen: null,
+      cantidad: 10 // Iniciamos con 10 por defecto
+    };
+
+    // ---- Abrir modal con animación ----
+    abrir.addEventListener('click', () => {
+      modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+      }, 20);
     });
+
+    // ---- Cerrar modal con animación ----
+    cerrar.addEventListener('click', () => {
+      modalContent.classList.remove('scale-100', 'opacity-100');
+      modalContent.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        modalCotizador.classList.add('opacity-0', 'pointer-events-none');
+      }, 300);
+    });
+
+    // Selección de telas
+    document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
+        card.classList.add('border-blue-500');
+        seleccion.tela = JSON.parse(card.dataset.tela);
+        validarFaseActual(); // Validar después de seleccionar
+      });
+    });
+
+    // Selección de técnicas
+    document.querySelectorAll('#fase2 [data-tecnica]').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
+        card.classList.add('border-blue-500');
+        seleccion.tecnica = JSON.parse(card.dataset.tecnica);
+        validarFaseActual(); // Validar después de seleccionar
+      });
+    });
+
+    // Input imagen
+    const inputImagen = document.getElementById('inputImagen');
+    if (inputImagen) {
+      inputImagen.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+          seleccion.imagen = file;
+          validarFaseActual(); // Validar después de subir imagen
+        } else {
+          alert("Formato no permitido. Sube JPEG, PNG o GIF.");
+          inputImagen.value = "";
+          seleccion.imagen = null;
+          validarFaseActual();
+        }
+      });
+    }
+
+    // Input cantidad - VALIDACIÓN MEJORADA
+    const inputCantidad = document.getElementById('inputCantidad');
+    if (inputCantidad) {
+      const validarCantidad = () => {
+        const valor = parseInt(inputCantidad.value) || 0;
+        const esValido = valor >= 10;
+
+        // Aplicar estilos de validación
+        if (esValido) {
+          inputCantidad.classList.remove('border-red-500', 'bg-red-50');
+          inputCantidad.classList.add('border-green-500');
+          seleccion.cantidad = valor;
+        } else {
+          inputCantidad.classList.remove('border-green-500');
+          inputCantidad.classList.add('border-red-500', 'bg-red-50');
+          seleccion.cantidad = 0; // Marcamos como inválido
+        }
+
+        validarFaseActual(); // Validar botón continuar
+      };
+
+      inputCantidad.addEventListener('input', validarCantidad);
+      inputCantidad.addEventListener('change', validarCantidad);
+
+      // Validar inicialmente
+      setTimeout(validarCantidad, 100);
+    }
+
+    // Función para validar el estado del botón continuar
+    function validarFaseActual() {
+      let esValido = false;
+
+      switch (fase) {
+        case 1:
+          esValido = seleccion.tela !== null;
+          break;
+        case 2:
+          esValido = seleccion.tecnica !== null;
+          break;
+        case 3:
+          esValido = seleccion.imagen !== null && seleccion.cantidad >= 10;
+          break;
+        case 4:
+          esValido = true; // En la fase 4 siempre se puede continuar
+          break;
+      }
+
+      // Actualizar estado del botón
+      if (btnContinuar) {
+        if (esValido) {
+          btnContinuar.disabled = false;
+          btnContinuar.classList.remove('bg-gray-400', 'cursor-not-allowed');
+          btnContinuar.classList.add('bg-blue-600', 'hover:bg-blue-700');
+        } else {
+          btnContinuar.disabled = true;
+          btnContinuar.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+          btnContinuar.classList.add('bg-gray-400', 'cursor-not-allowed');
+        }
+      }
+
+      return esValido;
+    }
+
+    // Botón Continuar - avanza a la siguiente fase si es válida
+    if (btnContinuar) {
+      btnContinuar.addEventListener('click', () => {
+        if (validarFase()) { // Validar que los datos de la fase actual sean correctos
+          if (fase < 4) { // Solo avanza si no es la última fase
+            fase++; // Incrementar contador de fase
+            renderFase(); // Renderizar contenido correspondiente
+            validarFaseActual(); // Ejecutar validación específica de la nueva fase
+          }
+        }
+      });
+    }
+
+    // Botón atrás
+    if (btnAtras) {
+      btnAtras.addEventListener('click', () => {
+        if (fase > 1) {
+          fase--;
+          renderFase();
+          validarFaseActual(); // Validar nueva fase
+        }
+      });
+    }
+
+    // Mostrar fases
+    // Mostrar la fase correspondiente y actualizar datos
+    // Función para renderizar el contenido de cada fase
+    function renderFase() {
+      // Ocultar todas las fases
+      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.classList.add('hidden');
+      });
+
+      // Mostrar solo la fase actual
+      const faseActualElement = document.getElementById(`fase${fase}`);
+      if (faseActualElement) faseActualElement.classList.remove('hidden');
+
+      // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
+      const info = fasesInfo[fase];
+      if (faseTitulo) faseTitulo.textContent = info.titulo;
+      if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
+
+      // Lógica de la barra de progreso
+      const pasos = ['paso1', 'paso2', 'paso3', 'paso4'];
+      pasos.forEach((pasoId, index) => {
+        const pasoElement = document.getElementById(pasoId);
+        if (pasoElement) {
+          if (index < fase) {
+            pasoElement.classList.remove('border-gray-400', 'text-gray-400');
+            pasoElement.classList.add('border-blue-500', 'bg-blue-500', 'text-white');
+          } else {
+            pasoElement.classList.remove('border-blue-500', 'bg-blue-500', 'text-white');
+            pasoElement.classList.add('border-gray-400', 'text-gray-400');
+          }
+        }
+      });
+
+      // Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      if (btnContinuar) {
+        if (fase === 4) {
+          btnContinuar.classList.add('hidden');
+        } else {
+          btnContinuar.classList.remove('hidden');
+        }
+      }
+
+      // Si estamos en la fase 4, renderizar resumen
+      if (fase === 4) {
+        if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
+        if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
+        if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
+
+        const base = seleccion.tela?.precio || 0;
+        const extra = seleccion.tecnica?.extra || 0;
+        const total = (base + extra) * (seleccion.cantidad || 1);
+        if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
+
+        if (seleccion.imagen && resumenImg) {
+          const reader = new FileReader();
+          reader.onload = ev => resumenImg.src = ev.target.result;
+          reader.readAsDataURL(seleccion.imagen);
+        }
+      }
+    }
+
+
+    // Validaciones al hacer clic en continuar
+    function validarFase() {
+      if (fase === 1 && !seleccion.tela) {
+        alert("Selecciona una tela.");
+        return false;
+      }
+      if (fase === 2 && !seleccion.tecnica) {
+        alert("Selecciona una técnica.");
+        return false;
+      }
+      if (fase === 3 && (!seleccion.imagen || seleccion.cantidad < 10)) {
+        if (!seleccion.imagen) alert("Sube una imagen.");
+        if (seleccion.cantidad < 10) alert("La cantidad mínima es 10.");
+        return false;
+      }
+      return true;
+    }
+
+    // Validar inicialmente al cargar
+    setTimeout(() => {
+      validarFaseActual();
+    }, 100);
   </script>
 
 
   <script>
     feather.replace();
-
-    const carousel = document.getElementById('testimonial-carousel');
-    const totalCards = carousel.children.length;
-    let index = 0;
-
-    document.getElementById('next').addEventListener('click', () => {
-      index = (index + 1) % totalCards;
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    document.getElementById('prev').addEventListener('click', () => {
-      index = (index - 1 + totalCards) % totalCards;
-      carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    AOS.init();
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const cards = document.querySelectorAll(".flip-card");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, {
-        threshold: 0.5
-      });
-
-      cards.forEach(card => {
-        card.classList.add("card-appear");
-        observer.observe(card);
-      });
-    });
+    renderFase();
   </script>
 </body>
 

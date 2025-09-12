@@ -53,7 +53,7 @@ $servicios = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
+  <link rel="stylesheet" href="../assets/css/index.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" type="image/png" href="../assets/img/LogoSinFondo.png">
   <script src="//unpkg.com/alpinejs" defer></script>
@@ -66,6 +66,69 @@ $servicios = [
       padding-top: 80px;
       /* Ajusta según la altura de tu navbar */
     }
+
+    /* Nuevo estilo para los títulos de sección */
+    /* Nuevo estilo para los títulos de sección */
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      /* Usamos una fuente más moderna y amigable */
+      font-size: 2.5rem;
+      /* ~40px */
+      font-weight: 600;
+      /* Un peso medio, menos formal */
+      color: #154584;
+      /* Un gris más claro para un toque suave */
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+      /* Espacio para la barra */
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      /* Transición para el color y el transform */
+    }
+
+    /* Efecto de barra inferior con seudoelemento ::after */
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      /* Ancho de la barra */
+      height: 4px;
+      /* Grosor de la barra */
+      background-color: #1e3a8a;
+      /* Un color azul vibrante para destacar */
+      border-radius: 2px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    /* Efecto al pasar el cursor (hover) */
+    .section-title:hover {
+      color: #0f52bd;
+      /* Cambia a un azul un poco más oscuro y vibrante al hacer hover */
+      transform: translateY(-3px);
+      /* Se eleva ligeramente el texto */
+    }
+
+    .section-title:hover::after {
+      width: 100px;
+      /* La barra se expande al pasar el cursor */
+    }
+
+    /* Media Query para tamaños de pantalla más grandes */
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 3.5rem;
+        /* ~56px en escritorio */
+      }
+
+      .section-title::after {
+        height: 5px;
+        /* Barra un poco más gruesa en desktop */
+      }
+    }
   </style>
 </head>
 
@@ -74,15 +137,18 @@ $servicios = [
   <div id="inicio">
     <?php include 'navbar.php'; ?>
   </div>
-  <br>
+  <br> <br>
 
   <!-- Hero Section -->
-  <section class="py-20 bg-[#fdfaf6]">
+  <section class="py-10 bg-[#fdfaf6] py-10">
     <div class="max-w-6xl mx-auto px-6 text-center">
 
-      <h2 class="impact-heading">
-        <?php echo ucfirst($Servicio); ?>
-      </h2>
+      <!-- Título -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
+          <?php echo ucfirst($Servicio); ?>
+        </h2>
+      </div>
 
       <p class="max-w-2xl mx-auto text-gray-600 text-lg">
         Conoce todo sobre la técnica de <span class="font-semibold"><?php echo ucfirst($Servicio); ?></span>,
@@ -100,27 +166,25 @@ $servicios = [
     }
   }
   ?>
-
   <!-- Carrusel + Card -->
-  <section class="py-12">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
-
+  <section class="py-8">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
       <!-- CarroGalería -->
       <div
         x-data="{
-    active: 0,
-    total: <?php echo count($imagenes); ?>,
-    interval: null,
-    start() {
-      this.interval = setInterval(() => {
-        this.active = (this.active + 1) % this.total;
-      }, 5000);
-    },
-    stop() {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
-  }"
+            active: 0,
+            total: <?php echo count($imagenes); ?>,
+            interval: null,
+            start() {
+              this.interval = setInterval(() => {
+                this.active = (this.active + 1) % this.total;
+              }, 5000);
+            },
+            stop() {
+              clearInterval(this.interval);
+              this.interval = null;
+            }
+          }"
         x-init="start()"
         class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-200 flex"
         @mouseenter="stop()"
@@ -163,11 +227,9 @@ $servicios = [
         </div>
       </div>
 
-
       <!-- Texto explicativo con estilo card -->
       <?php
       //$Servicio = strtolower($_GET['tipo'] ?? 'Serigrafía'); // por defecto serigrafía
-
       $info = $servicios[$Servicio] ?? null;
       ?>
 
@@ -179,7 +241,6 @@ $servicios = [
             alt="<?php echo ucfirst($Servicio); ?>"
             class="w-12 h-12 object-contain">
         </div>
-
 
         <h2 class="font-heading font-bold text-2xl text-blue-900 mb-4">
           <?php echo ucfirst($Servicio); ?>
@@ -198,9 +259,7 @@ $servicios = [
             <?php endforeach; ?>
           </ul>
           <br>
-
-
-          <button class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrir-cotizador">
+          <button id="abrirCotizador"  class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out ">
             🚀 Iniciar Cotización
           </button>
         <?php else: ?>
@@ -208,14 +267,16 @@ $servicios = [
         <?php endif; ?>
       </div>
     </div>
+    <br>
+
   </section>
 
   <!-- Otros servicios -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
+  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-10">
     <div class="max-w-6xl mx-auto px-6">
-
-      <div class="text-center mb-12">
-        <h2 class="impact-heading">
+      <!-- Título -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
           Otros Servicios
         </h2>
       </div>
@@ -263,20 +324,21 @@ $servicios = [
       </div>
 
     </div>
+    <br>
+    <br>
   </section>
 
 
   <!-- Sección Cotizador -->
-  <section class="py-20 bg-[#fdfaf6] py-24" id="Cotizador">
+  <section class="py-20 bg-[#fdfaf6] py-20" id="Cotizador">
     <div class="max-w-6xl mx-auto px-6 text-center">
 
       <!-- Título -->
-      <div class="text-center mb-12">
-        <h2 class="impact-heading">
+      <div class="text-center mb-6">
+        <h2 class="section-title">
           ¿Listo para darle vida a tu idea?
         </h2>
       </div>
-
 
 
       <!-- Contenedor de cards -->
@@ -311,10 +373,9 @@ $servicios = [
         </div>
       </div>
 
-      <button class="px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrir-cotizador">
+      <button id="abrirCotizador" class="px-10 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out abrirCotizador">
         🚀 Iniciar Cotización
       </button>
-
       <!-- Nota -->
       <p class="mt-4 text-sm text-gray-500">
         Estos factores influirán directamente en el costo del trabajo.
@@ -326,8 +387,9 @@ $servicios = [
   <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
     <div class="max-w-7xl mx-auto px-6">
 
-      <div class="text-center mb-12">
-        <h2 class="impact-heading">
+      <!-- Título -->
+      <div class="text-center mb-6">
+        <h2 class="section-title">
           Marcas que usamos en nuestros productos
         </h2>
       </div>
@@ -369,6 +431,7 @@ $servicios = [
 
     </div>
   </section>
+
   <!-- Animacion del carrusel  -->
   <style>
     /* Animación marquee */
@@ -412,10 +475,12 @@ $servicios = [
 
 
       <div class="mb-6 flex items-center justify-between">
+
         <div class="flex flex-col items-center">
           <div id="paso1" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-blue-500 bg-blue-500 text-white">1</div>
           <span class="mt-2 text-xs font-medium text-gray-500">Tela</span>
         </div>
+
         <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
         <div class="flex flex-col items-center">
           <div id="paso2" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">2</div>
@@ -434,57 +499,104 @@ $servicios = [
           <div id="paso4" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
           <span class="mt-2 text-xs font-medium text-gray-500">Resumen</span>
         </div>
+
+        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
+        <div class="flex flex-col items-center">
+          <div id="paso5" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <span class="mt-2 text-xs font-medium text-gray-500">Finalizar</span>
+        </div>
+
+
       </div>
 
       <!-- Contenido Fase 1 -->
       <div id="fase1" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+
+        <!-- Algodón -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Algodón","precio":70}'>
-          <h3 class="font-semibold">Algodón</h3>
-          <p class="text-sm text-gray-500">Suavidad y comodidad. $60 - $80</p>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/Algodon.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón</h3>
+          <p class="text-sm text-gray-500 relative z-10">Suavidad y comodidad. $60 - $80</p>
         </div>
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tela='{"nombre":"Popelina","precio":50}'>
-          <h3 class="font-semibold">Popelina</h3>
-          <p class="text-sm text-gray-500">Textura fina, ideal para camisas. $40 - $70</p>
+
+        <!-- Algodón Poliéster -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Algodón poliéster","precio":65}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/AlgoPol.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón Poliéster</h3>
+          <p class="text-sm text-gray-500 relative z-10">Durabilidad y confort. $55 - $75</p>
         </div>
+
+        <!-- Poliéster -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Poliéster","precio":50}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/Poliester.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Poliéster</h3>
+          <p class="text-sm text-gray-500 relative z-10">Resistencia y ligereza. $40 - $60</p>
+        </div>
+
+        <!-- Algodón Poliéster Nylon -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tela='{"nombre":"Algodón poliéster nylon","precio":80}'>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/Nylon.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Algodón Poliéster Nylon</h3>
+          <p class="text-sm text-gray-500 relative z-10">Máxima resistencia y estilo. $70 - $90</p>
+        </div>
+
       </div>
+
 
       <!-- Contenido Fase 2 -->
       <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
 
-
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- Serigrafía -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Serigrafía","extra":30}'>
-          <h3 class="font-semibold">Serigrafía</h3>
-          <p class="text-sm text-gray-500">Colores sólidos, +$30</p>
+          <!-- Fondo textura -->
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/Serigrafia.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Serigrafía</h3>
+          <p class="text-sm text-gray-500 relative z-10">Colores sólidos, +$30</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- DTF -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"DTF","extra":15}'>
-          <h3 class="font-semibold">DTF</h3>
-          <p class="text-sm text-gray-500">Calidad de impresión, +$15</p>
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/DTF.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">DTF</h3>
+          <p class="text-sm text-gray-500 relative z-10">Calidad de impresión, +$15</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
+        <!-- Bordado -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Bordado","extra":40}'>
-          <h3 class="font-semibold">Bordado</h3>
-          <p class="text-sm text-gray-500">Durabilidad, +$40</p>
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/Bordado.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Bordado</h3>
+          <p class="text-sm text-gray-500 relative z-10">Durabilidad, +$40</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Sublimación","extra":40}'>
-          <h3 class="font-semibold">Sublimación</h3>
-          <p class="text-sm text-gray-500">Alta Calidad, +$45</p>
+        <!-- Sublimación -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tecnica='{"nombre":"Sublimación","extra":45}'>
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/sublimacion.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Sublimación</h3>
+          <p class="text-sm text-gray-500 relative z-10">Alta Calidad, +$45</p>
         </div>
 
-        <div class="p-4 border rounded cursor-pointer hover:shadow"
-          data-tecnica='{"nombre":"Vinil","extra":40}'>
-          <h3 class="font-semibold">Vinil</h3>
-          <p class="text-sm text-gray-500">Permanencia, +$30</p>
+        <!-- Vinil -->
+        <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
+          data-tecnica='{"nombre":"Vinil","extra":30}'>
+          <div class="absolute inset-0 bg-[url('../assets/img/textures/vinil.avif')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <h3 class="font-semibold relative z-10">Vinil</h3>
+          <p class="text-sm text-gray-500 relative z-10">Permanencia, +$30</p>
         </div>
 
       </div>
+
 
       <!-- Contenido Fase 3 -->
       <div id="fase3" class="hidden">
@@ -521,15 +633,58 @@ $servicios = [
               alt="Diseño subido">
           </div>
         </div>
+      </div>
+      <!-- Contenido Fase 5 -->
+      <div id="fase5" class="hidden mt-4">
+        <h3 class="text-lg font-bold mb-4 text-center">Finaliza tu Cotización</h3>
 
-        <!-- Botón Finalizar -->
-        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+        <form id="formCotizacion" action="../Back/Cotizacion.php" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-lg mx-auto">
+          <!-- Nombre -->
+          <input type="text" id="nombre" name="nombre" required
+            placeholder="Tu nombre"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-          <button id="completarCotizacion"
-            class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
-            Completar Cotización
+          <!-- Selector contacto -->
+          <div class="flex items-center justify-center gap-6 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="contactoTipo" value="correo" checked />
+              <span>Correo</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="contactoTipo" value="whatsapp" />
+              <span>WhatsApp</span>
+            </label>
+          </div>
+
+          <!-- Correo -->
+          <input type="email" id="correo" name="correo" placeholder="Correo electrónico"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+
+          <!-- WhatsApp -->
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+52 55 1234 5678"
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none hidden" />
+
+          <!-- Mensaje -->
+          <textarea id="mensaje" name="mensaje" rows="2"
+            placeholder="Cuéntanos tu idea..."
+            class="w-full border rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+
+          <!-- 🔥 Inputs ocultos para pasar datos del cotizador -->
+          <input type="hidden" name="tela" id="inputTela" />
+          <input type="hidden" name="tecnica" id="inputTecnica" />
+          <input type="hidden" name="cantidad" id="inputCantidadHidden" />
+          <input type="hidden" name="total" id="inputTotal" />
+
+          <!-- Para la imagen -->
+          <input type="hidden" name="imagenBase64" id="inputImagenHidden" />
+
+          <!-- Botón enviar -->
+          <button type="submit"
+            class="btnContinuar w-full py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition text-sm">
+            Enviar Cotización
           </button>
-        </div>
+        </form>
+
       </div>
 
       <!-- Navegación -->
@@ -539,18 +694,52 @@ $servicios = [
         <button id="btnContinuar"
           class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Continuar</button>
       </div>
+
     </div>
   </div>
-
 
   <!-- ------------------------------ Scripts ------------------------------------------ -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+  <!-- SwiperJS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".testimonios-swiper", {
+      slidesPerView: 3, // siempre mostrar 3
+      spaceBetween: 30,
+      grabCursor: true,
+      loop: true, // 🔥 permite ir hacia la izquierda y derecha sin fin
+      centeredSlides: true, // 🔥 centra siempre el slide activo
+      navigation: {
+        nextEl: ".custom-next",
+        prevEl: ".custom-prev",
+      },
+      effect: "coverflow", // 🔥 da profundidad tipo carrusel
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 120,
+        modifier: 1,
+        slideShadows: false,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  </script>
+
   <!-- Scripts para el Modal del Cotizador -->
   <script>
-    // Se crea una variable JS con el valor de PHP
-    const servicioPreseleccionado = "<?php echo $ServicioSeleccionado; ?>";
-    // Se Agrega esta nueva variable global
+    // Agrega esta nueva variable global
     const fasesInfo = {
       1: {
         titulo: "Selección de Material",
@@ -573,7 +762,7 @@ $servicios = [
     // Referencias del modal
     const modalCotizador = document.getElementById('cotizadorModal');
     const modalContent = document.getElementById('cotizadorContent');
-    const botonesAbrir = document.querySelectorAll('.abrir-cotizador');
+    const abrir = document.getElementById('abrirCotizador');
     const cerrar = document.getElementById('cerrarModal');
     const btnContinuar = document.getElementById('btnContinuar');
     const btnAtras = document.getElementById('btnAtras');
@@ -585,6 +774,7 @@ $servicios = [
     const fase2 = document.getElementById('fase2');
     const fase3 = document.getElementById('fase3');
     const fase4 = document.getElementById('fase4');
+    const fase5 = document.getElementById('fase5');
 
     // Resumen fase 4
     const resumenTela = document.getElementById('resumenTela');
@@ -598,7 +788,10 @@ $servicios = [
     const faseTitulo = document.getElementById('faseTitulo');
     const faseDescripcion = document.getElementById('faseDescripcion');
 
-
+    const radios = document.querySelectorAll('input[name="contactoTipo"]');
+    const correoInput = document.getElementById('correo');
+    const whatsappInput = document.getElementById('whatsapp');
+    const formCotizacion = document.getElementById("formCotizacion");
 
     // Variables globales
     let fase = 1;
@@ -608,50 +801,14 @@ $servicios = [
       imagen: null,
       cantidad: 10 // Iniciamos con 10 por defecto
     };
-    console.log("Seleccionado:", servicioPreseleccionado);
-
-    function preseleccionarServicio() {
-      if (servicioPreseleccionado) {
-        const cards = document.querySelectorAll('#fase2 [data-tecnica]');
-        let tecnicaEncontrada = null;
-
-        cards.forEach(card => {
-          // Leer el objeto de datos de la técnica
-          const tecnica = JSON.parse(card.dataset.tecnica);
-
-          console.log("tecnica:", tecnica);
-          // Comprobar si el nombre de la técnica coincide con el valor del GET
-          if (tecnica.nombre === servicioPreseleccionado) {
-            tecnicaEncontrada = card;
-          }
-        });
-
-        if (tecnicaEncontrada) {
-          // Simular el clic en la tarjeta encontrada
-          tecnicaEncontrada.click();
-
-          /* Pasar a la fase 2 si no se abre directamente en ella
-          /if (fase === 1) {
-            fase = 2;
-            renderFase();
-          }*/
-
-        }
-      }
-    }
-
 
     // ---- Abrir modal con animación ----
-    // Selecciona todos los elementos con la clase 'abrir-cotizador'
-    botonesAbrir.forEach(boton => {
-      boton.addEventListener('click', () => {
-        // ---- Abrir modal con animación ----
-        modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
-        setTimeout(() => {
-          modalContent.classList.remove('scale-95', 'opacity-0');
-          modalContent.classList.add('scale-100', 'opacity-100');
-        }, 20);
-      });
+    abrir.addEventListener('click', () => {
+      modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+      }, 20);
     });
 
     // ---- Cerrar modal con animación ----
@@ -728,6 +885,45 @@ $servicios = [
       setTimeout(validarCantidad, 100);
     }
 
+    // Cambiar entre correo y whats
+    radios.forEach(r => {
+      r.addEventListener('change', () => {
+        if (r.value === "correo") {
+          correoInput.classList.remove("hidden");
+          whatsappInput.classList.add("hidden");
+        } else {
+          correoInput.classList.add("hidden");
+          whatsappInput.classList.remove("hidden");
+        }
+      });
+    });
+
+
+
+    formCotizacion.addEventListener("submit", (e) => {
+      // Pasar tela, técnica y cantidad
+      document.getElementById("inputTela").value = seleccion.tela?.nombre || "";
+      document.getElementById("inputTecnica").value = seleccion.tecnica?.nombre || "";
+      document.getElementById("inputCantidadHidden").value = seleccion.cantidad || "";
+
+      const base = seleccion.tela?.precio || 0;
+      const extra = seleccion.tecnica?.extra || 0;
+      const total = (base + extra) * (seleccion.cantidad || 1);
+      document.getElementById("inputTotal").value = total;
+
+      // Pasar imagen como base64
+      if (seleccion.imagen) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          document.getElementById("inputImagenHidden").value = ev.target.result;
+          formCotizacion.submit(); // 🔥 reenvía el form cuando ya está la imagen lista
+        };
+        reader.readAsDataURL(seleccion.imagen);
+
+        e.preventDefault(); // Evita enviar antes de convertir la imagen
+      }
+    });
+
     // Función para validar el estado del botón continuar
     function validarFaseActual() {
       let esValido = false;
@@ -744,6 +940,9 @@ $servicios = [
           break;
         case 4:
           esValido = true; // En la fase 4 siempre se puede continuar
+          break;
+        case 5:
+          esValido = true;
           break;
       }
 
@@ -767,7 +966,7 @@ $servicios = [
     if (btnContinuar) {
       btnContinuar.addEventListener('click', () => {
         if (validarFase()) { // Validar que los datos de la fase actual sean correctos
-          if (fase < 4) { // Solo avanza si no es la última fase
+          if (fase < 5) { // Solo avanza si no es la última fase
             fase++; // Incrementar contador de fase
             renderFase(); // Renderizar contenido correspondiente
             validarFaseActual(); // Ejecutar validación específica de la nueva fase
@@ -792,7 +991,7 @@ $servicios = [
     // Función para renderizar el contenido de cada fase
     function renderFase() {
       // Ocultar todas las fases
-      ['fase1', 'fase2', 'fase3', 'fase4'].forEach(id => {
+      ['fase1', 'fase2', 'fase3', 'fase4', 'fase5'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.classList.add('hidden');
       });
@@ -803,11 +1002,12 @@ $servicios = [
 
       // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
       const info = fasesInfo[fase];
+      console.log(info)
       if (faseTitulo) faseTitulo.textContent = info.titulo;
       if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
 
       // Lógica de la barra de progreso
-      const pasos = ['paso1', 'paso2', 'paso3', 'paso4'];
+      const pasos = ['paso1', 'paso2', 'paso3', 'paso4', 'paso5'];
       pasos.forEach((pasoId, index) => {
         const pasoElement = document.getElementById(pasoId);
         if (pasoElement) {
@@ -823,7 +1023,7 @@ $servicios = [
 
       // Mostrar u ocultar botón "Continuar" dependiendo de la fase
       if (btnContinuar) {
-        if (fase === 4) {
+        if (fase === 5) {
           btnContinuar.classList.add('hidden');
         } else {
           btnContinuar.classList.remove('hidden');
@@ -846,6 +1046,8 @@ $servicios = [
           reader.onload = ev => resumenImg.src = ev.target.result;
           reader.readAsDataURL(seleccion.imagen);
         }
+
+        console.log("Resumen actualizado", resumenTotal);
       }
     }
 
@@ -871,12 +1073,9 @@ $servicios = [
     // Validar inicialmente al cargar
     setTimeout(() => {
       validarFaseActual();
-      preseleccionarServicio();
     }, 100);
-  </script>
 
 
-  <script>
     feather.replace();
     renderFase();
   </script>
