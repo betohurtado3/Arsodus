@@ -1,4 +1,5 @@
 <?php
+
 /*    
 Actualizaciones pendientes:
   Navbar ojo, hay dos navbar xd
@@ -21,6 +22,7 @@ Actualizaciones pendientes:
   General:
   -> Revisar ortografía y gramática
 */
+
 ?>
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
@@ -37,6 +39,9 @@ Actualizaciones pendientes:
   <title>Arsodus</title>
   <link rel="icon" type="image/png" href="assets/img/LogoSinFondo.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
 
 
   <style>
@@ -660,13 +665,13 @@ Actualizaciones pendientes:
 
           <h2 class="font-Poppins text-4xl md:text-5xl font-extrabold text-blue-900 mb-4 animate-fade-in-down">
             ¿Listo para transformar <span class="text-blue-600">tu idea</span> en realidad?
-            
+
           </h2>
 
 
-                <div class="text-center mb-6">
-        
-      </div>
+          <div class="text-center mb-6">
+
+          </div>
 
           <p class="font-montserrat text-lg text-gray-700 max-w-lg mx-auto animate-fade-in delay-200">
             Tu visión es nuestro lienzo, Cuéntanos qué tienes en mente:
@@ -805,7 +810,7 @@ Actualizaciones pendientes:
 
         <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
         <div class="flex flex-col items-center">
-          <div id="paso5" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">4</div>
+          <div id="paso5" class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 border-2 border-gray-400 text-gray-400">5</div>
           <span class="mt-2 text-xs font-medium text-gray-500">Finalizar</span>
         </div>
 
@@ -853,7 +858,6 @@ Actualizaciones pendientes:
 
       </div>
 
-
       <!-- Contenido Fase 2 -->
       <div id="fase2" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
 
@@ -900,43 +904,104 @@ Actualizaciones pendientes:
 
       </div>
 
-
       <!-- Contenido Fase 3 -->
       <div id="fase3" class="hidden">
-        <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
-        <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
-          class="block w-full border rounded p-2 mb-4">
-        <label class="block mb-2 font-medium">Cantidad</label>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
 
-        <input type="number" id="inputCantidad" min="10" value="10"
-          class="block w-full border rounded p-2">
+          <!-- Sección selección de color -->
+          <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md">
+            <!-- Título principal -->
+            <h2 class="text-xl font-semibold mb-4">Selecciona el color de las prendas</h2>
+
+            <!-- Camiseta -->
+            <svg id="previewCamiseta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+              class="w-32 h-32 mb-4 transition-colors duration-300">
+              <path d="M50,40 L150,40 L170,70 L150,100 L150,180 L50,180 L50,100 L30,70 Z"
+                stroke="black" stroke-width="3" fill="#ffffff" id="camisetaBase" />
+            </svg>
+
+            <!-- Colores rápidos -->
+            <div class="flex gap-2 mb-4">
+              <button type="button" class="w-8 h-8 rounded-full border border-gray-300"
+                style="background-color: #ffffff;" data-color="#ffffff"></button>
+              <button type="button" class="w-8 h-8 rounded-full border border-gray-300"
+                style="background-color: #000000;" data-color="#000000"></button>
+              <button type="button" class="w-8 h-8 rounded-full border border-gray-300"
+                style="background-color: #2563eb;" data-color="#2563eb"></button>
+              <button type="button" class="w-8 h-8 rounded-full border border-gray-300"
+                style="background-color: #e11d48;" data-color="#e11d48"></button>
+            </div>
+
+            <!-- Botón y picker -->
+            <div class="flex flex-col items-center gap-2">
+              <button id="openColorPicker" type="button"
+                class="px-3 py-1 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">
+                + Más colores
+              </button>
+              <div id="pickr-container" class="mt-1"></div>
+            </div>
+
+            <!-- Input oculto -->
+            <input type="hidden" id="inputColor" name="color" value="#ffffff">
+          </div>
+
+
+          <!-- Lado derecho: inputs -->
+          <div>
+            <label class="block mb-2 font-medium">Sube tu diseño (JPEG, PNG o GIF)</label>
+            <input type="file" id="inputImagen" accept=".jpg,.jpeg,.png,.gif"
+              class="block w-full border rounded p-2 mb-4">
+
+
+            <label class="block mb-2 font-medium">Cantidad</label>
+            <input type="number" id="inputCantidad" min="10" value="10"
+              class="block w-full border rounded p-2">
+          </div>
+
+        </div>
       </div>
 
       <!-- Contenido Fase 4 -->
-      <div id="fase4" class="hidden mt-4">
-        <h3 class="text-xl font-bold mb-4">Resumen de tu pedido</h3>
+      <div id="fase4" class="hidden mt-4 flex flex-col h-full">
+        <h3 class="text-xl font-bold mb-4 text-center">Resumen de tu pedido</h3>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Contenedor con scroll interno -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1 overflow-y-auto px-1">
+
           <!-- Detalles -->
-          <div class="border rounded-lg p-4 shadow-sm bg-gray-50 space-y-3">
+          <div class="border rounded-lg p-3 shadow-sm bg-gray-50 space-y-2 text-sm">
             <p class="text-gray-700"><strong>Tela:</strong> <span id="resumenTela">—</span></p>
             <p class="text-gray-700"><strong>Técnica:</strong> <span id="resumenTecnica">—</span></p>
             <p class="text-gray-700"><strong>Cantidad:</strong> <span id="resumenCantidad">—</span></p>
-            <p class="text-lg font-semibold text-blue-700">
+            <p class="text-gray-700"><strong>Color:</strong> <span id="resumenColor">—</span></p>
+            <p class="text-base font-semibold text-blue-700">
               Total: <span id="resumenTotal">—</span>
             </p>
           </div>
 
           <!-- Imagen subida -->
-          <div class="border rounded-lg p-4 shadow-sm bg-white flex flex-col items-center justify-center">
-            <p class="text-sm text-gray-500 mb-3">Diseño subido</p>
+          <div class="border rounded-lg p-3 shadow-sm bg-white flex flex-col items-center justify-center">
+            <p class="text-xs text-gray-500 mb-2">Diseño subido</p>
             <img id="resumenImg"
-              class="max-h-64 w-auto rounded-lg border border-gray-200 shadow-md object-contain"
+              class="max-h-40 w-auto rounded-lg border border-gray-200 shadow-md object-contain"
               src="https://dummyimage.com/300x300/ddd/aaa.png&text=Sin+imagen"
               alt="Diseño subido">
           </div>
+
+          <!-- Camiseta con color seleccionado -->
+          <div class="border rounded-lg p-3 shadow-sm bg-white flex flex-col items-center justify-center">
+            <p class="text-xs text-gray-500 mb-2">Color seleccionado</p>
+            <svg id="resumenCamiseta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+              class="w-24 h-24">
+              <path d="M50,40 L150,40 L170,70 L150,100 L150,180 L50,180 L50,100 L30,70 Z"
+                stroke="black" stroke-width="2" fill="#ffffff" id="resumenCamisetaBase" />
+            </svg>
+          </div>
+
         </div>
       </div>
+
+
       <!-- Contenido Fase 5 -->
       <div id="fase5" class="hidden mt-4">
         <h3 class="text-lg font-bold mb-4 text-center">Finaliza tu Cotización</h3>
@@ -1008,17 +1073,20 @@ Actualizaciones pendientes:
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
+    /* ================================
+   CONFIGURACIÓN DE SLIDER (Swiper)
+================================ */
     var swiper = new Swiper(".testimonios-swiper", {
-      slidesPerView: 3, // siempre mostrar 3
+      slidesPerView: 3, // Siempre mostrar 3
       spaceBetween: 30,
       grabCursor: true,
-      loop: true, // 🔥 permite ir hacia la izquierda y derecha sin fin
-      centeredSlides: true, // 🔥 centra siempre el slide activo
+      loop: true, // 🔥 Permite ir hacia la izquierda/derecha sin fin
+      centeredSlides: true, // 🔥 Centra el slide activo
       navigation: {
         nextEl: ".custom-next",
         prevEl: ".custom-prev",
       },
-      effect: "coverflow", // 🔥 da profundidad tipo carrusel
+      effect: "coverflow", // 🔥 Efecto tipo carrusel 3D
       coverflowEffect: {
         rotate: 0,
         stretch: 0,
@@ -1028,21 +1096,20 @@ Actualizaciones pendientes:
       },
       breakpoints: {
         0: {
-          slidesPerView: 1,
+          slidesPerView: 1
         },
         768: {
-          slidesPerView: 2,
+          slidesPerView: 2
         },
         1024: {
-          slidesPerView: 3,
+          slidesPerView: 3
         },
       },
     });
-  </script>
 
-  <!-- Scripts para el Modal del Cotizador -->
-  <script>
-    // Agrega esta nueva variable global
+    /* ================================
+       INFORMACIÓN DE FASES
+    ================================ */
     const fasesInfo = {
       1: {
         titulo: "Selección de Material",
@@ -1059,53 +1126,66 @@ Actualizaciones pendientes:
       4: {
         titulo: "Resumen de tu Cotización",
         descripcion: "Revisa los detalles de tu pedido antes de finalizar."
+      },
+      5: {
+        titulo: "Finaliza tu Cotización",
+        descripcion: "Proporciona tus datos para enviarte la cotización."
       }
     };
 
-    // Referencias del modal
+    /* ================================
+       REFERENCIAS DEL DOM
+    ================================ */
+    // Modal
     const modalCotizador = document.getElementById('cotizadorModal');
     const modalContent = document.getElementById('cotizadorContent');
     const abrir = document.getElementById('abrirCotizador');
     const cerrar = document.getElementById('cerrarModal');
     const btnContinuar = document.getElementById('btnContinuar');
     const btnAtras = document.getElementById('btnAtras');
-    const faseProgreso = document.getElementById('faseProgreso');
-    const faseActual = document.getElementById('faseActual');
 
-    // Contenedores de fases
+    // Fases
     const fase1 = document.getElementById('fase1');
     const fase2 = document.getElementById('fase2');
     const fase3 = document.getElementById('fase3');
     const fase4 = document.getElementById('fase4');
     const fase5 = document.getElementById('fase5');
 
-    // Resumen fase 4
+    // Resumen (fase 4)
     const resumenTela = document.getElementById('resumenTela');
     const resumenTecnica = document.getElementById('resumenTecnica');
     const resumenCantidad = document.getElementById('resumenCantidad');
+    const resumenColor = document.getElementById('resumenColor');
     const resumenTotal = document.getElementById('resumenTotal');
     const resumenImg = document.getElementById('resumenImg');
 
+    // Barra de progreso
     const progressBar = document.getElementById('progressBar');
-
     const faseTitulo = document.getElementById('faseTitulo');
     const faseDescripcion = document.getElementById('faseDescripcion');
 
+    // Inputs contacto
     const radios = document.querySelectorAll('input[name="contactoTipo"]');
     const correoInput = document.getElementById('correo');
     const whatsappInput = document.getElementById('whatsapp');
     const formCotizacion = document.getElementById("formCotizacion");
 
-    // Variables globales
+    /* ================================
+       VARIABLES GLOBALES
+    ================================ */
     let fase = 1;
     let seleccion = {
       tela: null,
       tecnica: null,
       imagen: null,
-      cantidad: 10 // Iniciamos con 10 por defecto
+      cantidad: 10, // Cantidad mínima inicial
+      color: "#ffffff"
     };
 
-    // ---- Abrir modal con animación ----
+    /* ================================
+       FUNCIONES DE MODAL
+    ================================ */
+    // Abrir modal con animación
     abrir.addEventListener('click', () => {
       modalCotizador.classList.remove('opacity-0', 'pointer-events-none');
       setTimeout(() => {
@@ -1114,7 +1194,7 @@ Actualizaciones pendientes:
       }, 20);
     });
 
-    // ---- Cerrar modal con animación ----
+    // Cerrar modal con animación
     cerrar.addEventListener('click', () => {
       modalContent.classList.remove('scale-100', 'opacity-100');
       modalContent.classList.add('scale-95', 'opacity-0');
@@ -1123,13 +1203,16 @@ Actualizaciones pendientes:
       }, 300);
     });
 
+    /* ================================
+       SELECCIONES DE FASES
+    ================================ */
     // Selección de telas
     document.querySelectorAll('#fase1 [data-tela]').forEach(card => {
       card.addEventListener('click', () => {
         document.querySelectorAll('#fase1 [data-tela]').forEach(c => c.classList.remove('border-blue-500'));
         card.classList.add('border-blue-500');
         seleccion.tela = JSON.parse(card.dataset.tela);
-        validarFaseActual(); // Validar después de seleccionar
+        validarFaseActual();
       });
     });
 
@@ -1139,35 +1222,33 @@ Actualizaciones pendientes:
         document.querySelectorAll('#fase2 [data-tecnica]').forEach(c => c.classList.remove('border-blue-500'));
         card.classList.add('border-blue-500');
         seleccion.tecnica = JSON.parse(card.dataset.tecnica);
-        validarFaseActual(); // Validar después de seleccionar
+        validarFaseActual();
       });
     });
 
-    // Input imagen
+    // Subida de imagen
     const inputImagen = document.getElementById('inputImagen');
     if (inputImagen) {
       inputImagen.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file && ["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
           seleccion.imagen = file;
-          validarFaseActual(); // Validar después de subir imagen
         } else {
           alert("Formato no permitido. Sube JPEG, PNG o GIF.");
           inputImagen.value = "";
           seleccion.imagen = null;
-          validarFaseActual();
         }
+        validarFaseActual();
       });
     }
 
-    // Input cantidad - VALIDACIÓN MEJORADA
+    // Validación cantidad
     const inputCantidad = document.getElementById('inputCantidad');
     if (inputCantidad) {
       const validarCantidad = () => {
         const valor = parseInt(inputCantidad.value) || 0;
         const esValido = valor >= 10;
 
-        // Aplicar estilos de validación
         if (esValido) {
           inputCantidad.classList.remove('border-red-500', 'bg-red-50');
           inputCantidad.classList.add('border-green-500');
@@ -1175,20 +1256,68 @@ Actualizaciones pendientes:
         } else {
           inputCantidad.classList.remove('border-green-500');
           inputCantidad.classList.add('border-red-500', 'bg-red-50');
-          seleccion.cantidad = 0; // Marcamos como inválido
+          seleccion.cantidad = 0;
         }
-
-        validarFaseActual(); // Validar botón continuar
+        validarFaseActual();
       };
-
       inputCantidad.addEventListener('input', validarCantidad);
       inputCantidad.addEventListener('change', validarCantidad);
-
-      // Validar inicialmente
-      setTimeout(validarCantidad, 100);
+      setTimeout(validarCantidad, 100); // Validar inicialmente
     }
 
-    // Cambiar entre correo y whats
+    /* ================================
+       SELECCIÓN DE COLOR (Pickr)
+    ================================ */
+    const pickr = Pickr.create({
+      el: '#pickr-container',
+      theme: 'nano',
+      default: '#ffffff',
+      swatches: ['#ffffff', '#000000', '#2563eb', '#e11d48', '#16a34a'],
+      components: {
+        preview: true,
+        opacity: true,
+        hue: true,
+        interaction: {
+          input: true,
+          save: true
+        }
+      }
+    });
+
+    // Guardar color desde Pickr
+    pickr.on('save', (color) => {
+      const hex = color.toHEXA().toString();
+      document.getElementById('camisetaBase').setAttribute('fill', hex);
+      document.getElementById('inputColor').value = hex;
+      seleccion.color = hex;
+      pickr.hide();
+    });
+
+    // Botones rápidos de color
+    document.querySelectorAll('[data-color]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const color = btn.getAttribute('data-color');
+        document.getElementById('camisetaBase').setAttribute('fill', color);
+        document.getElementById('inputColor').value = color;
+        seleccion.color = color;
+        validarFaseActual();
+      });
+    });
+
+    // Mostrar/ocultar Pickr
+    document.getElementById('openColorPicker').addEventListener('click', () => pickr.show());
+
+    // Input color manual
+    const inputColor = document.getElementById('inputColor');
+    if (inputColor) {
+      inputColor.addEventListener('change', () => {
+        seleccion.color = inputColor.value;
+      });
+    }
+
+    /* ================================
+       CONTACTO (correo / whatsapp)
+    ================================ */
     radios.forEach(r => {
       r.addEventListener('change', () => {
         if (r.value === "correo") {
@@ -1201,161 +1330,126 @@ Actualizaciones pendientes:
       });
     });
 
-
-
+    /* ================================
+       SUBMIT DEL FORMULARIO
+    ================================ */
     formCotizacion.addEventListener("submit", (e) => {
-      // Pasar tela, técnica y cantidad
+      // Pasar datos a inputs ocultos
       document.getElementById("inputTela").value = seleccion.tela?.nombre || "";
       document.getElementById("inputTecnica").value = seleccion.tecnica?.nombre || "";
       document.getElementById("inputCantidadHidden").value = seleccion.cantidad || "";
+      document.getElementById("inputColor").value = seleccion.color || "#ffffff";
 
+      // Calcular total
       const base = seleccion.tela?.precio || 0;
       const extra = seleccion.tecnica?.extra || 0;
       const total = (base + extra) * (seleccion.cantidad || 1);
       document.getElementById("inputTotal").value = total;
 
-      // Pasar imagen como base64
+      // Imagen en base64
       if (seleccion.imagen) {
         const reader = new FileReader();
         reader.onload = function(ev) {
           document.getElementById("inputImagenHidden").value = ev.target.result;
-          formCotizacion.submit(); // 🔥 reenvía el form cuando ya está la imagen lista
+          formCotizacion.submit(); // 🔥 Reenvía el form cuando ya está lista
         };
         reader.readAsDataURL(seleccion.imagen);
-
-        e.preventDefault(); // Evita enviar antes de convertir la imagen
+        e.preventDefault();
       }
     });
 
-    // Función para validar el estado del botón continuar
-    function validarFaseActual() {
-      let esValido = false;
-
-      switch (fase) {
-        case 1:
-          esValido = seleccion.tela !== null;
-          break;
-        case 2:
-          esValido = seleccion.tecnica !== null;
-          break;
-        case 3:
-          esValido = seleccion.imagen !== null && seleccion.cantidad >= 10;
-          break;
-        case 4:
-          esValido = true; // En la fase 4 siempre se puede continuar
-          break;
-        case 5:
-          esValido = true;
-          break;
-      }
-
-      // Actualizar estado del botón
-      if (btnContinuar) {
-        if (esValido) {
-          btnContinuar.disabled = false;
-          btnContinuar.classList.remove('bg-gray-400', 'cursor-not-allowed');
-          btnContinuar.classList.add('bg-blue-600', 'hover:bg-blue-700');
-        } else {
-          btnContinuar.disabled = true;
-          btnContinuar.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-          btnContinuar.classList.add('bg-gray-400', 'cursor-not-allowed');
-        }
-      }
-
-      return esValido;
-    }
-
-    // Botón Continuar - avanza a la siguiente fase si es válida
+    /* ================================
+       NAVEGACIÓN ENTRE FASES
+    ================================ */
+    // Botón Continuar
     if (btnContinuar) {
       btnContinuar.addEventListener('click', () => {
-        if (validarFase()) { // Validar que los datos de la fase actual sean correctos
-          if (fase < 5) { // Solo avanza si no es la última fase
-            fase++; // Incrementar contador de fase
-            renderFase(); // Renderizar contenido correspondiente
-            validarFaseActual(); // Ejecutar validación específica de la nueva fase
+        if (validarFase()) {
+          if (fase < 5) {
+            fase++;
+            renderFase();
+            validarFaseActual();
           }
         }
       });
     }
 
-    // Botón atrás
+    // Botón Atrás
     if (btnAtras) {
       btnAtras.addEventListener('click', () => {
         if (fase > 1) {
           fase--;
           renderFase();
-          validarFaseActual(); // Validar nueva fase
+          validarFaseActual();
         }
       });
-    }
+    };
 
-    // Mostrar fases
-    // Mostrar la fase correspondiente y actualizar datos
-    // Función para renderizar el contenido de cada fase
+    /* ================================
+       RENDER DE FASES Y PROGRESO
+    ================================ */
     function renderFase() {
-      // Ocultar todas las fases
+      // Ocultar todas
       ['fase1', 'fase2', 'fase3', 'fase4', 'fase5'].forEach(id => {
-        const element = document.getElementById(id);
-        if (element) element.classList.add('hidden');
+        document.getElementById(id)?.classList.add('hidden');
       });
 
-      // Mostrar solo la fase actual
-      const faseActualElement = document.getElementById(`fase${fase}`);
-      if (faseActualElement) faseActualElement.classList.remove('hidden');
+      // Mostrar actual
+      document.getElementById(`fase${fase}`)?.classList.remove('hidden');
 
-      // --- NUEVA LÓGICA DE ACTUALIZACIÓN DE TÍTULOS Y DESCRIPCIONES ---
+      // Título y descripción
       const info = fasesInfo[fase];
-      console.log(info)
       if (faseTitulo) faseTitulo.textContent = info.titulo;
       if (faseDescripcion) faseDescripcion.textContent = info.descripcion;
 
-      // Lógica de la barra de progreso
+      // 🔥 Lógica de la barra de progreso 🔥
       const pasos = ['paso1', 'paso2', 'paso3', 'paso4', 'paso5'];
       pasos.forEach((pasoId, index) => {
         const pasoElement = document.getElementById(pasoId);
         if (pasoElement) {
           if (index < fase) {
-            pasoElement.classList.remove('border-gray-400', 'text-gray-400');
             pasoElement.classList.add('border-blue-500', 'bg-blue-500', 'text-white');
+            pasoElement.classList.remove('border-gray-400', 'text-gray-400');
           } else {
-            pasoElement.classList.remove('border-blue-500', 'bg-blue-500', 'text-white');
             pasoElement.classList.add('border-gray-400', 'text-gray-400');
+            pasoElement.classList.remove('border-blue-500', 'bg-blue-500', 'text-white');
           }
         }
       });
 
-      // Mostrar u ocultar botón "Continuar" dependiendo de la fase
+      // Ocultar botón continuar en última fase
       if (btnContinuar) {
-        if (fase === 5) {
-          btnContinuar.classList.add('hidden');
-        } else {
-          btnContinuar.classList.remove('hidden');
-        }
+        btnContinuar.classList.toggle('hidden', fase === 5);
       }
 
-      // Si estamos en la fase 4, renderizar resumen
+      // Render resumen en fase 4
       if (fase === 4) {
-        if (resumenTela) resumenTela.textContent = seleccion.tela?.nombre || "—";
-        if (resumenTecnica) resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
-        if (resumenCantidad) resumenCantidad.textContent = seleccion.cantidad || "—";
+        resumenTela.textContent = seleccion.tela?.nombre || "—";
+        resumenTecnica.textContent = seleccion.tecnica?.nombre || "—";
+        resumenCantidad.textContent = seleccion.cantidad || "—";
+        resumenColor.textContent = seleccion.color || "—";
 
         const base = seleccion.tela?.precio || 0;
         const extra = seleccion.tecnica?.extra || 0;
         const total = (base + extra) * (seleccion.cantidad || 1);
-        if (resumenTotal) resumenTotal.textContent = `$${total.toFixed(2)}`;
+        resumenTotal.textContent = `$${total.toFixed(2)}`;
 
-        if (seleccion.imagen && resumenImg) {
+        // Pintar camiseta del resumen
+        document.getElementById("resumenCamisetaBase")
+          .setAttribute("fill", seleccion.color);
+
+        // Imagen del resumen
+        if (seleccion.imagen) {
           const reader = new FileReader();
           reader.onload = ev => resumenImg.src = ev.target.result;
           reader.readAsDataURL(seleccion.imagen);
         }
-
-        console.log("Resumen actualizado", resumenTotal);
       }
     }
 
-
-    // Validaciones al hacer clic en continuar
+    /* ================================
+       VALIDACIONES
+    ================================ */
     function validarFase() {
       if (fase === 1 && !seleccion.tela) {
         alert("Selecciona una tela.");
@@ -1373,16 +1467,45 @@ Actualizaciones pendientes:
       return true;
     }
 
-    // Validar inicialmente al cargar
-    setTimeout(() => {
-      validarFaseActual();
-    }, 100);
+    // Validar estado del botón
+    function validarFaseActual() {
+      let esValido = false;
+      switch (fase) {
+        case 1:
+          esValido = seleccion.tela !== null;
+          break;
+        case 2:
+          esValido = seleccion.tecnica !== null;
+          break;
+        case 3:
+          esValido = seleccion.imagen !== null && seleccion.cantidad >= 10;
+          break;
+        case 4:
+          esValido = true;
+          break;
+        case 5:
+          esValido = true;
+          break;
+      }
 
+      if (btnContinuar) {
+        btnContinuar.disabled = !esValido;
+        btnContinuar.classList.toggle('bg-blue-600', esValido);
+        btnContinuar.classList.toggle('hover:bg-blue-700', esValido);
+        btnContinuar.classList.toggle('bg-gray-400', !esValido);
+        btnContinuar.classList.toggle('cursor-not-allowed', !esValido);
+      }
+      return esValido;
+    }
 
+    /* ================================
+       INICIALIZACIÓN
+    ================================ */
+    setTimeout(validarFaseActual, 100);
     feather.replace();
     renderFase();
   </script>
-  
+
 </body>
 
 </html>
