@@ -934,11 +934,12 @@ Actualizaciones pendientes:
 
             <!-- Botón y picker -->
             <div class="flex flex-col items-center gap-2">
+              <div id="pickr-container" class="mt-1"></div>
               <button id="openColorPicker" type="button"
                 class="px-3 py-1 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">
                 + Más colores
               </button>
-              <div id="pickr-container" class="mt-1"></div>
+              
             </div>
 
             <!-- Input oculto -->
@@ -1284,6 +1285,12 @@ Actualizaciones pendientes:
       }
     });
 
+    // Cambiar el texto del botón "Save" del pickr a "Seleccionar"
+    pickr.on('init', instance => {
+      const saveBtn = instance.getRoot().querySelector('.pcr-button-save');
+      if (saveBtn) saveBtn.textContent = 'Seleccionar';
+    });
+    
     // Guardar color desde Pickr
     pickr.on('save', (color) => {
       const hex = color.toHEXA().toString();

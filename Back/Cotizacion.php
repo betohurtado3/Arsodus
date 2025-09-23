@@ -3,25 +3,56 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Composer: composer require phpmailer/phpmailer
+require '../vendor/autoload.php'; // Composer: composer require phpmailer/phpmailer
 
-echo "<h2>Datos recibidos:</h2>";
+/* echo "<h2>Datos recibidos:</h2>";
 echo "<pre>";
 print_r($_POST);
 echo "</pre>";
+*/
+$Nombre_Cliente = $_POST["nombre"];
+$Tipo_Contacto = $_POST["contactoTipo"];
+$Correo_Cliente = $_POST["correo"];
+$Whatsapp_Cliente = $_POST["whatsapp"];
+$Mensaje_Cliente = $_POST["mensaje"];
+$Tela_Seleccionada = $_POST["tela"];
+$Tecnica_Seleccionada = $_POST["tecnica"];
+$Cantidad_De_Camisas = $_POST["cantidad"];
+$Monto_Total = $_POST["total"];
 
-// Si mandaste la imagen en base64
-if (!empty($_POST['imagenBase64'])) {
-    $data = $_POST['imagenBase64'];
-    $data = str_replace('data:image/png;base64,', '', $data);
-    $data = str_replace(' ', '+', $data);
-    $imagen = base64_decode($data);
 
-    // Guardar como archivo temporal
-    file_put_contents('uploads/diseno.png', $imagen);
-    echo "<p>Imagen guardada en /uploads/diseno.png</p>";
+if ($Tipo_Contacto == "whatsapp") {
+    // Número de destino
+    $telefono = "5213323638666";
+
+    // Texto base del mensaje
+    $mensaje  = "👋 *Hola Arsodus*, me gustaría hacer una cotización con los siguientes datos:\n\n";
+    $mensaje .= "🧑‍💼 *Nombre*: $Nombre_Cliente\n";
+    $mensaje .= "📲 *Tipo de Contacto*: $Tipo_Contacto\n";
+    $mensaje .= "📧 *Correo*: $Correo_Cliente\n";
+    $mensaje .= "💬 *Whatsapp*: $Whatsapp_Cliente\n\n";
+    $mensaje .= "📝 *Mensaje*: \n$Mensaje_Cliente\n\n";
+    $mensaje .= "👕 *Tela*: $Tela_Seleccionada\n";
+    $mensaje .= "🎨 *Técnica*: $Tecnica_Seleccionada\n";
+    $mensaje .= "📦 *Cantidad*: $Cantidad_De_Camisas\n";
+    $mensaje .= "💰 *Monto Total*: $$Monto_Total";
+
+    // Convertir a formato URL
+    $mensajeCodificado = urlencode($mensaje);
+
+    // URL final de WhatsApp
+    $url = "https://api.whatsapp.com/send?phone=$telefono&text=$mensajeCodificado";
+
+    // Redirigir
+    header("Location: $url");
+    exit();
 }
+elseif ($Tipo_Contacto == "correo") {
+    // Aquí se manejará el envío por correo
 
+// Metodo para Whatsapp
+
+// Metodo para correo
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $contactoTipo = $_POST['contactoTipo'];
@@ -76,5 +107,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Error al enviar: {$mail->ErrorInfo}";
     }
 }
-
-?>
+}
