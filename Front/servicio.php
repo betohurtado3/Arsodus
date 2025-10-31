@@ -9,42 +9,80 @@ $servicios = [
       "Ideal para altos volúmenes",
       "Colores vibrantes y duraderos",
       "Excelente relación costo-beneficio"
+    ],
+    "especificaciones" => [
+      "Tamaños desde 2 cm.",
+      "Medidas más grandes al tabloide aplican restricciones.",
+    ],
+    "detalles" => [
+      "colores" => "Según pantone especificado o tono más similar.",
+      "tamaños" => "Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).",
+      "calidades" => "Alta durabilidad con tintas resistentes al lavado."
     ]
   ],
+
   "Vinil" => [
     "descripcion" => "El vinil textil permite crear diseños con acabados brillantes o mate, aplicados con calor y presión.",
     "caracteristicas" => [
       "Perfecto para personalización rápida",
       "Acabados especiales: glitter, holográfico, metálico",
       "No requiere grandes tirajes"
+    ],
+    "especificaciones" => [],
+    "detalles" => [
+      "colores" => "Del tono solicitado o similares.",
+      "tamaños" => "Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).",
+      "calidades" => "Disponible en acabado mate y brillante."
     ]
   ],
+
   "DTF" => [
-    "descripcion" => "La impresión DTF transfiere diseños completos a prendas mediante calor, sin perder detalle ni color.",
+    "descripcion" => "La impresión DTF transfiere diseños completos a prendas mediante calor y presión, sin perder detalle ni color.",
     "caracteristicas" => [
       "Alta resolución y colores intensos",
-      "Compatible con cualquier tela",
+      "Compatible con cualquier tela o superficie rígida",
       "Excelente resistencia al lavado"
+    ],
+    "especificaciones" => [],
+    "detalles" => [
+      "colores" => "Ilimitados.",
+      "tamaños" => "Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).",
+      "calidades" => "Dependerá del archivo enviado y la superficie aplicada."
     ]
   ],
+
   "Bordado" => [
-    "descripcion" => "Técnica de acabado premium que utiliza hilos de alta calidad para crear diseños textiles con relieve y elegancia.",
+    "descripcion" => "Técnica de acabado premium con hilos de alta calidad para crear diseños textiles con relieve y elegancia.",
     "caracteristicas" => [
       "Acabado profesional y de lujo",
-      "Durabilidad extrema (resistente a lavados frecuentes)",
+      "Durabilidad extrema",
       "Ideal para logos corporativos y uniformes"
+    ],
+    "especificaciones" => [],
+    "detalles" => [
+      "colores" => "Hilos del tono requeridos (o similares) sin límite de color.",
+      "tamaños" => "Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).",
+      "calidades" => "Premium con hilos de poliéster o rayón de alta resistencia."
     ]
   ],
+
   "Sublimación" => [
     "descripcion" => "Método donde los diseños se imprimen con tinta que se fusiona químicamente con las fibras del textil.",
     "caracteristicas" => [
-      "Estampado completo sin sensación de tinta",
+      "Estampado sin sensación de tinta o relieve",
       "Colores fotográficos y degradados perfectos",
-      "Recomendado para prendas blancas o claras"
+      "Recomendado únicamente para prendas blancas 100% poliéster"
+    ],
+    "especificaciones" => [],
+    "detalles" => [
+      "colores" => "Ilimitados, según los que requiera la imagen.",
+      "tamaños" => "Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).",
+      "calidades" => "100% poliéster blanco."
     ]
   ]
 ];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
@@ -55,7 +93,7 @@ $servicios = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/index.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" type="image/png" href="../assets/img/LogoSinFondo.png">
+  <link rel="icon" type="image/png" href="/assets/img/LogoSinFondo.png">
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
@@ -63,6 +101,18 @@ $servicios = [
 
 
   <title><?php echo ucfirst($Servicio); ?> - Arsodus</title>
+
+  <!-- Metadatos dinámicos para compartir -->
+  <meta property="og:title" content="<?php echo ucfirst($Servicio); ?> | Arsodus">
+  <meta property="og:description" content="Conoce todo sobre <?php echo strtolower($Servicio); ?>: técnica, calidad y opciones personalizadas.">
+  <meta property="og:image" content="/assets/img/LogoSinFondo.png">
+  <meta property="og:url" content="https://arsodus.com/Front/servicio.php?tipo=<?php echo urlencode($Servicio); ?>">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?php echo ucfirst($Servicio); ?> | Arsodus">
+  <meta name="twitter:description" content="Conoce todo sobre <?php echo strtolower($Servicio); ?> en Arsodus.">
+  <meta name="twitter:image" content="https://arsodus.com/assets/img/<?php echo $Servicio; ?>1.png">
+
 
 
   <style>
@@ -162,14 +212,42 @@ $servicios = [
   </section>
 
   <?php
+  // -------------------- DEBUG BLOQUE --------------------
+  //echo "<pre style='background:#111;color:#0f0;padding:10px;border-radius:8px;'>";
+  //echo "DEBUG RUTAS DE IMAGENES\n";
+  //echo "=================================\n";
+
   $imagenes = [];
   for ($i = 1; $i <= 4; $i++) {
-    $imagePath = "/Arsodus/assets/img/{$Servicio}{$i}.png";
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)) {
+    $imagePath = "/assets/img/{$Servicio}{$i}.png";
+
+    // Mostramos la ruta relativa que se intenta cargar
+    //echo "Intentando con: $imagePath\n";
+
+    // Ruta absoluta en el servidor
+    $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+    //echo "Ruta absoluta: $absolutePath\n";
+
+    // Verificamos si existe
+    if (file_exists($absolutePath)) {
+      //echo "✅ Existe\n";
       $imagenes[] = $imagePath;
+    } else {
+      //echo "❌ No existe\n";
     }
+
+    //echo "---------------------------------\n";
   }
+
+  //echo "DOCUMENT_ROOT: " . $_SERVER['DOCUMENT_ROOT'] . "\n";
+  //echo "Directorio actual (__DIR__): " . __DIR__ . "\n";
+  //echo "Archivo actual (__FILE__): " . __FILE__ . "\n";
+  //echo "=================================\n";
+  //echo "</pre>";
+
+  // -------------------- FIN DEBUG --------------------
   ?>
+
   <!-- Carrusel + Card -->
   <section class="py-8">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
@@ -200,7 +278,6 @@ $servicios = [
             x-show="active === <?php echo $index; ?>"
             x-transition.opacity.duration.500ms
             class="absolute inset-0">
-
             <img src="<?php echo $img; ?>"
               class="w-full h-full object-cover"
               alt="<?php echo ucfirst($Servicio) . ' ' . $index; ?>">
@@ -241,7 +318,7 @@ $servicios = [
 
         <!-- Icono dinámico -->
         <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-          <img src="../assets/icon/<?php echo $Servicio; ?>.png?v=<?php echo time(); ?>"
+          <img src="/assets/icon/<?php echo $Servicio; ?>.png?v=<?php echo time(); ?>"
             alt="<?php echo ucfirst($Servicio); ?>"
             class="w-12 h-12 object-contain">
         </div>
@@ -251,44 +328,140 @@ $servicios = [
         </h2>
 
         <?php if ($info): ?>
+          <!-- Descripción principal -->
           <p class="text-gray-700 leading-relaxed mb-6">
-            <?php echo $info['descripcion']; ?>
+            <?php echo nl2br($info['descripcion']); ?>
           </p>
-          <ul class="space-y-3 text-gray-600 text-left w-full max-w-md">
+
+          <!-- Características -->
+          <ul class="space-y-3 text-gray-600 text-left w-full max-w-md mb-6">
             <?php foreach ($info['caracteristicas'] as $c): ?>
-              <li class="flex items-center">
+              <li class="flex items-start">
                 <span class="mr-2 text-blue-600 font-bold">✓</span>
-                <?php echo $c; ?>
+                <span><?php echo $c; ?></span>
               </li>
             <?php endforeach; ?>
           </ul>
+
+          <!-- Especificaciones (nuevo bloque secundario) -->
+          <?php if (!empty($info['especificaciones'])): ?>
+            <div class="mt-4 bg-blue-50/50 border border-blue-100 rounded-xl p-4 text-left w-full max-w-md shadow-inner">
+              <h3 class="text-blue-800 font-semibold mb-2 text-lg flex items-center">
+                <svg class="w-5 h-5 text-blue-700 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6v6h4m5 6a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                </svg>
+                Especificaciones
+              </h3>
+              <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                <?php foreach ($info['especificaciones'] as $e): ?>
+                  <li><?php echo nl2br($e); ?></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          <?php endif; ?>
+
           <br>
-          <button class="abrirCotizador px-10 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out">
-            🚀 Iniciar Cotización
+
+          <!-- Botón cotizador -->
+          <button
+            @click="openModal = true"
+            class="px-8 py-4 bg-[#0f52bd] text-white font-semibold rounded-full 
+               shadow-lg hover:bg-[#0d47a1] hover:scale-105 
+               transition-all duration-300 ease-out focus:outline-none 
+               focus:ring-4 focus:ring-[#0f52bd]/40">
+            Realizar cotización en línea
           </button>
+
         <?php else: ?>
           <p class="text-red-500">No se encontró información para este servicio.</p>
         <?php endif; ?>
       </div>
+
     </div>
     <br>
 
   </section>
 
+
+
+
+  <!-- Sección Cotizador Dinámico -->
+  <section class="py-20 bg-[#fdfaf6]" id="Cotizador">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+
+      <!-- Título -->
+      <div class="text-center mb-10">
+        <h2 class="section-title text-3xl font-extrabold text-blue-900">
+          Especificaciones del servicio <?php echo ucfirst($Servicio); ?>
+        </h2>
+        <p class="text-gray-500 mt-2">Cada técnica tiene sus propias condiciones y características de producción.</p>
+      </div>
+
+      <?php if (isset($servicios[$Servicio]['detalles'])): ?>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+
+          <!-- Card Colores -->
+          <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+            <span class="text-blue-600 text-4xl mb-4">🎨</span>
+            <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Colores</h3>
+            <p class="text-gray-600 text-center">
+              <?php echo $servicios[$Servicio]['detalles']['colores']; ?>
+            </p>
+          </div>
+
+          <!-- Card Tamaños -->
+          <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+            <span class="text-blue-600 text-4xl mb-4">📐</span>
+            <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Tamaños</h3>
+            <p class="text-gray-600 text-center">
+              <?php echo $servicios[$Servicio]['detalles']['tamaños']; ?>
+            </p>
+          </div>
+
+          <!-- Card Calidades -->
+          <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
+            <span class="text-blue-600 text-4xl mb-4">🧵</span>
+            <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Calidades</h3>
+            <p class="text-gray-600 text-center">
+              <?php echo $servicios[$Servicio]['detalles']['calidades']; ?>
+            </p>
+          </div>
+        </div>
+      <?php else: ?>
+        <p class="text-gray-500 italic">No hay especificaciones registradas para este servicio.</p>
+      <?php endif; ?>
+
+      <!-- Botón cotizador -->
+      <button
+        @click="openModal = true"
+        class="px-8 py-4 bg-[#0f52bd] text-white font-semibold rounded-full 
+             shadow-lg hover:bg-[#0d47a1] hover:scale-105 
+             transition-all duration-300 ease-out focus:outline-none 
+             focus:ring-4 focus:ring-[#0f52bd]/40">
+        Comenzar cotización en línea 🚀
+      </button>
+
+      <!-- Nota -->
+      <p class="mt-4 text-sm text-gray-500">
+        Estos factores influirán directamente en el costo del trabajo.
+      </p>
+    </div>
+  </section>
+
+
   <!-- Otros servicios -->
   <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-10">
     <div class="max-w-6xl mx-auto px-6">
-      <!-- Título -->
       <div class="text-center mb-6">
-        <h2 class="section-title">
-          Otros Servicios
-        </h2>
+        <h2 class="section-title">Otros Servicios</h2>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <!-- Aquí filtras para no mostrar la misma card -->
         <?php
-        $servicios = ['Serigrafía', 'Bordado', 'Sublimación', 'DTF', 'Vinil'];
+        // ✅ usamos otro nombre para no pisar el array principal
+        $listaServicios = ['Serigrafía', 'Bordado', 'Sublimación', 'DTF', 'Vinil'];
         $descripciones = [
           'Serigrafía'  => 'Impresión de alta calidad en distintos materiales con gran durabilidad.',
           'Bordado'     => 'Acabado elegante y resistente, ideal para prendas personalizadas.',
@@ -296,94 +469,22 @@ $servicios = [
           'DTF'         => 'Tecnología moderna de impresión con gran detalle y versatilidad.',
           'Vinil'       => 'Corte y aplicación de vinil para diseños creativos y resistentes.',
         ];
-        foreach ($servicios as $s) {
-          if ($s === $Servicio) continue; // omitir el actual
+
+        foreach ($listaServicios as $s) {
+          if ($s === $Servicio) continue;
         ?>
           <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
-
-            <!-- Icono -->
             <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-              <img src="../assets/icon/<?php echo $s; ?>.png?v=<?php echo time(); ?>"
-                alt="<?php echo ucfirst($s); ?>"
-                class="w-12 h-12 object-contain">
+              <img src="/assets/icon/<?php echo $s; ?>.png?v=<?php echo time(); ?>" alt="<?php echo ucfirst($s); ?>" class="w-12 h-12 object-contain">
             </div>
-
-            <!-- Título -->
-            <h4 class="font-heading font-bold text-xl text-blue-900 mb-3">
-              <?php echo ucfirst($s); ?>
-            </h4>
-
-            <!-- Descripción breve -->
-            <p class="text-gray-700 leading-relaxed text-sm mb-6">
-              <?php echo $descripciones[$s] ?? 'Descripción no disponible.'; ?>
-            </p>
-
-            <!-- Botón -->
-            <a href="/Arsodus/Front/servicio.php?tipo=<?php echo $s; ?>"
-              class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-semibold shadow hover:scale-105 hover:bg-blue-700 transition">
+            <h4 class="font-heading font-bold text-xl text-blue-900 mb-3"><?php echo ucfirst($s); ?></h4>
+            <p class="text-gray-700 leading-relaxed text-sm mb-6"><?php echo $descripciones[$s] ?? 'Descripción no disponible.'; ?></p>
+            <a href="servicio.php?tipo=<?php echo $s; ?>" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-semibold shadow hover:scale-105 hover:bg-blue-700 transition">
               Ver más →
             </a>
           </div>
         <?php } ?>
       </div>
-
-    </div>
-    <br>
-    <br>
-  </section>
-
-
-  <!-- Sección Cotizador -->
-  <section class="py-20 bg-[#fdfaf6] py-20" id="Cotizador">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-
-      <!-- Título -->
-      <div class="text-center mb-6">
-        <h2 class="section-title">
-          ¿Listo para darle vida a tu idea?
-        </h2>
-      </div>
-
-
-      <!-- Contenedor de cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-
-        <!-- Card Colores -->
-        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
-          <span class="text-blue-600 text-4xl mb-4">🎨</span>
-          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Colores</h3>
-          <p class="text-gray-600 text-center">
-            Pueden ser igualados con pantones si se especifica; de lo contrario, se usará el tono más similar.
-          </p>
-        </div>
-
-        <!-- Card Tamaños -->
-        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
-          <span class="text-blue-600 text-4xl mb-4">📐</span>
-          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Tamaños</h3>
-          <p class="text-gray-600 text-center">
-            Van desde <strong>4 cm</strong> (igual o menor a media carta) hasta <strong>27 cm</strong> (igual o menor a tabloide).
-          </p>
-        </div>
-
-        <!-- Card Calidades -->
-        <div class="bg-white shadow-md rounded-2xl p-8 flex flex-col items-center hover:shadow-lg transition">
-          <span class="text-blue-600 text-4xl mb-4">🧵</span>
-          <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Calidades</h3>
-          <ul class="list-disc list-inside text-gray-600 space-y-2 text-left">
-            <li><strong>Premium:</strong> algodón peinado o combinaciones con poliéster, nylon, elastano, etc.</li>
-            <li><strong>Estándar:</strong> 100% algodón.</li>
-          </ul>
-        </div>
-      </div>
-
-      <button class="abrirCotizador px-10 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:bg-blue-700 transition-all duration-300 ease-in-out">
-        🚀 Iniciar Cotización
-      </button>
-      <!-- Nota -->
-      <p class="mt-4 text-sm text-gray-500">
-        Estos factores influirán directamente en el costo del trabajo.
-      </p>
     </div>
   </section>
 
@@ -403,30 +504,30 @@ $servicios = [
         <div class="flex space-x-12 animate-marquee">
 
           <!-- Bloque 1 -->
-          <img src="/Arsodus/assets/img/Marcas/Yazbek.png" alt="Yazbek"
+          <img src="/assets/img/Marcas/Yazbek.png" alt="Yazbek"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Euro.png" alt="Euro"
+          <img src="/assets/img/Marcas/Euro.png" alt="Euro"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Optima.png" alt="Optima"
+          <img src="/assets/img/Marcas/Optima.png" alt="Optima"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Playertytees.png" alt="Playereetys"
+          <img src="/assets/img/Marcas/Playertytees.png" alt="Playereetys"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
           <!-- Bloque 2 (duplicado para el loop) -->
 
-          <img src="/Arsodus/assets/img/Marcas/Yazbek.png" alt="Yazbek"
+          <img src="/assets/img/Marcas/Yazbek.png" alt="Yazbek"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Euro.png" alt="Euro"
+          <img src="/assets/img/Marcas/Euro.png" alt="Euro"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Optima.png" alt="Optima"
+          <img src="/assets/img/Marcas/Optima.png" alt="Optima"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
-          <img src="/Arsodus/assets/img/Marcas/Playertytees.png" alt="Playereetys"
+          <img src="/assets/img/Marcas/Playertytees.png" alt="Playereetys"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
 
 
@@ -456,8 +557,45 @@ $servicios = [
     }
   </style>
 
-  <?php include '../Cotizador/Cotizador.php'; ?>
+  <!-- 🔹 MODAL -->
+  <div
+    x-cloak
+    x-show="openModal"
+    x-transition.opacity.duration.300ms
+    class="fixed inset-0 flex items-center justify-center z-50"
+    style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
+    <div
+      @click.away="openModal = false"
+      x-transition.scale.origin.center.duration.250ms
+      class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
+      <!-- Botón cerrar -->
+      <button
+        @click="openModal = false"
+        class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
+        ×
+      </button>
 
+      <!-- Contenido modal -->
+      <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
+      <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al instante.</p>
+
+      <form class="space-y-4">
+        <input type="text" placeholder="Nombre"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
+        <input type="text" placeholder="Número o correo"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
+        <textarea placeholder="Cuéntanos tu idea" rows="3"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition"></textarea>
+        <input type="file"
+          class="w-full text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e9f1ff] file:text-[#0f52bd] hover:file:bg-[#d7e6ff] transition">
+
+        <button type="submit"
+          class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg hover:scale-105 hover:bg-[#0d47a1] transition-all duration-300">
+          Enviar
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Footer -->
   <?php include 'footer.php'; ?>

@@ -63,7 +63,7 @@
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Algodón","precio":70}'>
           <!-- Fondo textura -->
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/Algodon.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Algodon.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Algodón</h3>
           <p class="text-sm text-gray-500 relative z-10">Suavidad y comodidad. $60 - $80</p>
         </div>
@@ -72,7 +72,7 @@
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Algodón poliéster","precio":65}'>
           <!-- Fondo textura -->
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/AlgoPol.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/AlgoPol.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Algodón Poliéster</h3>
           <p class="text-sm text-gray-500 relative z-10">Durabilidad y confort. $55 - $75</p>
         </div>
@@ -81,7 +81,7 @@
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Poliéster","precio":50}'>
           <!-- Fondo textura -->
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/Poliester.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Poliester.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Poliéster</h3>
           <p class="text-sm text-gray-500 relative z-10">Resistencia y ligereza. $40 - $60</p>
         </div>
@@ -90,7 +90,7 @@
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tela='{"nombre":"Algodón poliéster nylon","precio":80}'>
           <!-- Fondo textura -->
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/Nylon.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Nylon.png')] bg-cover bg-center opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Algodón Poliéster Nylon</h3>
           <p class="text-sm text-gray-500 relative z-10">Máxima resistencia y estilo. $70 - $90</p>
         </div>
@@ -104,7 +104,7 @@
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Serigrafía","extra":30}'>
           <!-- Fondo textura -->
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/Serigrafia.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Serigrafia.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Serigrafía</h3>
           <p class="text-sm text-gray-500 relative z-10">Colores sólidos, +$30</p>
         </div>
@@ -112,7 +112,7 @@
         <!-- DTF -->
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"DTF","extra":15}'>
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/DTF.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/DTF.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">DTF</h3>
           <p class="text-sm text-gray-500 relative z-10">Calidad de impresión, +$15</p>
         </div>
@@ -120,7 +120,7 @@
         <!-- Bordado -->
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Bordado","extra":40}'>
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/Bordado.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/Bordado.png')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Bordado</h3>
           <p class="text-sm text-gray-500 relative z-10">Durabilidad, +$40</p>
         </div>
@@ -128,7 +128,7 @@
         <!-- Sublimación -->
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Sublimación","extra":45}'>
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/sublimacion.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/sublimacion.jpg')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Sublimación</h3>
           <p class="text-sm text-gray-500 relative z-10">Alta Calidad, +$45</p>
         </div>
@@ -136,7 +136,7 @@
         <!-- Vinil -->
         <div class="p-4 border rounded cursor-pointer hover:shadow relative overflow-hidden group"
           data-tecnica='{"nombre":"Vinil","extra":30}'>
-          <div class="absolute inset-0 bg-[url('/Arsodus/assets/img/textures/vinil.avif')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <div class="absolute inset-0 bg-[url('assets/img/textures/vinil.avif')] bg-cover bg-center opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           <h3 class="font-semibold relative z-10">Vinil</h3>
           <p class="text-sm text-gray-500 relative z-10">Permanencia, +$30</p>
         </div>

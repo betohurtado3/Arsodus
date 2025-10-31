@@ -35,22 +35,21 @@
     <div class="max-w-7xl mx-auto flex items-center px-6">
 
       <!-- Menú izquierdo (solo desktop) -->
-      <!-- Menú izquierdo (solo desktop) -->
       <div class="flex-1 justify-center hidden md:flex">
         <div class="flex space-x-8 font-raleway text-gray-900">
-          <a href="/Arsodus/Index.php"
+          <a href="../index.php"
             class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
             Inicio
           </a>
-          <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía"
+          <a href="servicio.php?tipo=Serigrafía"
             class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
             Servicios
           </a>
-          <a href="/Arsodus/Front/galeria.php"
+          <a href="galeria.php"
             class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
             Galería
           </a>
-          <a href="/Arsodus/Front/contacto.php"
+          <a href="contacto.php"
             class="font-heading font-semibold text-xl text-blue-900 mb-2 hover:text-[#B7B6A4] transition-colors duration-300">
             Contacto
           </a>
@@ -60,7 +59,7 @@
       <!-- Logo centrado (siempre visible) -->
       <div class="flex-shrink-0 flex justify-center w-1/3">
         <img 
-    src="<?php echo '/Arsodus/assets/img/LogoSinFondo.png'; ?>" 
+    src="../assets/img/LogoSinFondo.png" 
     alt="Arsodus" 
     class="h-20 md:h-28 object-contain transition-all duration-300 hover:rotate-6 hover:scale-105">
   </div>
@@ -78,10 +77,10 @@
             class="group p-3 rounded-full bg-black shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
             <i class="fab fa-tiktok text-white text-2xl"></i> <!-- Icono más grande -->
           </a>
-          <!-- WhatsApp -->
-          <a href="https://wa.me/XXXXXXXXXX" target="_blank"
-            class="group p-3 rounded-full bg-green-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
-            <i class="fab fa-whatsapp text-white text-2xl"></i> <!-- Icono más grande -->
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/profile.php?id=61557954562648" target="_blank"
+            class="group p-3 rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
+            <i class="fab fa-facebook text-white text-2xl"></i> <!-- Icono más grande -->
           </a>
         </div>
       </div>
@@ -105,10 +104,10 @@
 
       <!-- Links del menú -->
       <div class="flex flex-col items-center space-y-8 text-2xl font-semibold text-gray-800 mb-8">
-        <a href="/Arsodus/Index.php" class="font-raleway hover:text-indigo-600 transition">Inicio</a>
-        <a href="/Arsodus/Front/servicio.php?tipo=Serigrafía" class="font-raleway  hover:text-indigo-600 transition">Servicios</a>
-        <a href="/Arsodus/Front/galeria.php" class="font-raleway  hover:text-indigo-600 transition">Galeria</a>
-        <a href="/Arsodus/Front/contacto.php" class="font-raleway  hover:text-indigo-600 transition">Contacto</a>
+        <a href="../index.php" class="font-raleway hover:text-indigo-600 transition">Inicio</a>
+        <a href="servicio.php?tipo=Serigrafía" class="font-raleway  hover:text-indigo-600 transition">Servicios</a>
+        <a href="galeria.php" class="font-raleway  hover:text-indigo-600 transition">Galeria</a>
+        <a href="contacto.php" class="font-raleway  hover:text-indigo-600 transition">Contacto</a>
       </div>
 
       <!-- Redes sociales dentro del menú móvil -->
@@ -125,10 +124,10 @@
           <i class="fab fa-tiktok social-icon text-white text-2xl transition-all"></i>
         </a>
 
-        <!-- WhatsApp (Font Awesome) -->
-        <a href="https://wa.me/XXXXXXXXXX" target="_blank"
-          class="social-wrap group rounded-full bg-green-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
-          <i class="fab fa-whatsapp social-icon text-white text-2xl transition-all"></i>
+        <!-- Facebook (Font Awesome) -->
+        <a href="https://www.facebook.com/profile.php?id=61557954562648" target="_blank"
+          class="social-wrap group rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
+          <i class="fab fa-facebook social-icon text-white text-2xl transition-all"></i>
         </a>
       </div>
 

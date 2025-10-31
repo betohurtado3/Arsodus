@@ -1,28 +1,4 @@
 <?php
-
-/*    
-Actualizaciones pendientes:
-  Navbar ojo, hay dos navbar xd
-
-  Cotizador 
-  - Agregar Opciones de Colores en la fase 1
-  
-
-  Servicios
-  -> Imagenes representativas /// Pendiente del cliente
-
-  Galeria:
-  -> Mejor Acomodo de Imagenes
-
-  ////////////////////////////////// Pendiente del cliente
-  Proyecto(Individual):
-  -> Agregar Iconos e información del proyecto
-  - Homologar diseño de titulos
-
-  General:
-  -> Revisar ortografía y gramática
-*/
-
 ?>
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
@@ -33,7 +9,7 @@ Actualizaciones pendientes:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/index.css">
   <script src="//unpkg.com/alpinejs" defer></script>
 
   <title>Arsodus</title>
@@ -41,6 +17,18 @@ Actualizaciones pendientes:
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+    <!-- Metadatos dinámicos para compartir -->
+  <meta property="og:title" content="Arsodus">
+  <meta property="og:description" content="Dale vida a tu marca con Arsodus">
+  <meta property="og:image" content="assets/img/LogoSinFondo.png">
+  <meta property="og:url" content="https://arsodus.com/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arsodus">
+  <meta name="twitter:description" content="Dale vida a tu marca con Arsodus">
+  <meta name="twitter:image" content="assets/img/LogoSinFondo.png">
+
 
 
 
@@ -242,6 +230,11 @@ Actualizaciones pendientes:
       animation: marquee 25s linear infinite;
     }
   </style>
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body class="bg-[#fdfaf6]">
@@ -249,15 +242,14 @@ Actualizaciones pendientes:
     <?php include 'navbar.php'; ?>
   </div>
 
-  <!-- Hero Section -->
   <div x-data="{ openModal: false }">
     <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
 
       <video autoplay loop muted playsinline
         class="absolute inset-0 w-full h-full object-cover 
-                  filter blur-sm brightness-75 
-                  transition-all duration-700 ease-in-out 
-                  hover:filter-none hover:brightness-100">
+                filter blur-sm brightness-75 
+                transition-all duration-700 ease-in-out 
+                hover:filter-none hover:brightness-100">
         <source src="Media/Serigrafia.mp4" type="video/mp4">
       </video>
 
@@ -271,18 +263,66 @@ Actualizaciones pendientes:
         </h1>
         <br>
         <p class="font-montserrat text-lg md:text-xl mb-8 drop-shadow-md opacity-90">
-          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior en <span class="font-semibold"> México</span>.
+          Serigrafía, vinil, sublimación, bordado y DTF para empresas que buscan calidad superior en <span class="font-semibold">México</span>.
         </p>
-        <button id="abrirCotizador"
-          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-full 
-               shadow-lg hover:from-blue-700 hover:to-blue-900 
-               transform hover:scale-105 transition-all duration-300 ease-out 
-               focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75">
-          Iniciar Cotización
+
+        <!-- Botón que abre el modal -->
+        <button
+          @click="openModal = true"
+          class="px-8 py-4 bg-[#0f52bd] text-white font-semibold rounded-full 
+               shadow-lg hover:bg-[#0d47a1] hover:scale-105 
+               transition-all duration-300 ease-out focus:outline-none 
+               focus:ring-4 focus:ring-[#0f52bd]/40">
+          Realizar cotización en línea
         </button>
       </div>
     </section>
+
+    <!-- Modal Cotizador Sencillo -->
+    <!-- 🔹 MODAL -->
+    <div
+      x-cloak
+      x-show="openModal"
+      x-transition.opacity.duration.300ms
+      class="fixed inset-0 flex items-center justify-center z-50"
+      style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
+      <div
+        @click.away="openModal = false"
+        x-transition.scale.origin.center.duration.250ms
+        class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
+        <!-- Botón cerrar -->
+        <button
+          @click="openModal = false"
+          class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
+          ×
+        </button>
+
+        <!-- Contenido modal -->
+        <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
+        <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al instante.</p>
+
+        <form class="space-y-4">
+          <input type="text" placeholder="Nombre"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
+          <input type="text" placeholder="Número o correo"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
+          <textarea placeholder="Cuéntanos tu idea" rows="3"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition"></textarea>
+          <input type="file"
+            class="w-full text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e9f1ff] file:text-[#0f52bd] hover:file:bg-[#d7e6ff] transition">
+
+          <button type="submit"
+            class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg hover:scale-105 hover:bg-[#0d47a1] transition-all duration-300">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+
   </div>
+
+
+
 
   <!-- Servicios con efecto flip 3D -->
   <section id="servicios" class="py-12 max-w-7xl mx-auto px-4">
@@ -326,7 +366,7 @@ Actualizaciones pendientes:
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Serigrafía</h3>
-            <p class="font-sans text-center text-gray-600">Ideal para uniformes de uso diario.</p>
+            <p class="font-sans text-center text-gray-600">Perfecto para uniformes de uso diario</p>
 
 
           </div>
@@ -359,7 +399,7 @@ Actualizaciones pendientes:
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Vinil</h3>
-            <p class="font-sans text-center text-gray-600">Cortes perfectos</p>
+            <p class="font-sans text-center text-gray-600">Excelente para calcamonias y souvenirs</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Vinil de Corte</h3>
@@ -415,7 +455,7 @@ Actualizaciones pendientes:
             </div>
 
             <h3 class="font-heading font-bold text-xl text-blue-900 mb-2">Bordado</h3>
-            <p class="font-sans text-center text-gray-600"> Ideal para logos pequeños</p>
+            <p class="font-sans text-center text-gray-600"> Utilizado pricipalmente para logos bordados</p>
           </div>
           <div class="flip-card-back bg-gradient-to-br from-blue-800 to-blue-900 rounded-2xl p-6 flex flex-col justify-center items-center text-white shadow-lg">
             <h3 class="font-heading font-bold text-xl mb-3">Bordado</h3>
@@ -469,7 +509,7 @@ Actualizaciones pendientes:
       <!-- Titulo -->
       <div class="text-center mb-6">
         <h2 class="section-title">
-          Nuestros Clientes
+          Algunos De Nuestros Clientes
         </h2>
       </div>
 
@@ -483,8 +523,6 @@ Actualizaciones pendientes:
           <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
           <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-          <img src="assets/img/Clientes/Well.png" alt="Well Company"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
           <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
@@ -501,8 +539,6 @@ Actualizaciones pendientes:
           <img src="assets/img/Clientes/Nazil.png" alt="Nazil"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
           <img src="assets/img/Clientes/Bandrex.png" alt="Bandrex"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-          <img src="assets/img/Clientes/Well.png" alt="Well Company"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
           <img src="assets/img/Clientes/Kaimex.png" alt="Kaimex"
             class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
@@ -643,9 +679,6 @@ Actualizaciones pendientes:
     </div>
   </section>
 
-
-
-
   <!--  Sección de Contacto: Formulario de Ideas -->
   <section id="contacto" class="py-20 bg-gradient-to-br from-[#fdfaf6] to-gray-100 relative overflow-hidden">
 
@@ -703,6 +736,16 @@ Actualizaciones pendientes:
                  transition-all duration-300 ease-in-out resize-y placeholder-gray-500 text-gray-800
                  shadow-sm hover:shadow-md hover:border-blue-400"></textarea>
 
+          <input
+            type="file"
+            class="font-sans w-full text-sm text-gray-600
+                 file:mr-4 file:py-2 file:px-4
+                 file:rounded-full file:border-0
+                 file:text-sm file:font-semibold
+                 file:bg-blue-100/50 file:text-blue-700
+                 hover:file:bg-blue-200/70
+                 transition-all duration-300 ease-in-out">
+
           <button
             type="submit"
             class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
@@ -710,7 +753,7 @@ Actualizaciones pendientes:
                  transform hover:scale-105 transition-all duration-300 ease-out 
                  focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
                  tracking-wide text-lg">
-            ¡Enviar Mi Propuesta Ahora!
+            ¡Enviar Mi Idea Ahora!
           </button>
         </form>
       </div>

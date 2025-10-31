@@ -9,17 +9,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/Arsodus/assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/index.css">
   <title>Arsodus</title>
-  <link rel="icon" type="image/png" href="/Arsodus/assets/img/LogoSinFondo.png">
+     <link rel="icon" type="image/png" href="/assets/img/LogoSinFondo.png">
   <script src="//unpkg.com/alpinejs" defer></script>
+
+  
+    <!-- Metadatos dinámicos para compartir -->
+  <meta property="og:title" content="Arsodus">
+  <meta property="og:description" content="Dale vida a tu marca con Arsodus">
+  <meta property="og:image" content="/assets/img/LogoSinFondo.png">
+  <meta property="og:url" content="https://arsodus.com/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arsodus">
+  <meta name="twitter:description" content="Dale vida a tu marca con Arsodus">
+  <meta name="twitter:image" content="/assets/img/LogoSinFondo.png">
+
+
 
   <style>
     body {
       padding-top: 80px;
       /* Ajusta según la altura de tu navbar */
     }
-        /* Nuevo estilo para los títulos de sección */
+
+    /* Nuevo estilo para los títulos de sección */
     .section-title {
       font-family: 'Poppins', sans-serif;
       /* Usamos una fuente más moderna y amigable */
@@ -87,9 +102,8 @@
       </div>
 
       <p class="text-gray-700 leading-relaxed max-w-2xl mx-auto">
-        Soy Brandon Gutierrez, apasionado por el diseño y la personalización textil.
-        Con experiencia en serigrafía, vinil y sublimación, mi filosofía es
-        entregar calidad y creatividad en cada proyecto.
+        Con más de 5 años de experiencia y colaboraciones con organizaciones de alto nivel, hemos desarrollado procesos que garantizan acabados duraderos, colores que destacan y una entrega confiable en cada pedido.
+Impulsamos la identidad de negocios y organizaciones con serigrafía profesional y acabados que perduran. Aquí tus ideas se vuelven piezas que se ven, se sienten y representan tu marca con fuerza.
       </p>
     </div>
   </section>
@@ -110,13 +124,13 @@
       <div>
         <form class="space-y-4">
           <input type="text" placeholder="Tu nombre"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition hover:scale-[1.01]">
+            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]">
           <input type="email" placeholder="Tu correo"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition hover:scale-[1.01]">
+            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]">
           <textarea placeholder="Escribe tu mensaje..." rows="4"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition hover:scale-[1.01]"></textarea>
+            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]"></textarea>
           <button type="submit"
-            class="w-full bg-gradient-to-r from-blue-800 to-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:scale-105 hover:shadow-lg transition">
+            class="w-full bg-gradient-to-r from-[#0f52bd] to-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:scale-105 hover:shadow-lg transition">
             Enviar mensaje
           </button>
         </form>
@@ -124,38 +138,47 @@
 
       <!-- Columna contacto -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-        <div class="group">
 
-          <div class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
-            <!-- Teléfono -->
-            <svg class="h-8 w-8 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/profile.php?id=61557954562648" target="_blank" rel="noopener noreferrer" class="group">
+          <div
+            class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
+            <svg class="h-8 w-8 text-[#0f52bd]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5.012 3.676 9.162 8.438 9.878v-6.987h-2.54v-2.89h2.54V9.845c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562v1.872h2.773l-.443 2.89h-2.33v6.987C18.324 21.162 22 17.012 22 12z" />
             </svg>
           </div>
+          <p class="mt-4 text-gray-700 font-medium transition group-hover:text-[#0f52bd]">Arsodus</p>
+        </a>
 
-          <p class="mt-4 text-gray-700 font-medium">+52 123 456 7890</p>
-        </div>
-        <div class="group">
-          <div class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
-            <!-- Email -->
-            <svg class="h-8 w-8 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@arsodus?_t=ZS-8ykcMfVFG7z&_r=1" target="_blank" rel="noopener noreferrer" class="group">
+          <div
+            class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
+            <svg class="h-8 w-8 text-[#0f52bd]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+              <path
+                d="M224 80.001a63.92 63.92 0 0 1-38.78-12.99A63.89 63.89 0 0 1 160 13.93a8 8 0 0 0-8-7.93h-32a8 8 0 0 0-8 8v136a24 24 0 1 1-24-24 8 8 0 0 0 8-8V84.67a8 8 0 0 0-8.56-8 88 88 0 1 0 96.72 87.33V106.1a79.9 79.9 0 0 0 40 10.9 8 8 0 0 0 8-8v-28a8 8 0 0 0-8-8Z" />
             </svg>
           </div>
-          <p class="mt-4 text-gray-700 font-medium">contacto@arsodus.com</p>
-        </div>
-        <div class="group">
-          <div class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
-            <!-- Instagram -->
-            <svg class="h-8 w-8 text-blue-800" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+          <p class="mt-4 text-gray-700 font-medium transition group-hover:text-[#0f52bd]">Arsodus</p>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/arsodus.serigrafia/" target="_blank" rel="noopener noreferrer" class="group">
+          <div
+            class="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center transition transform group-hover:scale-110 group-hover:bg-blue-200">
+            <svg class="h-8 w-8 text-[#0f52bd]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                clip-rule="evenodd" />
             </svg>
           </div>
-          <p class="mt-4 text-gray-700 font-medium">@arsodus</p>
-        </div>
+          <p class="mt-4 text-gray-700 font-medium transition group-hover:text-[#0f52bd]">@arsodus.serigrafia</p>
+        </a>
+
       </div>
-
     </div>
+
   </section>
 
 
