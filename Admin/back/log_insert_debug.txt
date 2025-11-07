@@ -1,0 +1,60 @@
+Array
+(
+    [datetime] => 2025-11-07 13:46:34
+    [raw] => {"Nombre":"1","Descripcion":"1","Especificaciones":"1","Colores":"1","Tamanos":"1","Calidades":"1"}
+    [decoded] => Array
+        (
+            [Nombre] => 1
+            [Descripcion] => 1
+            [Especificaciones] => 1
+            [Colores] => 1
+            [Tamanos] => 1
+            [Calidades] => 1
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-07 13:49:32
+    [raw] => {"Nombre":"4","Descripcion":"4","Especificaciones":"44","Colores":"4","Tamanos":"4","Calidades":"4"}
+    [decoded] => Array
+        (
+            [Nombre] => 4
+            [Descripcion] => 4
+            [Especificaciones] => 44
+            [Colores] => 4
+            [Tamanos] => 4
+            [Calidades] => 4
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-07 13:54:44
+    [raw] => {"Nombre":"5","Descripcion":"5","Especificaciones":"5","Colores":"5","Tamanos":"5","Calidades":"5"}
+    [decoded] => Array
+        (
+            [Nombre] => 5
+            [Descripcion] => 5
+            [Especificaciones] => 5
+            [Colores] => 5
+            [Tamanos] => 5
+            [Calidades] => 5
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-07 13:56:17
+    [raw] => {"Nombre":"7","Descripcion":"7","Especificaciones":"7","Colores":"7","Tamanos":"7","Calidades":"7"}
+    [decoded] => Array
+        (
+            [Nombre] => 7
+            [Descripcion] => 7
+            [Especificaciones] => 7
+            [Colores] => 7
+            [Tamanos] => 7
+            [Calidades] => 7
+        )
+
+)
