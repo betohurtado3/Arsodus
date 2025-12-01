@@ -47,6 +47,12 @@
       class="group p-3 rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
       <i class="fab fa-facebook text-white text-2xl"></i>
     </a>
+
+     <!-- Correo -->
+          <a href="mailto:arsodus.serigrafia@gmail.com"
+            class="group p-3 rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
+           <i class="fas fa-envelope text-white text-2xl"></i>
+          </a>
   </div>
 
   <div class="mt-8 pt-8 border-t border-gray-800 text-sm">

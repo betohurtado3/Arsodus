@@ -82,7 +82,38 @@ $servicios = [
   ]
 ];
 ?>
+<?php
+require_once '../config/Config.php'; // Asegúrate de que esta ruta apunte bien a tu archivo con connectPDO()
 
+$Servicio = $_GET['tipo'] ?? '';
+$ServicioSeleccionado = $Servicio;
+
+// Conectar a la BD
+$pdo = connectPDO();
+
+// Consultar el servicio
+$stmt = $pdo->prepare("SELECT * FROM servicios WHERE Nombre = :nombre LIMIT 1");
+$stmt->execute(['nombre' => $Servicio]);
+$servicioDB = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Si existe, armamos la estructura esperada
+if ($servicioDB) {
+  $info = [
+    "descripcion" => $servicioDB["Descripcion"] ?? '',
+    "caracteristicas" => [], // puedes agregar otro campo si luego lo agregas a la tabla
+    "especificaciones" => !empty($servicioDB["Especificaciones"]) ? explode("\n", $servicioDB["Especificaciones"]) : [],
+    "detalles" => [
+      "colores" => $servicioDB["Colores"] ?? '',
+      "tamaños" => $servicioDB["Tamanos"] ?? '',
+      "calidades" => $servicioDB["Calidades"] ?? ''
+    ]
+  ];
+} else {
+  $info = null; // No existe en BD
+}
+//echo "<br> <br>";
+//print_r($info);
+?>
 
 <!DOCTYPE html>
 <html lang="es" x-data="{ openModal: false }" xmlns="http://www.w3.org/1999/xhtml">
@@ -193,6 +224,44 @@ $servicios = [
   </div>
   <br> <br>
 
+  <?php if (isset($_GET['estado'])): ?>
+    <div id="popupEstado"
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+              px-6 py-4 rounded-xl shadow-xl text-white
+              transition-all duration-500 ease-out
+              <?php echo $_GET['estado'] === 'ok' ? 'bg-green-600' : 'bg-red-600'; ?>">
+
+      <?php if ($_GET['estado'] === 'ok'): ?>
+        ✅ Cotización enviada correctamente
+      <?php else: ?>
+        ❌ Error al enviar la cotización
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
+
+
+  <script>
+    const popup = document.getElementById("popupEstado");
+
+    if (popup) {
+      // Ocultar después de 3 segundos
+      setTimeout(() => {
+        popup.classList.add("opacity-0", "translate-y-[-20px]");
+      }, 3000);
+
+      // Eliminar completamente después de la animación
+      setTimeout(() => {
+        popup.remove();
+      }, 3500);
+
+      // 🔥 LIMPIAR EL PARÁMETRO "estado" DE LA URL
+      const url = new URL(window.location);
+      url.searchParams.delete("estado");
+      window.history.replaceState({}, document.title, url.pathname);
+    }
+  </script>
+
+
   <!-- Hero Section -->
   <section class="py-10 bg-[#fdfaf6] py-10">
     <div class="max-w-6xl mx-auto px-6 text-center">
@@ -218,14 +287,14 @@ $servicios = [
   //echo "=================================\n";
 
   $imagenes = [];
-  for ($i = 1; $i <= 4; $i++) {
-    $imagePath = "/assets/img/{$Servicio}{$i}.png";
+  for ($i = 1; $i <= 6; $i++) {
+    $imagePath = "../assets/img/{$Servicio}{$i}.png";
 
     // Mostramos la ruta relativa que se intenta cargar
     //echo "Intentando con: $imagePath\n";
 
     // Ruta absoluta en el servidor
-    $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+    $absolutePath = $imagePath;
     //echo "Ruta absoluta: $absolutePath\n";
 
     // Verificamos si existe
@@ -309,16 +378,11 @@ $servicios = [
       </div>
 
       <!-- Texto explicativo con estilo card -->
-      <?php
-      //$Servicio = strtolower($_GET['tipo'] ?? 'Serigrafía'); // por defecto serigrafía
-      $info = $servicios[$Servicio] ?? null;
-      ?>
-
       <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 flex flex-col justify-center items-center shadow-lg border border-gray-100 text-center">
 
         <!-- Icono dinámico -->
         <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-          <img src="/assets/icon/<?php echo $Servicio; ?>.png?v=<?php echo time(); ?>"
+          <img src="../assets/icon/<?php echo $Servicio; ?>.png?v=<?php echo time(); ?>"
             alt="<?php echo ucfirst($Servicio); ?>"
             class="w-12 h-12 object-contain">
         </div>
@@ -334,14 +398,16 @@ $servicios = [
           </p>
 
           <!-- Características -->
-          <ul class="space-y-3 text-gray-600 text-left w-full max-w-md mb-6">
-            <?php foreach ($info['caracteristicas'] as $c): ?>
-              <li class="flex items-start">
-                <span class="mr-2 text-blue-600 font-bold">✓</span>
-                <span><?php echo $c; ?></span>
-              </li>
-            <?php endforeach; ?>
-          </ul>
+          <?php if (!empty($info['caracteristicas'])): ?>
+            <ul class="space-y-3 text-gray-600 text-left w-full max-w-md mb-6">
+              <?php foreach ($info['caracteristicas'] as $c): ?>
+                <li class="flex items-start">
+                  <span class="mr-2 text-blue-600 font-bold">✓</span>
+                  <span><?php echo $c; ?></span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
 
           <!-- Especificaciones (nuevo bloque secundario) -->
           <?php if (!empty($info['especificaciones'])): ?>
@@ -368,9 +434,9 @@ $servicios = [
           <button
             @click="openModal = true"
             class="px-8 py-4 bg-[#0f52bd] text-white font-semibold rounded-full 
-               shadow-lg hover:bg-[#0d47a1] hover:scale-105 
-               transition-all duration-300 ease-out focus:outline-none 
-               focus:ring-4 focus:ring-[#0f52bd]/40">
+             shadow-lg hover:bg-[#0d47a1] hover:scale-105 
+             transition-all duration-300 ease-out focus:outline-none 
+             focus:ring-4 focus:ring-[#0f52bd]/40">
             Realizar cotización en línea
           </button>
 
@@ -399,7 +465,7 @@ $servicios = [
         <p class="text-gray-500 mt-2">Cada técnica tiene sus propias condiciones y características de producción.</p>
       </div>
 
-      <?php if (isset($servicios[$Servicio]['detalles'])): ?>
+      <?php if (!empty($info['detalles'])): ?>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
 
           <!-- Card Colores -->
@@ -407,8 +473,9 @@ $servicios = [
             <span class="text-blue-600 text-4xl mb-4">🎨</span>
             <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Colores</h3>
             <p class="text-gray-600 text-center">
-              <?php echo $servicios[$Servicio]['detalles']['colores']; ?>
+              <?php echo $info['detalles']['colores']; ?>
             </p>
+
           </div>
 
           <!-- Card Tamaños -->
@@ -416,8 +483,9 @@ $servicios = [
             <span class="text-blue-600 text-4xl mb-4">📐</span>
             <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Tamaños</h3>
             <p class="text-gray-600 text-center">
-              <?php echo $servicios[$Servicio]['detalles']['tamaños']; ?>
+              <?php echo $info['detalles']['tamaños']; ?>
             </p>
+
           </div>
 
           <!-- Card Calidades -->
@@ -425,8 +493,11 @@ $servicios = [
             <span class="text-blue-600 text-4xl mb-4">🧵</span>
             <h3 class="font-bold text-xl text-gray-900 mb-3 text-center">Calidades</h3>
             <p class="text-gray-600 text-center">
-              <?php echo $servicios[$Servicio]['detalles']['calidades']; ?>
+
+              <?php
+              echo $info['detalles']['calidades']; ?>
             </p>
+
           </div>
         </div>
       <?php else: ?>
@@ -475,7 +546,7 @@ $servicios = [
         ?>
           <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col items-center text-center hover:scale-105 transition-transform duration-300">
             <div class="bg-blue-100/30 p-4 rounded-full mb-4">
-              <img src="/assets/icon/<?php echo $s; ?>.png?v=<?php echo time(); ?>" alt="<?php echo ucfirst($s); ?>" class="w-12 h-12 object-contain">
+              <img src="../assets/icon/<?php echo $s; ?>.png?v=<?php echo time(); ?>" alt="<?php echo ucfirst($s); ?>" class="w-12 h-12 object-contain">
             </div>
             <h4 class="font-heading font-bold text-xl text-blue-900 mb-3"><?php echo ucfirst($s); ?></h4>
             <p class="text-gray-700 leading-relaxed text-sm mb-6"><?php echo $descripciones[$s] ?? 'Descripción no disponible.'; ?></p>
@@ -488,114 +559,44 @@ $servicios = [
     </div>
   </section>
 
-  <!-- Seccion de Clientes -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-16">
-    <div class="max-w-7xl mx-auto px-6">
-
-      <!-- Título -->
-      <div class="text-center mb-6">
-        <h2 class="section-title">
-          Marcas que usamos en nuestros productos
-        </h2>
-      </div>
-
-      <!-- Carrusel -->
-      <div class="relative overflow-hidden">
-        <div class="flex space-x-12 animate-marquee">
-
-          <!-- Bloque 1 -->
-          <img src="/assets/img/Marcas/Yazbek.png" alt="Yazbek"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Euro.png" alt="Euro"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Optima.png" alt="Optima"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Playertytees.png" alt="Playereetys"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <!-- Bloque 2 (duplicado para el loop) -->
-
-          <img src="/assets/img/Marcas/Yazbek.png" alt="Yazbek"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Euro.png" alt="Euro"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Optima.png" alt="Optima"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-          <img src="/assets/img/Marcas/Playertytees.png" alt="Playereetys"
-            class="h-16 grayscale hover:grayscale-0 hover:scale-110 transition duration-300">
-
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Animacion del carrusel  -->
-  <style>
-    /* Animación marquee */
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .animate-marquee {
-      display: flex;
-      width: max-content;
-      animation: marquee 25s linear infinite;
-    }
-  </style>
-
-  <!-- 🔹 MODAL -->
-  <div
-    x-cloak
-    x-show="openModal"
-    x-transition.opacity.duration.300ms
-    class="fixed inset-0 flex items-center justify-center z-50"
-    style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
-    <div
-      @click.away="openModal = false"
-      x-transition.scale.origin.center.duration.250ms
-      class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
-      <!-- Botón cerrar -->
-      <button
-        @click="openModal = false"
-        class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
-        ×
-      </button>
-
-      <!-- Contenido modal -->
-      <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
-      <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al instante.</p>
-
-      <form class="space-y-4">
-        <input type="text" placeholder="Nombre"
-          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
-        <input type="text" placeholder="Número o correo"
-          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition">
-        <textarea placeholder="Cuéntanos tu idea" rows="3"
-          class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:border-[#0f52bd] focus:ring focus:ring-[#0f52bd]/20 outline-none transition"></textarea>
-        <input type="file"
-          class="w-full text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e9f1ff] file:text-[#0f52bd] hover:file:bg-[#d7e6ff] transition">
-
-        <button type="submit"
-          class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg hover:scale-105 hover:bg-[#0d47a1] transition-all duration-300">
-          Enviar
+    <!-- 🔹 MODAL -->
+    <div x-cloak x-show="openModal" x-transition.opacity.duration.300ms
+      class="fixed inset-0 flex items-center justify-center z-50"
+      style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
+      <div @click.away="openModal = false" x-transition.scale.origin.center.duration.250ms
+        class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
+        <!-- Botón cerrar -->
+        <button @click="openModal = false"
+          class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
+          ×
         </button>
-      </form>
+
+        <!-- Contenido modal -->
+        <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
+        <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al
+          instante.</p>
+
+        <form class="space-y-4" method="POST" action="../Back/enviar_cotizacion.php" enctype="multipart/form-data">
+
+          <input type="text" name="nombre" placeholder="Nombre"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2">
+
+          <input type="text" name="contacto" placeholder="Número o correo"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2">
+
+          <textarea name="mensaje" placeholder="Cuéntanos tu idea" rows="3"
+            class="w-full border border-gray-200 rounded-lg px-4 py-2"></textarea>
+
+          <input type="file" name="archivo" class="w-full text-sm text-gray-600">
+
+          <button type="submit" class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg">
+            Enviar
+          </button>
+
+        </form>
+
+      </div>
     </div>
-  </div>
 
   <!-- Footer -->
   <?php include 'footer.php'; ?>

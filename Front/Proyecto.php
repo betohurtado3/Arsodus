@@ -1,50 +1,88 @@
 <?php
-require_once __DIR__ . '/../Config/Config.php'; // conexión segura con PDO
+require_once __DIR__ . '/../config/Config.php';
 
-// 1️⃣ Obtener parámetro de la URL (?nombre=...)
-$nombre = isset($_GET['nombre']) ? trim($_GET['nombre']) : 'default';
+// =============================
+// 1️⃣ OBTENER ID DESDE GET
+// =============================
+$Id = isset($_GET['id']) ? trim($_GET['id']) : '';
 
-// 2️⃣ Conexión con la BD
+if ($Id === '') {
+    die("<pre style='color:red;'>❌ ERROR: No se proporcionó ?id= en la URL</pre>");
+}
+
+// =============================
+// 2️⃣ CONEXIÓN PDO
+// =============================
 $pdo = connectPDO();
 
-// 3️⃣ Buscar el proyecto en la base de datos (coincidencia flexible)
-$stmt = $pdo->prepare("SELECT * FROM proyectos WHERE LOWER(REPLACE(Titulo, ' ', '')) = :nombre LIMIT 1");
-$stmt->execute([':nombre' => strtolower(str_replace(' ', '', $nombre))]);
+// =============================
+// 3️⃣ CONSULTA POR ID REAL
+// =============================
+$stmt = $pdo->prepare("
+    SELECT *
+    FROM proyectos
+    WHERE Id = :id
+    LIMIT 1
+");
+$stmt->execute([':id' => $Id]);
 $proyecto = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// 4️⃣ Fallback si no existe
 if (!$proyecto) {
-  $proyecto = [
-    'Titulo' => 'Proyecto desconocido',
-    'Descripcion' => 'No se encontró información para este proyecto.',
-    'Tela' => '-',
-    'Servicio' => '-',
-    'Concepto' => '-'
-  ];
-  $carpeta = $_SERVER['DOCUMENT_ROOT'] . "/Arsodus/assets/img/Proyectos/default/";
-  $tituloParaArchivo = "default";
+    die("<pre style='color:red;'>❌ ERROR: No existe un proyecto con Id = {$Id}</pre>");
+}
+
+// =============================
+// 4️⃣ ARMAR RUTA DE LA CARPETA
+// =============================
+$carpeta = $_SERVER['DOCUMENT_ROOT'] . "/assets/img/Proyectos/{$Id}/";
+
+// =============================
+// 5️⃣ DEBUG COMPLETO
+// =============================
+/*
+echo "<pre style='background:#111;color:#0f0;padding:20px;border-radius:10px;'>";
+echo "🔥 DEBUG DE IMÁGENES DEL PROYECTO 🔥\n\n";
+
+echo "DOCUMENT_ROOT:\n{$_SERVER['DOCUMENT_ROOT']}\n\n";
+
+echo "✔ ID recibido: {$Id}\n";
+echo "✔ Carpeta generada:\n{$carpeta}\n\n";
+
+echo "¿Carpeta existe?: " . (is_dir($carpeta) ? "SI ✔" : "NO ❌") . "\n\n";
+
+// Contenido de la carpeta
+if (is_dir($carpeta)) {
+    echo "Contenido real de la carpeta:\n";
+    print_r(scandir($carpeta));
 } else {
-  // 5️⃣ Título real del proyecto (usado para nombres de carpeta e imágenes)
-  $tituloReal = trim($proyecto['Titulo']);
-  $carpeta = $_SERVER['DOCUMENT_ROOT'] . "/Arsodus/assets/img/Proyectos/{$tituloReal}/";
-  $tituloParaArchivo = $tituloReal; // las imágenes se llaman igual que el título
+    echo "❌ No se puede mostrar porque la carpeta no existe.\n";
 }
 
-// 6️⃣ Buscar imágenes que siguen el patrón "<titulo>*.(png|jpg|jpeg|webp)"
-$pattern = $carpeta . $tituloParaArchivo . "*.{png,jpg,jpeg,webp}";
-$imagenes = glob($pattern, GLOB_BRACE);
+echo "\nIntentando leer imágenes con glob():\n";
+$imagenes = glob($carpeta . "*.{png,jpg,jpeg,webp}", GLOB_BRACE);
+print_r($imagenes);
 
-// 7️⃣ Convertir rutas absolutas a relativas
+echo "</pre>";
+*/
+// =============================
+// 6️⃣ CONVERTIR RUTAS A WEB
+// =============================
+$imagenes = glob($carpeta . "*.{png,jpg,jpeg,webp}", GLOB_BRACE);
+
 $imagenes_rel = [];
+
 foreach ($imagenes as $img) {
-  $imagenes_rel[] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $img);
+    $imagenes_rel[] = str_replace($_SERVER['DOCUMENT_ROOT'], '', $img);
 }
 
-// Si no se encontró ninguna imagen, usar una default
+// =============================
+// 7️⃣ SI NO HAY IMÁGENES → ERROR
+// =============================
 if (empty($imagenes_rel)) {
-  $imagenes_rel[] = "/Arsodus/assets/img/Proyectos/default/default.jpg";
+    die("<pre style='color:red;'>❌ ERROR: No se encontraron imágenes en la carpeta del proyecto {$Id}</pre>");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 

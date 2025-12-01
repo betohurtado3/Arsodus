@@ -83,6 +83,12 @@
             class="group p-3 rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
             <i class="fab fa-facebook text-white text-2xl"></i> <!-- Icono más grande -->
           </a>
+
+          <!-- Correo -->
+          <a href="mailto:arsodus.serigrafia@gmail.com"
+            class="group p-3 rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
+            <i data-feather="mail" class="w-7 h-7 text-white"></i>
+          </a>
         </div>
       </div>
 
@@ -130,7 +136,14 @@
           class="social-wrap group rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
           <i class="fab fa-facebook social-icon text-white text-2xl transition-all"></i>
         </a>
+               <!-- Correo -->
+          <a href="mailto:arsodus.serigrafia@gmail.com"
+            class="social-wrap group rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
+            <i data-feather="mail" class="social-icon text-white text-2xl transition-all"></i>
+          </a>
       </div>
+
+
 
     </div>
   </nav>

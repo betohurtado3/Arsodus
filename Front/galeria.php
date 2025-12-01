@@ -123,53 +123,81 @@
       <div id="contenedor-proyectos" class="space-y-20">
         <!-- Aquí se insertarán dinámicamente los grupos -->
       </div>
+      
     </section>
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
         const contenedor = document.getElementById("contenedor-proyectos");
 
+        console.log("📡 Iniciando carga de proyectos…");
+        console.log("📍 URL de consulta:", "../Back/get_proyectos.php");
+
         try {
           const response = await fetch("../Back/get_proyectos.php");
-          const data = await response.json();
 
-          if (!data.success) throw new Error("No se pudieron cargar los proyectos");
+          console.log("🔍 Estado HTTP:", response.status);
+          console.log("🔍 Response OK?:", response.ok);
 
+          // RESPUESTA EN TEXTO PARA VER SI ESTÁ REGRESANDO HTML / ERROR
+          const raw = await response.text();
+          console.log("📦 Respuesta cruda del servidor:");
+          console.log(raw);
+
+          // Intentar convertir a JSON
+          let data;
+          try {
+            data = JSON.parse(raw);
+          } catch (err) {
+            console.error("❌ ERROR al parsear JSON:", err);
+            throw new Error("El servidor no está regresando JSON válido.");
+          }
+
+          console.log("📁 Objeto JSON final:", data);
+
+          if (!data.success) throw new Error(data.message || "No se pudieron cargar los proyectos");
 
           // Recorre cada servicio
           Object.entries(data.data).forEach(([servicio, proyectos]) => {
+            console.log("🟦 Servicio:", servicio);
+            console.log("🖼 Proyectos encontrados:", proyectos.length);
+
             const grupo = document.createElement("div");
             grupo.className = "proyecto-grupo";
-            console.log("Proyecto:", proyectos);
 
             grupo.innerHTML = `
-        <h3 class="text-3xl font-bold text-center text-blue-800 mb-10">${servicio}</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          ${proyectos.map(p => `
-            <div class="group relative overflow-hidden rounded-2xl shadow-lg">
-              <img src="${p.Imagen}" 
-     alt="${p.Titulo || 'Proyecto'}"
-     class="w-full h-72 object-cover transform transition-transform duration-500 group-hover:scale-110">
+                <h3 class="text-3xl font-bold text-center text-blue-800 mb-10">${servicio}</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                ${proyectos.map(p => `
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg">
+                        <img src="${p.Imagen}"
+                             onerror="console.error('❌ Imagen no encontrada:', this.src)" 
+                             alt="${p.Titulo || 'Proyecto'}"
+                             class="w-full h-72 object-cover transform transition-transform duration-500 group-hover:scale-110">
 
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                <h3 class="text-white text-2xl font-semibold">${p.Titulo}</h3>
-                <p class="text-gray-200 mt-2 text-sm">${p.Descripcion}</p>
-                <a href="Proyecto.php?nombre=${encodeURIComponent(p.Titulo.toLowerCase())}"
-                   class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
-                  Conocer más →
-                </a>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-      `;
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                            <h3 class="text-white text-2xl font-semibold">${p.Titulo}</h3>
+                            <p class="text-gray-200 mt-2 text-sm">${p.Descripcion}</p>
+
+                            <a href="Proyecto.php?id=${encodeURIComponent(p.Id)}"
+                            class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow hover:bg-blue-700 transition">
+                            Conocer más →
+                            </a>
+                        </div>
+                    </div>
+                `).join("")}
+                </div>
+            `;
 
             contenedor.appendChild(grupo);
           });
+
         } catch (error) {
+          console.error("❌ Error final:", error);
           contenedor.innerHTML = `<p class="text-center text-red-500">Error al cargar proyectos: ${error.message}</p>`;
         }
       });
     </script>
+
 
 
     <br><br>

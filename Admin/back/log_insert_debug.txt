@@ -58,3 +58,63 @@ Array
         )
 
 )
+Array
+(
+    [datetime] => 2025-11-10 10:57:46
+    [raw] => {"Nombre":"Bordado","Descripcion":"Técnica de acabado premium con hilos de alta calidad para crear diseños textiles con relieve y elegancia.","Especificaciones":"✓ Acabado profesional y de lujo ✓ Durabilidad extrema ✓ Ideal para logos corporativos y uniformes","Colores":"Hilos del tono requeridos (o similares) sin límite de color.","Tamanos":"Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).","Calidades":"Premium con hilos de poliéster o rayón de alta resistencia."}
+    [decoded] => Array
+        (
+            [Nombre] => Bordado
+            [Descripcion] => Técnica de acabado premium con hilos de alta calidad para crear diseños textiles con relieve y elegancia.
+            [Especificaciones] => ✓ Acabado profesional y de lujo ✓ Durabilidad extrema ✓ Ideal para logos corporativos y uniformes
+            [Colores] => Hilos del tono requeridos (o similares) sin límite de color.
+            [Tamanos] => Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).
+            [Calidades] => Premium con hilos de poliéster o rayón de alta resistencia.
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-10 10:58:31
+    [raw] => {"Nombre":"Sublimación","Descripcion":"Método donde los diseños se imprimen con tinta que se fusiona químicamente con las fibras del textil.","Especificaciones":"✓ Estampado sin sensación de tinta o relieve ✓ Colores fotográficos y degradados perfectos ✓ Recomendado únicamente para prendas blancas 100% poliéster","Colores":"Ilimitados, según los que requiera la imagen.","Tamanos":"Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).","Calidades":"100% poliéster blanco."}
+    [decoded] => Array
+        (
+            [Nombre] => Sublimación
+            [Descripcion] => Método donde los diseños se imprimen con tinta que se fusiona químicamente con las fibras del textil.
+            [Especificaciones] => ✓ Estampado sin sensación de tinta o relieve ✓ Colores fotográficos y degradados perfectos ✓ Recomendado únicamente para prendas blancas 100% poliéster
+            [Colores] => Ilimitados, según los que requiera la imagen.
+            [Tamanos] => Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).
+            [Calidades] => 100% poliéster blanco.
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-10 10:59:04
+    [raw] => {"Nombre":"DTF","Descripcion":"La impresión DTF transfiere diseños completos a prendas mediante calor y presión, sin perder detalle ni color.","Especificaciones":"✓ Alta resolución y colores intensos ✓ Compatible con cualquier tela o superficie rígida ✓ Excelente resistencia al lavado","Colores":"Ilimitados.","Tamanos":"Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).","Calidades":"Dependerá del archivo enviado y la superficie aplicada."}
+    [decoded] => Array
+        (
+            [Nombre] => DTF
+            [Descripcion] => La impresión DTF transfiere diseños completos a prendas mediante calor y presión, sin perder detalle ni color.
+            [Especificaciones] => ✓ Alta resolución y colores intensos ✓ Compatible con cualquier tela o superficie rígida ✓ Excelente resistencia al lavado
+            [Colores] => Ilimitados.
+            [Tamanos] => Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).
+            [Calidades] => Dependerá del archivo enviado y la superficie aplicada.
+        )
+
+)
+Array
+(
+    [datetime] => 2025-11-10 10:59:36
+    [raw] => {"Nombre":"Vinil","Descripcion":"El vinil textil permite crear diseños con acabados brillantes o mate, aplicados con calor y presión.","Especificaciones":"✓ Perfecto para personalización rápida ✓ Acabados especiales: glitter, holográfico, metálico ✓ No requiere grandes tirajes","Colores":"Del tono solicitado o similares.","Tamanos":"Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).","Calidades":"Disponible en acabado mate y brillante."}
+    [decoded] => Array
+        (
+            [Nombre] => Vinil
+            [Descripcion] => El vinil textil permite crear diseños con acabados brillantes o mate, aplicados con calor y presión.
+            [Especificaciones] => ✓ Perfecto para personalización rápida ✓ Acabados especiales: glitter, holográfico, metálico ✓ No requiere grandes tirajes
+            [Colores] => Del tono solicitado o similares.
+            [Tamanos] => Igual o menor a media carta hasta tabloide (Mayores aplican restricciones).
+            [Calidades] => Disponible en acabado mate y brillante.
+        )
+
+)

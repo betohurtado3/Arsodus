@@ -160,163 +160,335 @@ $user = $_SESSION['usuario'] ?? 'Administrador';
     </div>
   </div>
 
+  <!-- Modal: Agregar Proyecto -->
+  <div class="modal fade" id="modalProyecto" tabindex="-1" aria-labelledby="modalProyectoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalProyectoLabel">Agregar Proyecto</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form id="formProyecto" class="p-3" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label">Título</label>
+                <input type="text" name="Titulo" class="form-control" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Servicio</label>
+                <input type="text" name="Servicio" class="form-control" required>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Descripción</label>
+                <textarea name="Descripcion" class="form-control" rows="2"></textarea>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Tela</label>
+                <input type="text" name="Tela" class="form-control">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Concepto</label>
+                <input type="text" name="Concepto" class="form-control">
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Imagen principal</label>
+                <input type="file" name="Imagen" class="form-control" accept="image/*" required>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
 
 
 
   <!-- Bootstrap + JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const mainContent = document.getElementById("mainContent");
-      const links = document.querySelectorAll(".nav-link");
 
-      /// Variables para el modal de Servicios
-      const modalServicio = new bootstrap.Modal(document.getElementById("modalServicio"));
-      const formServicio = document.getElementById("formServicio");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
+  console.log("🚀 Dashboard cargado");
 
-      // Al hacer clic en los elementos del sidebar
-      links.forEach(link => {
-        link.addEventListener("click", e => {
-          e.preventDefault();
+  const mainContent = document.getElementById("mainContent");
+  const links = document.querySelectorAll(".nav-link");
 
-          // Marcar como activo visualmente
-          links.forEach(l => l.classList.remove("active"));
-          link.classList.add("active");
+  // MODALES
+  const modalServicio = new bootstrap.Modal(document.getElementById("modalServicio"));
+  const modalProyecto = new bootstrap.Modal(document.getElementById("modalProyecto"));
 
-          const section = link.dataset.section;
-          console.log("📂 Sección seleccionada:", section);
+  // FORMULARIOS
+  const formServicio = document.getElementById("formServicio");
+  const formProyecto = document.getElementById("formProyecto");
 
-          // Cargar según sección
-          if (section === "servicios") {
-            cargarServicios();
-          } else {
-            mainContent.innerHTML = `<div class='text-center mt-5'><h5>Sección <strong>${section}</strong> próximamente...</h5></div>`;
-          }
-        });
-      });
+  // ============================
+  //  SIDEBAR NAVIGATION
+  // ============================
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
 
-      async function cargarServicios() {
-        console.log("🔄 Cargando servicios...");
-        mainContent.innerHTML = `
-      <div class='text-center p-5 text-muted'>
-        <div class="spinner-border text-primary" role="status"></div>
-        <p class="mt-2">Cargando Servicios...</p>
-      </div>`;
+      links.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
 
-        try {
-          const res = await fetch("get_servicios.php");
-          const text = await res.text();
+      const section = link.dataset.section;
+      console.log("📂 Sección:", section);
 
-          console.log("📦 Respuesta cruda:", text);
-
-          const data = JSON.parse(text);
-
-          if (!data.success) throw new Error(data.error || "Error desconocido.");
-
-          renderServicios(data.data);
-        } catch (err) {
-          console.error("❌ Error al cargar servicios:", err);
-          mainContent.innerHTML = `
-        <div class="alert alert-danger m-4">
-          <strong>Error al cargar servicios:</strong><br>${err.message}
-        </div>`;
-        }
+      if (section === "servicios") cargarServicios();
+      else if (section === "proyectos") cargarProyectos();
+      else {
+        mainContent.innerHTML = `<div class='text-center mt-5'><h5>Sección <strong>${section}</strong> próximamente...</h5></div>`;
       }
+    });
+  });
 
-      function renderServicios(rows) {
 
-        if (!rows.length) {
-          mainContent.innerHTML = `<p class="text-center text-muted mt-5">No hay servicios registrados.</p>`;
+  // ============================
+  //  CARGAR SERVICIOS
+  // ============================
+  async function cargarServicios() {
+    console.log("🔄 Cargando servicios…");
 
-          return;
-        }
+    mainContent.innerHTML = `
+      <div class='text-center p-5 text-muted'>
+        <div class="spinner-border text-primary"></div>
+        <p class="mt-2">Cargando Servicios…</p>
+      </div>
+    `;
 
-        const headers = Object.keys(rows[0]);
+    try {
+      const res = await fetch("get_servicios.php");
+      const text = await res.text();
 
-        const tableHTML = ` <br><br>
+      console.log("📦 Respuesta cruda:", text);
+
+      const data = JSON.parse(text);
+      if (!data.success) throw new Error(data.error);
+
+      renderServicios(data.data);
+    } catch (err) {
+      console.error("❌ Error:", err);
+      mainContent.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
+    }
+  }
+
+
+  function renderServicios(rows) {
+
+    if (!rows.length) {
+      mainContent.innerHTML = `<p class="text-center mt-5">No hay servicios registrados.</p>`;
+      return;
+    }
+
+    const headers = Object.keys(rows[0]);
+
+    mainContent.innerHTML = `
+      <br><br>
       <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Servicios</h5>
-          <button class="btn btn-primary btn-sm">
+        <div class="card-header d-flex justify-content-between">
+          <h5>Servicios</h5>
+          <button class="btn btn-primary btn-sm" id="btnAddServicio">
             <i class="bi bi-plus-lg me-1"></i>Agregar Servicio
           </button>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped align-middle mb-0">
-            <thead class="table-light">
-              <tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr>
+          <table class="table table-striped mb-0">
+              <thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
+              <tbody>
+                ${rows.map(r => `
+                  <tr>${headers.map(h => `<td>${r[h]}</td>`).join("")}</tr>
+                `).join("")}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("btnAddServicio").addEventListener("click", () => {
+      console.log("🧩 Abriendo modal servicio");
+      formServicio.reset();
+      modalServicio.show();
+    });
+  }
+
+  // ============================
+  //  GUARDAR SERVICIO
+  // ============================
+  formServicio.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    console.log("📤 Enviando servicio…");
+
+    try {
+      const res = await fetch("back/insert_servicio.php", {
+        method: "POST",
+        body: new FormData(formServicio)
+      });
+
+      const text = await res.text();
+      console.log("📦 Respuesta (servicio):", text);
+
+      const json = JSON.parse(text);
+      if (!json.success) throw new Error(json.message);
+
+      modalServicio.hide();
+      cargarServicios();
+
+    } catch (err) {
+      console.error("❌ Error guardando servicio:", err);
+      alert(err.message);
+    }
+  });
+
+
+
+
+  // ============================================================
+  //  CARGAR PROYECTOS
+  // ============================================================
+  async function cargarProyectos() {
+    console.log("🔄 Cargando proyectos…");
+
+    mainContent.innerHTML = `
+      <div class='text-center p-5 text-muted'>
+        <div class="spinner-border text-primary"></div>
+        <p>Cargando Proyectos…</p>
+      </div>
+    `;
+
+    try {
+      const res = await fetch("get_proyectos.php");
+      const text = await res.text();
+
+      console.log("📦 Respuesta cruda (proyectos):", text);
+
+      const data = JSON.parse(text);
+      if (!data.success) throw new Error(data.error);
+
+      renderProyectos(data.data);
+
+    } catch (err) {
+      console.error("❌ Error:", err);
+      mainContent.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
+    }
+  }
+
+
+  function renderProyectos(rows) {
+
+    if (!rows.length) {
+      mainContent.innerHTML = `<p class="text-center mt-5">No hay proyectos registrados.</p>`;
+      return;
+    }
+
+    mainContent.innerHTML = `
+      <br><br>
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between">
+          <h5>Proyectos</h5>
+          <button class="btn btn-primary btn-sm" id="btnAddProyecto">
+            <i class="bi bi-plus-lg me-1"></i>Agregar Proyecto
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Servicio</th>
+                <th>Concepto</th>
+                <th>Imagen</th>
+              </tr>
             </thead>
             <tbody>
-              ${rows.map(row => `
-                <tr>${headers.map(h => `<td>${row[h]}</td>`).join("")}</tr>
+              ${rows.map(p => `
+                <tr>
+                  <td>${p.Id}</td>
+                  <td>${p.Titulo}</td>
+                  <td>${p.Servicio}</td>
+                  <td>${p.Concepto}</td>
+                  <td>
+                    <img src="../assets/img/Proyectos/${p.Id}/${p.Imagen}" 
+                         style="width:70px;height:70px;object-fit:cover;border-radius:6px;">
+                  </td>
+                </tr>
               `).join("")}
             </tbody>
           </table>
         </div>
-      </div>`;
+      </div>
+    `;
 
-        mainContent.innerHTML = tableHTML;
+    // Abrir modal de proyecto
+    document.getElementById("btnAddProyecto").addEventListener("click", () => {
+      console.log("🧩 Abriendo modal proyecto");
+      formProyecto.reset();
+      modalProyecto.show();
+    });
+  }
 
-        // Escuchar clic en el botón de agregar servicio
-        const btnAdd = mainContent.querySelector(".btn-primary");
-        btnAdd.addEventListener("click", () => {
-          console.log("🧩 Abriendo modal de nuevo servicio...");
-          formServicio.reset(); // limpiar formulario
-          modalServicio.show();
-        });
 
-        console.log("✅ Servicios renderizados correctamente.");
-      }
+  // ============================================================
+  //  GUARDAR PROYECTO (CON DEBUG COMPLETO)
+  // ============================================================
+  formProyecto.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      // Manejo del envío del formulario del modal
-      formServicio.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    console.log("🚀 SUBMIT PROYECTO");
 
-        const formData = new FormData(formServicio);
-        const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(formProyecto);
 
-        console.log("📋 Datos capturados del formulario:", data);
+    console.log("📄 Campos enviados:");
+    for (let [k, v] of formData.entries()) {
+      console.log("➡️", k, v);
+    }
 
-        try {
-          const res = await fetch("back/insert_servicio.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-          });
-
-          const text = await res.text();
-          console.log("📦 Respuesta cruda del servidor:", text);
-
-          const json = JSON.parse(text);
-          if (!json.success) throw new Error(json.message);
-
-          alert("✅ " + json.message);
-
-          // 🧹 Limpiamos el formulario
-          formServicio.reset();
-
-          // 🧱 Cerrar el modal antes del refresh
-          console.log("🧩 Cerrando modal...");
-          modalServicio.hide();
-
-          // 🔁 Espera un poco y recarga la tabla de servicios
-          setTimeout(() => {
-            console.log("🔁 Refrescando tabla de servicios...");
-            cargarServicios();
-          }, 400);
-
-        } catch (err) {
-          console.error("❌ Error al guardar servicio:", err);
-          alert("Error al guardar servicio: " + err.message);
-        }
+    try {
+      const res = await fetch("back/insert_proyecto.php", {
+        method: "POST",
+        body: formData
       });
 
+      console.log("📦 Estado HTTP:", res.status);
 
-    });
-  </script>
+      const text = await res.text();
+      console.log("📦 Respuesta cruda:", text);
+
+      const json = JSON.parse(text);
+      if (!json.success) throw new Error(json.message);
+
+      alert("Proyecto registrado ✔");
+      modalProyecto.hide();
+      cargarProyectos();
+
+    } catch (err) {
+      console.error("❌ Error guardando proyecto:", err);
+      alert("Error: " + err.message);
+    }
+  });
+
+});
+</script>
+
 
 
 </body>

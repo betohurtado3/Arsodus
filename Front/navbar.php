@@ -29,6 +29,7 @@
 </head>
 
 <body class="bg-gray-100">
+  
 
   <!-- Barra de navegación -->
   <nav id="navbar" class="fixed top-0 left-0 w-full bg-white shadow-lg z-50 transition-all duration-300 rounded-b-3xl py-4">
@@ -58,32 +59,43 @@
 
       <!-- Logo centrado (siempre visible) -->
       <div class="flex-shrink-0 flex justify-center w-1/3">
-        <img 
-    src="../assets/img/LogoSinFondo.png" 
-    alt="Arsodus" 
-    class="h-20 md:h-28 object-contain transition-all duration-300 hover:rotate-6 hover:scale-105">
-  </div>
+        <img
+          src="../assets/img/LogoSinFondo.png"
+          alt="Arsodus"
+          class="h-20 md:h-28 object-contain transition-all duration-300 hover:rotate-6 hover:scale-105">
+      </div>
 
       <!-- Redes sociales (solo desktop) -->
       <div class="flex-1 justify-center hidden md:flex">
-        <div class="flex space-x-6"> <!-- Aumenté el espacio entre iconos -->
+        <div class="flex space-x-6"> <!-- Controla la separación entre todos los iconos -->
+
           <!-- Instagram -->
           <a href="https://www.instagram.com/arsodus.serigrafia/" target="_blank"
             class="group p-3 rounded-full bg-gradient-to-tr from-pink-500 to-yellow-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
-            <i data-feather="instagram" class="w-7 h-7 text-white"></i> <!-- Icono más grande -->
+            <i data-feather="instagram" class="w-7 h-7 text-white"></i>
           </a>
+
           <!-- TikTok -->
           <a href="https://www.tiktok.com/@arsodus?_t=ZS-8ykcMfVFG7z&_r=1" target="_blank"
             class="group p-3 rounded-full bg-black shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
-            <i class="fab fa-tiktok text-white text-2xl"></i> <!-- Icono más grande -->
+            <i class="fab fa-tiktok text-white text-2xl"></i>
           </a>
+
           <!-- Facebook -->
           <a href="https://www.facebook.com/profile.php?id=61557954562648" target="_blank"
             class="group p-3 rounded-full bg-blue-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
-            <i class="fab fa-facebook text-white text-2xl"></i> <!-- Icono más grande -->
+            <i class="fab fa-facebook text-white text-2xl"></i>
           </a>
+
+          <!-- Correo -->
+          <a href="mailto:arsodus.serigrafia@gmail.com"
+            class="group p-3 rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
+            <i data-feather="mail" class="w-7 h-7 text-white"></i>
+          </a>
+
         </div>
       </div>
+
 
       <!-- Botón hamburguesa solo en móvil -->
       <button id="menu-btn" class="md:hidden ml-auto p-2 focus:outline-none">
@@ -131,8 +143,16 @@
         </a>
       </div>
 
+      <!-- Correo -->
+          <a href="mailto:arsodus.serigrafia@gmail.com"
+            class="social-wrap group rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
+            <i data-feather="mail" class="social-icon text-white text-2xl transition-all"></i>
+          </a>
+
     </div>
   </nav>
+
+
 
   <script>
     const navbar = document.getElementById('navbar');
