@@ -227,6 +227,25 @@
 <?php unset($_SESSION['wa_url']);
 endif; ?>
 
+<?php if (isset($_GET['comentario']) && $_GET['comentario'] === 'ok'): ?>
+  <div id="popupComentario"
+    class="fixed top-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-4 rounded-xl shadow-xl z-50">
+    ✅ Comentario enviado correctamente
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const popup = document.getElementById("popupComentario");
+      if (popup) popup.remove();
+
+      const url = new URL(window.location);
+      url.searchParams.delete("comentario");
+      window.history.replaceState({}, document.title, url.pathname);
+    }, 3000);
+  </script>
+<?php endif; ?>
+
+
 
 <!-- Hero Section -->
 <div x-data="{ openModal: false }">
@@ -710,39 +729,56 @@ endif; ?>
           Deja tu comentario
         </h3>
 
-        <form id="form-comentario" method="POST" class="space-y-4">
+        <form method="POST" action="Back/insertar_comentario.php" class="space-y-4">
 
+          <!-- NOMBRE -->
           <div>
             <label class="block font-medium text-gray-700 mb-1">Nombre</label>
             <input type="text" name="nombre" required
               class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none">
           </div>
 
+          <!-- COMENTARIO -->
           <div>
             <label class="block font-medium text-gray-700 mb-1">Comentario</label>
             <textarea name="comentario" rows="3" required
               class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-indigo-400 outline-none"></textarea>
           </div>
 
+          <!-- CALIFICACIÓN -->
           <div>
             <label class="block font-medium text-gray-700 mb-1">Calificación</label>
-            <div id="rating-stars" class="flex space-x-1 text-3xl cursor-pointer select-none">
-              <span data-star="1">★</span>
-              <span data-star="2">★</span>
-              <span data-star="3">★</span>
-              <span data-star="4">★</span>
-              <span data-star="5">★</span>
+
+            <div id="rating-stars" class="flex flex-row-reverse justify-end gap-1 text-3xl cursor-pointer select-none">
+
+              <input type="radio" name="estrellas" value="5" id="star5" hidden>
+              <label for="star5" data-star="5" class="text-gray-300">★</label>
+
+              <input type="radio" name="estrellas" value="4" id="star4" hidden>
+              <label for="star4" data-star="4" class="text-gray-300">★</label>
+
+              <input type="radio" name="estrellas" value="3" id="star3" hidden>
+              <label for="star3" data-star="3" class="text-gray-300">★</label>
+
+              <input type="radio" name="estrellas" value="2" id="star2" hidden>
+              <label for="star2" data-star="2" class="text-gray-300">★</label>
+
+              <input type="radio" name="estrellas" value="1" id="star1" hidden>
+              <label for="star1" data-star="1" class="text-gray-300">★</label>
+
             </div>
-            <input type="hidden" name="estrellas" id="estrellas" value="0">
           </div>
 
 
+          <!-- BOTÓN -->
           <button type="submit"
             class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl font-semibold transition">
             Enviar
           </button>
 
         </form>
+
+
       </div>
 
     </div>
@@ -903,53 +939,45 @@ endif; ?>
     // ==========================
     // Sistema de estrellas (rating)
     // ==========================
-    const starsContainer = document.getElementById('rating-stars');
-    const stars = starsContainer ? starsContainer.querySelectorAll('span') : [];
-    const estrellaInput = document.getElementById('estrellas');
 
-    let currentRating = 0; // rating fijado por click
+  });
 
-    // Función para pintar las estrellas según un valor
-    function paintStars(rating) {
-      stars.forEach(star => {
-        const value = parseInt(star.dataset.star, 10);
 
-        // Si la estrella es <= rating, la pintamos amarilla, si no, gris clara
-        star.style.color = value <= rating ? '#facc15' : '#e5e7eb'; // amarillo / gray-200
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const starsContainer = document.getElementById("rating-stars");
+    if (!starsContainer) return;
+
+    const labels = starsContainer.querySelectorAll("label");
+    let currentRating = 0;
+
+    function pintar(rating) {
+      labels.forEach(label => {
+        const value = parseInt(label.dataset.star);
+        label.style.color = value <= rating ? "#facc15" : "#d1d5db";
       });
     }
 
-    // Estado inicial: todas apagadas
-    paintStars(0);
+    // Estado inicial
+    pintar(0);
 
-    // Listeners de hover + click
-    stars.forEach(star => {
-      const value = parseInt(star.dataset.star, 10);
+    labels.forEach(label => {
+      const value = parseInt(label.dataset.star);
 
-      // Hover: vista previa temporal
-      star.addEventListener('mouseenter', () => {
-        paintStars(value);
-      });
+      // Hover
+      label.addEventListener("mouseenter", () => pintar(value));
 
-      // Al salir del área de estrellas: regresar a la selección actual
-      star.addEventListener('mouseleave', () => {
-        paintStars(currentRating);
-      });
-
-      // Click: fijar selección
-      star.addEventListener('click', () => {
+      // Click fijo
+      label.addEventListener("click", () => {
         currentRating = value;
-        estrellaInput.value = currentRating;
-        paintStars(currentRating);
+
+        document.getElementById("star" + value).checked = true;
+
+        pintar(currentRating);
       });
     });
 
-    // Extra: si quieres que al salir de TODO el contenedor se restablezca:
-    if (starsContainer) {
-      starsContainer.addEventListener('mouseleave', () => {
-        paintStars(currentRating);
-      });
-    }
+    starsContainer.addEventListener("mouseleave", () => pintar(currentRating));
 
   });
 </script>

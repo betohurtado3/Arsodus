@@ -26,6 +26,7 @@
   <meta name="twitter:description" content="Dale vida a tu marca con Arsodus">
   <meta name="twitter:image" content="/assets/img/LogoSinFondo.png">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 
   <style>
@@ -122,17 +123,68 @@
 
       <!-- Columna formulario -->
       <div>
-        <form class="space-y-4">
-          <input type="text" placeholder="Tu nombre"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]">
-          <input type="email" placeholder="Tu correo"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]">
-          <textarea placeholder="Escribe tu mensaje..." rows="4"
-            class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0f52bd] focus:border-[#0f52bd] outline-none transition hover:scale-[1.01]"></textarea>
-          <button type="submit"
-            class="w-full bg-gradient-to-r from-[#0f52bd] to-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:scale-105 hover:shadow-lg transition">
-            Enviar mensaje
+        <form
+          class="flex flex-col gap-6"
+          method="POST"
+          action="Back/enviar_cotizacion.php"
+          enctype="multipart/form-data">
+
+          <!-- NOMBRE -->
+          <input
+            type="text"
+            name="nombre"
+            placeholder="¿Cuál es tu nombre?"
+            required
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+           focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+           transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+           shadow-sm hover:shadow-md hover:border-blue-400">
+
+          <!-- CONTACTO (TEL O CORREO) -->
+          <input
+            type="text"
+            name="contacto"
+            placeholder="Tu Correo o Teléfono"
+            required
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+           focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+           transition-all duration-300 ease-in-out placeholder-gray-500 text-gray-800
+           shadow-sm hover:shadow-md hover:border-blue-400">
+
+          <!-- MENSAJE -->
+          <textarea
+            name="mensaje"
+            placeholder="Platícanos tu increíble idea o proyecto aquí..."
+            rows="4"
+            required
+            class="font-sans w-full px-5 py-3 rounded-xl border-2 border-gray-300 bg-gray-50
+           focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500
+           transition-all duration-300 ease-in-out resize-y placeholder-gray-500 text-gray-800
+           shadow-sm hover:shadow-md hover:border-blue-400"></textarea>
+
+          <!-- ARCHIVO -->
+          <input
+            type="file"
+            name="archivo"
+            class="font-sans w-full text-sm text-gray-600
+           file:mr-4 file:py-2 file:px-4
+           file:rounded-full file:border-0
+           file:text-sm file:font-semibold
+           file:bg-blue-100/50 file:text-blue-700
+           hover:file:bg-blue-200/70
+           transition-all duration-300 ease-in-out">
+
+          <!-- BOTÓN -->
+          <button
+            type="submit"
+            class="font-montserrat w-full bg-gradient-to-r from-blue-700 to-blue-900 text-white font-extrabold 
+           px-8 py-4 rounded-xl shadow-xl hover:from-blue-800 hover:to-blue-950 
+           transform hover:scale-105 transition-all duration-300 ease-out 
+           focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-75
+           tracking-wide text-lg">
+            ¡Enviar Mi Idea Ahora!
           </button>
+
         </form>
       </div>
 

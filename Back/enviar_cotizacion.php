@@ -1,5 +1,8 @@
 <?php
 $paginaOrigen = $_SERVER['HTTP_REFERER'] ?? '../index.php';
+/// Mostrar errores
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../config/Config.php';
 
@@ -81,8 +84,8 @@ if (!empty($_FILES['archivo']['name'])) {
 // ============================
 $stmt = $pdo->prepare("
     INSERT INTO cotizaciones 
-    (Nombre, Contacto, TipoContacto, Mensaje, Archivo, Ip) 
-    VALUES (:nombre, :contacto, :tipo, :mensaje, :archivo, :ip)
+    (Nombre, Contacto, TipoContacto, Mensaje, Archivo, Ip, Fecha)
+    VALUES (:nombre, :contacto, :tipo, :mensaje, :archivo, :ip, NOW())
 ");
 
 $stmt->execute([
@@ -208,5 +211,8 @@ $mail->send();
 // ✅ Mensajes flash
 $_SESSION['flash_tipo'] = 'success';
 $_SESSION['flash_msg']  = '✅ Cotización enviada correctamente por correo.';
-header("Location: $paginaOrigen?estado=ok");
+
+
+$separador = (strpos($paginaOrigen, '?') !== false) ? '&' : '?';
+header("Location: {$paginaOrigen}{$separador}estado=ok");
 exit;

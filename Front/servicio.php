@@ -1,5 +1,7 @@
 <?php
-$Servicio = $_GET['tipo'];
+$Servicio = isset($_GET['tipo']) ? urldecode($_GET['tipo']) : null;
+$estado   = $_GET['estado'] ?? null;
+
 $ServicioSeleccionado = $_GET['tipo'];
 
 $servicios = [
@@ -224,43 +226,53 @@ if ($servicioDB) {
   </div>
   <br> <br>
 
+
   <?php if (isset($_GET['estado'])): ?>
-    <div id="popupEstado"
-      class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    <?php if (isset($_GET['estado'])): ?>
+      <div id="flashPopup" class="fixed top-6 right-6 z-50 hidden">
+        <div id="flashBox" class="px-6 py-4 rounded-xl shadow-lg text-white font-semibold"></div>
+      </div>
+
+      <div id="popupEstado"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-50
               px-6 py-4 rounded-xl shadow-xl text-white
               transition-all duration-500 ease-out
               <?php echo $_GET['estado'] === 'ok' ? 'bg-green-600' : 'bg-red-600'; ?>">
 
-      <?php if ($_GET['estado'] === 'ok'): ?>
-        ✅ Cotización enviada correctamente
-      <?php else: ?>
-        ❌ Error al enviar la cotización
-      <?php endif; ?>
-    </div>
-  <?php endif; ?>
+        <?php if ($_GET['estado'] === 'ok'): ?>
+          ✅ Cotización enviada correctamente
+        <?php else: ?>
+          ❌ Error al enviar la cotización
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
 
-  <script>
-    const popup = document.getElementById("popupEstado");
+    <script>
+      const popup = document.getElementById("popupEstado");
 
-    if (popup) {
-      // Ocultar después de 3 segundos
-      setTimeout(() => {
-        popup.classList.add("opacity-0", "translate-y-[-20px]");
-      }, 3000);
+      if (popup) {
+        // Ocultar después de 3 segundos
+        setTimeout(() => {
+          popup.classList.add("opacity-0", "translate-y-[-20px]");
+        }, 3000);
 
-      // Eliminar completamente después de la animación
-      setTimeout(() => {
-        popup.remove();
-      }, 3500);
+        // Eliminar completamente después de la animación
+        setTimeout(() => {
+          popup.remove();
+        }, 3500);
 
-      // 🔥 LIMPIAR EL PARÁMETRO "estado" DE LA URL
-      const url = new URL(window.location);
-      url.searchParams.delete("estado");
-      window.history.replaceState({}, document.title, url.pathname);
-    }
-  </script>
+        // 🔥 LIMPIAR EL PARÁMETRO "estado" DE LA URL
+        const url = new URL(window.location);
+        url.searchParams.delete("estado");
+        window.history.replaceState({}, document.title, url.pathname);
+      }
+    </script>
 
+
+
+  <?php unset($_SESSION['wa_url']);
+  endif; ?>
 
   <!-- Hero Section -->
   <section class="py-10 bg-[#fdfaf6] py-10">
@@ -451,8 +463,6 @@ if ($servicioDB) {
   </section>
 
 
-
-
   <!-- Sección Cotizador Dinámico -->
   <section class="py-20 bg-[#fdfaf6]" id="Cotizador">
     <div class="max-w-6xl mx-auto px-6 text-center">
@@ -559,44 +569,45 @@ if ($servicioDB) {
     </div>
   </section>
 
-    <!-- 🔹 MODAL -->
-    <div x-cloak x-show="openModal" x-transition.opacity.duration.300ms
-      class="fixed inset-0 flex items-center justify-center z-50"
-      style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
-      <div @click.away="openModal = false" x-transition.scale.origin.center.duration.250ms
-        class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
-        <!-- Botón cerrar -->
-        <button @click="openModal = false"
-          class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
-          ×
+  <!-- 🔹 MODAL -->
+  <!-- 🔹 MODAL -->
+  <div x-cloak x-show="openModal" x-transition.opacity.duration.300ms
+    class="fixed inset-0 flex items-center justify-center z-50"
+    style="background-color: rgba(0, 0, 0, 0.25); backdrop-filter: blur(3px);">
+    <div @click.away="openModal = false" x-transition.scale.origin.center.duration.250ms
+      class="bg-white text-gray-800 rounded-2xl shadow-xl w-11/12 max-w-md p-6 relative">
+      <!-- Botón cerrar -->
+      <button @click="openModal = false"
+        class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold transition">
+        ×
+      </button>
+
+      <!-- Contenido modal -->
+      <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
+      <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al
+        instante.</p>
+
+      <form class="space-y-4" method="POST" action="../Back/enviar_cotizacion.php" enctype="multipart/form-data">
+
+        <input type="text" name="nombre" placeholder="Nombre"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2">
+
+        <input type="text" name="contacto" placeholder="Número o correo"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2">
+
+        <textarea name="mensaje" placeholder="Cuéntanos tu idea" rows="3"
+          class="w-full border border-gray-200 rounded-lg px-4 py-2"></textarea>
+
+        <input type="file" name="archivo" class="w-full text-sm text-gray-600">
+
+        <button type="submit" class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg">
+          Enviar
         </button>
 
-        <!-- Contenido modal -->
-        <h2 class="text-2xl font-semibold text-[#0f52bd] mb-4 text-center">Cotización en línea</h2>
-        <p class="text-gray-600 text-center mb-6 text-sm">Envíanos tu idea y nos ponemos en contacto contigo al
-          instante.</p>
+      </form>
 
-        <form class="space-y-4" method="POST" action="../Back/enviar_cotizacion.php" enctype="multipart/form-data">
-
-          <input type="text" name="nombre" placeholder="Nombre"
-            class="w-full border border-gray-200 rounded-lg px-4 py-2">
-
-          <input type="text" name="contacto" placeholder="Número o correo"
-            class="w-full border border-gray-200 rounded-lg px-4 py-2">
-
-          <textarea name="mensaje" placeholder="Cuéntanos tu idea" rows="3"
-            class="w-full border border-gray-200 rounded-lg px-4 py-2"></textarea>
-
-          <input type="file" name="archivo" class="w-full text-sm text-gray-600">
-
-          <button type="submit" class="w-full py-3 bg-[#0f52bd] text-white font-semibold rounded-full shadow-lg">
-            Enviar
-          </button>
-
-        </form>
-
-      </div>
     </div>
+  </div>
 
   <!-- Footer -->
   <?php include 'footer.php'; ?>
