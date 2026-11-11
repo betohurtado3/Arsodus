@@ -26,6 +26,43 @@
       transform: translateY(0);
     }
   </style>
+  <style>
+  .flash-alert {
+    position: fixed;
+    top: 80px; /* debajo del navbar */
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    z-index: 9999;
+    animation: fadeIn 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ESTADOS */
+.flash-alert.ok {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.flash-alert.error {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
 </head>
 
 <body class="bg-gray-100">
@@ -85,10 +122,11 @@
           </a>
 
           <!-- Correo -->
-          <a href="mailto:arsodus.serigrafia@gmail.com"
-            class="group p-3 rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
-            <i data-feather="mail" class="w-7 h-7 text-white"></i>
-          </a>
+          <button type="button"
+  class="open-mail-modal group p-3 rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all">
+  <i data-feather="mail" class="w-7 h-7 text-white"></i>
+</button>
+
         </div>
       </div>
 
@@ -137,10 +175,11 @@
           <i class="fab fa-facebook social-icon text-white text-2xl transition-all"></i>
         </a>
                <!-- Correo -->
-          <a href="mailto:arsodus.serigrafia@gmail.com"
-            class="social-wrap group rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
-            <i data-feather="mail" class="social-icon text-white text-2xl transition-all"></i>
-          </a>
+               <button type="button"
+  class="open-mail-modal social-wrap group rounded-full bg-red-500 shadow-md hover:shadow-xl transform hover:scale-110 transition-all p-3">
+  <i data-feather="mail" class="social-icon text-white text-2xl transition-all"></i>
+</button>
+
       </div>
 
 
@@ -216,6 +255,136 @@
     handleScroll();
   </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById("mailModal");
+  const modalContent = document.getElementById("mailModalContent");
+  const openButtons = document.querySelectorAll(".open-mail-modal");
+  const closeButton = document.getElementById("closeMailModal");
+
+  function openModal() {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    setTimeout(() => {
+      modalContent.classList.remove("scale-95", "opacity-0");
+      modalContent.classList.add("scale-100", "opacity-100");
+    }, 10);
+  }
+
+  function closeModal() {
+    modalContent.classList.add("scale-95", "opacity-0");
+
+    setTimeout(() => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }, 200);
+  }
+
+  openButtons.forEach(btn =>
+    btn.addEventListener("click", openModal)
+  );
+
+  closeButton.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal();
+  });
+
+});
+</script>
+
+
+  <!-- MODAL CORREO -->
+<div id="mailModal"
+  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+
+  <div
+    class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 transform scale-95 opacity-0 transition-all duration-300"
+    id="mailModalContent">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">
+        Enviar mensaje
+      </h3>
+
+      <button id="closeMailModal"
+        class="text-gray-400 hover:text-gray-700 transition">
+        ✕
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" action="Back/enviar_correo.php" class="space-y-4">
+
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Nombre</label>
+        <input type="text" name="nombre" required
+          class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Teléfono o Correo</label>
+        <input type="text" name="telefono" required
+          class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Mensaje</label>
+        <textarea name="mensaje" rows="4" requiblue
+          class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-400 outline-none transition"></textarea>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-xl font-semibold transition-all active:scale-95">
+        Enviar mensaje
+      </button>
+
+    </form>
+
+  </div>
+</div>
+  <!-- 
+ $_SESSION['flash_tipo'] = 'ok';
+    $_SESSION['flash_msg']  = '✅ Mensaje enviado correctamente';
+mensaje de alerta para cuando se recibe el mensaje
+
+ -->
+
+
+ <?php if (!empty($_SESSION['flash_msg'])): ?>
+    <div id="flash-alert" class="flash-alert <?= $_SESSION['flash_tipo'] ?>">
+        <?= $_SESSION['flash_msg'] ?>
+    </div>
+
+    <?php
+        // Limpiar la sesión para que no vuelva a mostrarse
+        unset($_SESSION['flash_tipo'], $_SESSION['flash_msg']);
+    ?>
+<?php endif; ?>
+
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const alert = document.getElementById('flash-alert');
+
+    if (alert) {
+        setTimeout(() => {
+            alert.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            alert.style.opacity = '0';
+            alert.style.transform = 'translateY(-10px)';
+
+            setTimeout(() => alert.remove(), 500);
+        }, 4000); // 4 segundos
+    }
+});
+</script>
+
+
 </body>
+
+
 
 </html>

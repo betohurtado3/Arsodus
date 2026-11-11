@@ -34,8 +34,8 @@ if ($nombre === '' || $comentario === '' || $estrellas < 1 || $estrellas > 5) {
 try {
 
     $stmt = $pdo->prepare("
-        INSERT INTO comentarios (Nombre, Comentario, Calificacion, Fecha)
-        VALUES (:nombre, :comentario, :calificacion, NOW())
+        INSERT INTO comentarios (Nombre, Comentario, Calificacion, Fecha, Estado)
+        VALUES (:nombre, :comentario, :calificacion, NOW(), 'Pendiente')
     ");
 
     $stmt->execute([

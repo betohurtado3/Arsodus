@@ -68,16 +68,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Config SMTP (ejemplo Gmail)
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'TU_CORREO@gmail.com';
-        $mail->Password = 'TU_PASSWORD_APP'; // OJO: no uses tu pass normal, sino uno de aplicación
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'serigrafiaarsodus@gmail.com'; 
+    $mail->Password   = 'tows hxdo ukob kcqx';   
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+    $mail->CharSet    = 'UTF-8';
 
         // Remitente y destinatario
-        $mail->setFrom('TU_CORREO@gmail.com', 'Cotizador Web');
+    $mail->setFrom('serigrafiaarsodus@gmail.com', 'Formulario Web Arsodus');
+    //$mail->addAddress('arsodus.serigrafia@gmail.com'); // correo destino
+    $mail->addAddress('betohurtado3@hotmail.com'); // correo destino
+
         $mail->addAddress($correo, $nombre);
 
         // Adjuntar imagen si existe

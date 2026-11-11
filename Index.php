@@ -255,7 +255,7 @@ endif; ?>
                 filter blur-sm brightness-75 
                 transition-all duration-700 ease-in-out 
                 hover:filter-none hover:brightness-100">
-      <source src="Media/Serigrafia.mp4" type="video/mp4">
+      <source src="Media/Serigrafia.mov" type="video/mp4">
     </video>
 
     <div class="absolute inset-0 bg-black/30 transition-all duration-700 ease-in-out hover:bg-black/60"></div>
@@ -582,7 +582,7 @@ endif; ?>
         require_once 'config/Config.php';
         $pdo = connectPDO();
 
-        $stmt = $pdo->query("SELECT Nombre, Comentario, Calificacion FROM comentarios ORDER BY Id DESC LIMIT 12");
+        $stmt = $pdo->query("SELECT Nombre, Comentario, Calificacion FROM comentarios WHERE Estado = 'Activa' ORDER BY Id DESC LIMIT 12");
         $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Paso 1: dividir en chunks de 2
